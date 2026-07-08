@@ -1,0 +1,54 @@
+{
+ "description": "Static-site data bundles for SemanticsOfComplementarity companion website v2 (general construct). Two economies: CA (NAPCS Canada, 7-digit) and US (NAPCS US, 10-digit).",
+ "cosine_method": "Dense models (glove/gemini/openai) mean-centered over universe then L2-normalized; cosine=dot. TF-IDF: TfidfVectorizer(stop_words='english',min_df=2) on metadata 'text', rows L2-normalized, cosine=dot. Matches analytics-general/full-census/general_rank_only.py exactly.",
+ "files": [
+  {
+   "file": "meta_CA.json",
+   "economy": "CA",
+   "bytes": 431868,
+   "n_categories": 3049,
+   "description": "Per-category metadata keyed by code: title, section (NAPCS section digit(s)), domain (consumer_final|non_consumer|REVIEW xvendor consensus), type_hint."
+  },
+  {
+   "file": "coords2d_CA.json",
+   "economy": "CA",
+   "bytes": 88734,
+   "n_categories": 3049,
+   "description": "UMAP 2-D coordinates [x,y] (4 dp) keyed by code, aligned to metadata CSV row order."
+  },
+  {
+   "file": "pairs_CA.json",
+   "economy": "CA",
+   "bytes": 5558212,
+   "n_categories": 3049,
+   "n_focals_in_file": 3043,
+   "n_focals_with_complements": 2896,
+   "n_pairs": 23361,
+   "description": "Per-focal complements (gpt-4o & gemini-2.5-pro, ranked, with per-representation cosines) and same-sibling substitutes (capped 12, closest by gemini cosine)."
+  },
+  {
+   "file": "meta_US.json",
+   "economy": "US",
+   "bytes": 673082,
+   "n_categories": 3520,
+   "description": "Per-category metadata keyed by code: title, section (NAPCS section digit(s)), domain (consumer_final|non_consumer|REVIEW xvendor consensus), type_hint."
+  },
+  {
+   "file": "coords2d_US.json",
+   "economy": "US",
+   "bytes": 114065,
+   "n_categories": 3520,
+   "description": "UMAP 2-D coordinates [x,y] (4 dp) keyed by code, aligned to metadata CSV row order."
+  },
+  {
+   "file": "pairs_US.json",
+   "economy": "US",
+   "bytes": 7828195,
+   "n_categories": 3520,
+   "n_focals_in_file": 3515,
+   "n_focals_with_complements": 3321,
+   "n_pairs": 41903,
+   "description": "Per-focal complements (gpt-4o & gemini-2.5-pro, ranked, with per-representation cosines) and same-sibling substitutes (capped 12, closest by gemini cosine)."
+  }
+ ]
+}

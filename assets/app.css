@@ -1,0 +1,111 @@
+/* Companion v2 — shared house style. Light default; [data-theme=dark] overrides. */
+:root{
+  --bg:#ffffff; --bg2:#f6f7f9; --bg3:#eceef1; --fg:#1a1d21; --fg2:#5a6068; --fg3:#8a9099;
+  --border:#e2e5e9; --border2:#cfd4da;
+  --teal:#1D9E75; --teal-bg:#e3f3ec; --coral:#D85A30; --coral-bg:#fbe9e1;
+  --blue:#0072B2; --amber:#E69F00; --pink:#CC79A7; --grey:#999999;
+  --accent:#1D9E75; --link:#0f7a59;
+  --ok-bg:#e2efda; --ok-fg:#2e6b29; --warn-bg:#fcefd6; --warn-fg:#8a5a08; --grey-bg:#eceef1; --grey-fg:#5a6068; --info-bg:#e6f1fb; --info-fg:#0c447c;
+  --maxw:1080px; --radius:10px; --shadow:0 1px 2px rgba(0,0,0,.04);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+[data-theme=dark]{
+  --bg:#15171b; --bg2:#1c1f24; --bg3:#23272e; --fg:#e7eaee; --fg2:#a7aeb8; --fg3:#727a85;
+  --border:#2c313a; --border2:#3a4049;
+  --teal-bg:#10342a; --coral-bg:#3a1a10;
+  --accent:#2bbf90; --link:#54d3a7;
+  --ok-bg:#16331f; --ok-fg:#9fd29a; --warn-bg:#3a2d10; --warn-fg:#e9c07a; --grey-bg:#23272e; --grey-fg:#a7aeb8; --info-bg:#10243a; --info-fg:#8fc2f0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.25;font-weight:600}
+h1{font-size:30px;margin:.2em 0 .4em} h2{font-size:22px;margin:1.4em 0 .5em} h3{font-size:17px;margin:1.1em 0 .4em}
+p{margin:.6em 0} small,.muted{color:var(--fg2)}
+code{background:var(--bg3);padding:1px 5px;border-radius:5px;font-size:.86em}
+
+/* header */
+#hdr{position:fixed;top:0;left:0;right:0;z-index:50}
+#hdrspace{flex:0 0 auto}
+header.site{position:relative;z-index:50;background:var(--bg2);border-bottom:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.hbar{display:flex;align-items:center;gap:14px;height:56px}
+.brand{font-weight:600;font-size:15px;white-space:nowrap}
+.brand .dot{color:var(--teal)}
+nav.main{display:flex;gap:2px;flex-wrap:wrap;flex:1;justify-content:center}
+nav.main a{padding:6px 9px;border-radius:7px;color:var(--fg2);font-size:13.5px;white-space:nowrap}
+nav.main a:hover{background:var(--bg3);text-decoration:none}
+nav.main a.active{color:var(--fg);background:var(--bg);font-weight:600;box-shadow:0 0 0 1px var(--border)}
+/* nav dropdown group (e.g. Properties) */
+.navdrop{position:relative;display:flex;align-items:center}
+.navdrop-t{padding:6px 9px;border-radius:7px;color:var(--fg2);font-size:13px;white-space:nowrap;cursor:default;user-select:none}
+.navdrop:hover .navdrop-t{background:var(--bg3)}
+.navdrop-t.active{color:var(--fg);background:var(--bg);font-weight:600;box-shadow:0 0 0 1px var(--border)}
+.navdrop-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--border);border-radius:9px;box-shadow:0 6px 20px rgba(0,0,0,.16);padding:5px;min-width:170px;display:none;z-index:60}
+.navdrop:hover .navdrop-menu,.navdrop:focus-within .navdrop-menu{display:block}
+.navdrop-menu a{display:block;padding:7px 11px;border-radius:6px;color:var(--fg2);font-size:13px;white-space:nowrap}
+.navdrop-menu a:hover{background:var(--bg3);text-decoration:none}
+.navdrop-menu a.active{color:var(--fg);background:var(--bg);font-weight:600}
+.controls{display:flex;align-items:flex-end;gap:12px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;padding-top:2px;padding-bottom:2px;scrollbar-width:none}
+.ctools{display:flex;align-items:flex-end;gap:8px;flex:1 1 auto;min-width:0;flex-wrap:nowrap}
+.cselect{display:flex;align-items:flex-end;gap:8px;flex-wrap:nowrap;flex:0 0 auto;justify-content:flex-end}
+.ctools input{font:inherit;font-size:13px;background:var(--bg);color:var(--fg);border:1px solid var(--border2);border-radius:7px;padding:5px 9px;flex:0 1 210px;min-width:120px}
+.controls::-webkit-scrollbar{height:0}
+.ctools input:focus{outline:none;border-color:var(--accent)}
+.ctools button{font:inherit;font-size:13px;background:var(--bg);color:var(--fg);border:1px solid var(--border2);border-radius:7px;padding:5px 9px;cursor:pointer;white-space:nowrap}
+.ctools button:hover{border-color:var(--accent)}
+.ctools button:disabled{opacity:.4;cursor:not-allowed}
+.ctl{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--fg2)}
+/* In the header controls row, each select stacks under a small floating caption.
+   Caption sits in normal flow with its own line (no negative offsets), so it has
+   guaranteed headroom and cannot clip into the select's top border. Scoped to
+   .controls so body uses of .ctl (e.g. checkbox labels) keep the inline layout. */
+.controls .ctl{flex-direction:column;align-items:stretch;gap:3px}
+.controls .clbl{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--fg3);line-height:1;padding:0 2px;white-space:nowrap}
+select,button.btn{font:inherit;font-size:13px;background:var(--bg2);color:var(--fg);border:1px solid var(--border2);border-radius:7px;padding:5px 8px;cursor:pointer}
+select:hover,button.btn:hover{border-color:var(--accent)}
+select:disabled{opacity:.4;cursor:not-allowed;border-color:var(--border)}
+.ctl.off{opacity:.55}
+.themebtn{background:var(--bg2);border:1px solid var(--border2);border-radius:7px;width:34px;height:30px;cursor:pointer;color:var(--fg)}
+header.site select,header.site .themebtn{background:var(--bg)}
+header.site .wrap{max-width:none;padding:0 22px}
+nav.main a{font-size:13px}
+.anon{background:var(--warn-bg);color:var(--warn-fg);font-size:11px;text-align:center;padding:3px}
+
+/* layout bits */
+main{padding:24px 0 64px}
+.lead{font-size:18px;color:var(--fg2);max-width:760px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin:18px 0}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:block}
+.card:hover{border-color:var(--accent);text-decoration:none}
+.card h3{margin:.1em 0 .3em;color:var(--fg)}
+.card p{margin:0;font-size:13.5px;color:var(--fg2)}
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin:16px 0}
+.note{background:var(--bg2);color:var(--fg);border:1px solid var(--border);border-left:3px solid var(--teal);border-radius:var(--radius);padding:12px 14px;font-size:14px;margin:16px 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:16px 0}
+.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px}
+.kpi .v{font-size:24px;font-weight:600} .kpi .l{font-size:12px;color:var(--fg2)}
+.tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:20px;background:var(--bg3);color:var(--fg2)}
+.tag.teal{background:var(--teal-bg);color:var(--teal)} .tag.coral{background:var(--coral-bg);color:var(--coral)}
+.pill{font-size:11px;padding:2px 8px;border-radius:20px}
+.pill.ok{background:var(--ok-bg);color:var(--ok-fg)} .pill.warn{background:var(--warn-bg);color:var(--warn-fg)}
+.pill.grey{background:var(--grey-bg);color:var(--grey-fg)} .pill.info{background:var(--info-bg);color:var(--info-fg)}
+
+/* tables */
+table.data{border-collapse:collapse;width:100%;font-size:13.5px;margin:10px 0}
+table.data th,table.data td{border:1px solid var(--border);padding:7px 10px;text-align:left}
+table.data th{background:var(--bg3);font-weight:600}
+table.data tr:nth-child(even) td{background:var(--bg2)}
+.cell-ok{background:var(--ok-bg)!important;color:var(--ok-fg)} .cell-warn{background:var(--warn-bg)!important;color:var(--warn-fg)}
+.cell-grey{background:var(--grey-bg)!important;color:var(--grey-fg)} .cell-info{background:var(--info-bg)!important;color:var(--info-fg)}
+
+/* figures */
+.figgrid figure{margin:0 0 8px} .figgrid img{max-width:100%;height:auto;border:1px solid var(--border);border-radius:8px;background:#fff}
+figcaption{font-size:13px;color:var(--fg2);margin-top:6px}
+.econlabel{font-size:12px;font-weight:600;color:var(--fg2);margin:8px 0 2px}
+
+footer.site{border-top:1px solid var(--border);color:var(--fg2);font-size:13px;padding:22px 0;margin-top:40px}
+.hidden{display:none!important}
+@media(max-width:720px){.hbar{height:auto;flex-wrap:wrap;padding:8px 0;gap:8px}}

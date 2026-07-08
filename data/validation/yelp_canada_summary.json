@@ -1,0 +1,179 @@
+{
+  "feasibility": {
+    "total_businesses": 150346,
+    "canadian_businesses": 5573,
+    "provinces": {
+      "AB": 5573
+    },
+    "metros": "Edmonton CMA only (Edmonton + Sherwood Park, St. Albert, Beaumont, Spruce Grove)",
+    "unique_yelp_categories_CA": 727,
+    "cats_ge5_biz": 396,
+    "feasible": true,
+    "caveat": "Single metro (Edmonton, AB). Above the ~2000-business / category bar, so feasible, but geographically narrow."
+  },
+  "covisitation_stream": {
+    "reviews_scanned": 5863626,
+    "canadian_reviews_kept": 92570,
+    "canadian_users": 21391,
+    "categories_with_users": 715,
+    "coverage_note": "~84% of the ~6.99M-review file streamed in one decompress window; isal stream non-resumable across sandbox calls and full stream (~55s) exceeds the ~45s ceiling, so last ~16% not reached. Edmonton reviews are date-interleaved (not geographically clustered), so the kept set is a representative sample."
+  },
+  "crosswalk_coverage": {
+    "napcs_codes_mapped": 916,
+    "distinct_yelp_labels": 205,
+    "labels_present_in_CA_covis": 162,
+    "labels_ge10_users": 150
+  },
+  "claimA": {
+    "denominator_users": 21391,
+    "all_gpt4o": {
+      "n_census_pairs": 15983,
+      "n_mapped": 1466,
+      "mean_lift": [
+        37.51331934395832,
+        31.92179663402414,
+        43.559379613503836
+      ],
+      "pct_covisited": [
+        0.897680763983629,
+        0.882656889495225,
+        0.9127046384720326
+      ],
+      "AUC_vs_random": [
+        0.5790556558586438,
+        0.5616583879978335,
+        0.5958006533406128
+      ]
+    },
+    "service_gpt4o": {
+      "n_census_pairs": 8470,
+      "n_mapped": 1127,
+      "mean_lift": [
+        40.2126899257472,
+        33.91558031799253,
+        46.82952683793359
+      ],
+      "pct_covisited": [
+        0.878438331854481,
+        0.8598047914818101,
+        0.8988464951197871
+      ],
+      "AUC_vs_random": [
+        0.5807769392010851,
+        0.560837831594831,
+        0.601072510343562
+      ]
+    },
+    "product_service_gpt4o": {
+      "n_census_pairs": 4226,
+      "n_mapped": 392,
+      "mean_lift": [
+        21.34701325651014,
+        16.97932476483345,
+        26.08836936874829
+      ],
+      "pct_covisited": 0.9387755102040817,
+      "AUC_vs_random": [
+        0.5610891755614084,
+        0.5306068632315,
+        0.5922180528366046
+      ]
+    },
+    "all_mini": {
+      "n_census_pairs": 16333,
+      "n_mapped": 1509,
+      "mean_lift": [
+        30.27777061362071,
+        25.995011196121773,
+        35.11190631413381
+      ],
+      "pct_covisited": [
+        0.9012591119946984,
+        0.8853545394300861,
+        0.9158383035122598
+      ],
+      "AUC_vs_random": [
+        0.5716303683306316,
+        0.555101944244339,
+        0.5895334483947439
+      ]
+    },
+    "substitute": {
+      "n_mapped": 202,
+      "mean_lift": [
+        31.043890944429002,
+        24.117584719087642,
+        39.464193684777086
+      ],
+      "pct_covisited": [
+        0.9603960396039604,
+        0.9306930693069307,
+        0.9851485148514851
+      ]
+    },
+    "random": {
+      "n_mapped": 14428,
+      "mean_lift": [
+        11.681584337388383,
+        11.237941278250805,
+        12.16169300782109
+      ],
+      "pct_covisited": [
+        0.936581646797893,
+        0.9323537565844192,
+        0.9403261020238425
+      ]
+    }
+  },
+  "claimB": {
+    "behavioral_complements": 488,
+    "substitutes": 586,
+    "tercile_threshold_lift": 16.892738923096783,
+    "AUC_convention": "P(substitute cosine > complement cosine)",
+    "gemini": {
+      "auc": [
+        0.9280525303530465,
+        0.9136255630000559,
+        0.942596986376098
+      ],
+      "comp_cos": 0.8125238353844548,
+      "sub_cos": 0.8942889089063573
+    },
+    "openai": {
+      "auc": [
+        0.9126111033402339,
+        0.8962841996307279,
+        0.9279676397359145
+      ],
+      "comp_cos": 0.3844222005487221,
+      "sub_cos": 0.6398480045815783
+    },
+    "glove": {
+      "auc": [
+        0.6887460589996084,
+        0.6565830792256476,
+        0.7211193210429139
+      ],
+      "comp_cos": 0.7135495956840192,
+      "sub_cos": 0.7956079855154399
+    },
+    "tfidf": {
+      "auc": [
+        0.8441177491887204,
+        0.8194564164521905,
+        0.8685656699350977
+      ],
+      "comp_cos": 0.05920827672242532,
+      "sub_cos": 0.36334491524349144
+    }
+  },
+  "comparison_prior_mostly_US": {
+    "claimA_AUC_prior": "~0.62-0.65",
+    "claimA_AUC_CA": 0.579,
+    "claimB_prior": "gemini/openai ~0.90-0.93",
+    "claimB_CA": {
+      "gemini": 0.928,
+      "openai": 0.913
+    }
+  }
+}

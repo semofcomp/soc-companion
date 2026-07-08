@@ -1,0 +1,320 @@
+{
+  "experiment": "Amazon Claim B rehabilitation via stricter substitute definitions",
+  "thresholds": {
+    "MIN_STRONG": 5,
+    "MAX_LOW_for_suppressed": 1,
+    "dominance_signal": "count",
+    "dense_anisotropy": "mean-centered then L2",
+    "bootstrap_B": 1000,
+    "seed": 7
+  },
+  "definitions": {
+    "baseline": "sub=also_view count-dominant; comp=also_buy count-dominant; min count 5; sub-comp",
+    "mutual_excl": "sub=co-viewed>=5 AND co-bought<=1; comp=co-bought>=5 AND co-viewed<=1; sub-comp",
+    "same_category": "mutual_excl + sub shares Amazon dept (rivals); comp cross-dept"
+  },
+  "CA": {
+    "baseline": {
+      "n_comp_pairs": 154,
+      "n_sub_pairs": 67,
+      "per_model": {
+        "tfidf": {
+          "n_comp": 154,
+          "n_sub": 67,
+          "mean_cos_complement": 0.0702,
+          "mean_cos_substitute": 0.0594,
+          "auc_sub_over_comp": 0.506,
+          "auc_95ci": [
+            0.452,
+            0.563
+          ]
+        },
+        "glove": {
+          "n_comp": 154,
+          "n_sub": 67,
+          "mean_cos_complement": 0.2303,
+          "mean_cos_substitute": 0.2799,
+          "auc_sub_over_comp": 0.569,
+          "auc_95ci": [
+            0.479,
+            0.642
+          ]
+        },
+        "gemini": {
+          "n_comp": 154,
+          "n_sub": 67,
+          "mean_cos_complement": 0.1923,
+          "mean_cos_substitute": 0.1998,
+          "auc_sub_over_comp": 0.523,
+          "auc_95ci": [
+            0.439,
+            0.609
+          ]
+        },
+        "openai": {
+          "n_comp": 154,
+          "n_sub": 67,
+          "mean_cos_complement": 0.1945,
+          "mean_cos_substitute": 0.1934,
+          "auc_sub_over_comp": 0.499,
+          "auc_95ci": [
+            0.419,
+            0.586
+          ]
+        }
+      }
+    },
+    "mutual_excl": {
+      "n_comp_pairs": 85,
+      "n_sub_pairs": 26,
+      "per_model": {
+        "tfidf": {
+          "n_comp": 85,
+          "n_sub": 26,
+          "mean_cos_complement": 0.0483,
+          "mean_cos_substitute": 0.0457,
+          "auc_sub_over_comp": 0.528,
+          "auc_95ci": [
+            0.441,
+            0.621
+          ]
+        },
+        "glove": {
+          "n_comp": 85,
+          "n_sub": 26,
+          "mean_cos_complement": 0.1711,
+          "mean_cos_substitute": 0.2708,
+          "auc_sub_over_comp": 0.659,
+          "auc_95ci": [
+            0.546,
+            0.767
+          ]
+        },
+        "gemini": {
+          "n_comp": 85,
+          "n_sub": 26,
+          "mean_cos_complement": 0.1555,
+          "mean_cos_substitute": 0.1929,
+          "auc_sub_over_comp": 0.59,
+          "auc_95ci": [
+            0.476,
+            0.699
+          ]
+        },
+        "openai": {
+          "n_comp": 85,
+          "n_sub": 26,
+          "mean_cos_complement": 0.1649,
+          "mean_cos_substitute": 0.1851,
+          "auc_sub_over_comp": 0.551,
+          "auc_95ci": [
+            0.43,
+            0.669
+          ]
+        }
+      }
+    },
+    "same_category": {
+      "n_comp_pairs": 30,
+      "n_sub_pairs": 18,
+      "per_model": {
+        "tfidf": {
+          "n_comp": 30,
+          "n_sub": 18,
+          "mean_cos_complement": 0.0494,
+          "mean_cos_substitute": 0.064,
+          "auc_sub_over_comp": 0.544,
+          "auc_95ci": [
+            0.409,
+            0.685
+          ]
+        },
+        "glove": {
+          "n_comp": 30,
+          "n_sub": 18,
+          "mean_cos_complement": 0.1051,
+          "mean_cos_substitute": 0.3286,
+          "auc_sub_over_comp": 0.791,
+          "auc_95ci": [
+            0.652,
+            0.913
+          ]
+        },
+        "gemini": {
+          "n_comp": 30,
+          "n_sub": 18,
+          "mean_cos_complement": 0.1426,
+          "mean_cos_substitute": 0.2394,
+          "auc_sub_over_comp": 0.698,
+          "auc_95ci": [
+            0.546,
+            0.828
+          ]
+        },
+        "openai": {
+          "n_comp": 30,
+          "n_sub": 18,
+          "mean_cos_complement": 0.1408,
+          "mean_cos_substitute": 0.2387,
+          "auc_sub_over_comp": 0.728,
+          "auc_95ci": [
+            0.581,
+            0.861
+          ]
+        }
+      }
+    }
+  },
+  "US": {
+    "baseline": {
+      "n_comp_pairs": 263,
+      "n_sub_pairs": 62,
+      "per_model": {
+        "tfidf": {
+          "n_comp": 263,
+          "n_sub": 62,
+          "mean_cos_complement": 0.0801,
+          "mean_cos_substitute": 0.0939,
+          "auc_sub_over_comp": 0.513,
+          "auc_95ci": [
+            0.437,
+            0.592
+          ]
+        },
+        "glove": {
+          "n_comp": 263,
+          "n_sub": 62,
+          "mean_cos_complement": 0.2274,
+          "mean_cos_substitute": 0.2349,
+          "auc_sub_over_comp": 0.496,
+          "auc_95ci": [
+            0.424,
+            0.581
+          ]
+        },
+        "gemini": {
+          "n_comp": 263,
+          "n_sub": 62,
+          "mean_cos_complement": 0.2134,
+          "mean_cos_substitute": 0.2534,
+          "auc_sub_over_comp": 0.58,
+          "auc_95ci": [
+            0.505,
+            0.651
+          ]
+        },
+        "openai": {
+          "n_comp": 263,
+          "n_sub": 62,
+          "mean_cos_complement": 0.2252,
+          "mean_cos_substitute": 0.248,
+          "auc_sub_over_comp": 0.544,
+          "auc_95ci": [
+            0.473,
+            0.619
+          ]
+        }
+      }
+    },
+    "mutual_excl": {
+      "n_comp_pairs": 91,
+      "n_sub_pairs": 55,
+      "per_model": {
+        "tfidf": {
+          "n_comp": 91,
+          "n_sub": 55,
+          "mean_cos_complement": 0.0792,
+          "mean_cos_substitute": 0.0979,
+          "auc_sub_over_comp": 0.532,
+          "auc_95ci": [
+            0.435,
+            0.626
+          ]
+        },
+        "glove": {
+          "n_comp": 91,
+          "n_sub": 55,
+          "mean_cos_complement": 0.2008,
+          "mean_cos_substitute": 0.2366,
+          "auc_sub_over_comp": 0.541,
+          "auc_95ci": [
+            0.44,
+            0.639
+          ]
+        },
+        "gemini": {
+          "n_comp": 91,
+          "n_sub": 55,
+          "mean_cos_complement": 0.2103,
+          "mean_cos_substitute": 0.2634,
+          "auc_sub_over_comp": 0.595,
+          "auc_95ci": [
+            0.506,
+            0.692
+          ]
+        },
+        "openai": {
+          "n_comp": 91,
+          "n_sub": 55,
+          "mean_cos_complement": 0.2016,
+          "mean_cos_substitute": 0.254,
+          "auc_sub_over_comp": 0.599,
+          "auc_95ci": [
+            0.501,
+            0.689
+          ]
+        }
+      }
+    },
+    "same_category": {
+      "n_comp_pairs": 3,
+      "n_sub_pairs": 58,
+      "per_model": {
+        "tfidf": {
+          "n_comp": 3,
+          "n_sub": 58,
+          "mean_cos_complement": 0.0188,
+          "mean_cos_substitute": 0.0995,
+          "auc_sub_over_comp": 0.75,
+          "auc_95ci": [
+            0.327,
+            1.0
+          ]
+        },
+        "glove": {
+          "n_comp": 3,
+          "n_sub": 58,
+          "mean_cos_complement": -0.0234,
+          "mean_cos_substitute": 0.2421,
+          "auc_sub_over_comp": 0.833,
+          "auc_95ci": [
+            0.638,
+            1.0
+          ]
+        },
+        "gemini": {
+          "n_comp": 3,
+          "n_sub": 58,
+          "mean_cos_complement": 0.0171,
+          "mean_cos_substitute": 0.2665,
+          "auc_sub_over_comp": 0.851,
+          "auc_95ci": [
+            0.655,
+            1.0
+          ]
+        },
+        "openai": {
+          "n_comp": 3,
+          "n_sub": 58,
+          "mean_cos_complement": -0.0292,
+          "mean_cos_substitute": 0.2578,
+          "auc_sub_over_comp": 0.96,
+          "auc_95ci": [
+            0.862,
+            1.0
+          ]
+        }
+      }
+    }
+  }
+}

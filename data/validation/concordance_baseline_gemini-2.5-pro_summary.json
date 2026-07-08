@@ -1,0 +1,95 @@
+{
+  "experiment": "Amazon relation-concordance (Cohen's kappa) vs the gemini-2.5-pro census",
+  "census_used": {
+    "CA": "census_complements_CA_gemini-2.5-pro.json",
+    "US": "census_complements_US_gemini-2.5-pro.json"
+  },
+  "compare_to_gpt4o_baseline": {
+    "US_baseline_kappa": 0.013,
+    "CA_baseline_kappa": 0.311,
+    "note": "gpt-4o census numbers from amazon_concordance_fix_summary.json (baseline def)."
+  },
+  "decision_rule": "Identical to amazon_concordance_fix.py / run_amazon.py Claim A'; only the census (ROW pairs) changed.",
+  "thresholds": {
+    "MIN_STRONG": 5,
+    "MAX_LOW": 1,
+    "bootstrap_B": 1000,
+    "seed": 7
+  },
+  "CA": {
+    "n_census_complement_pairs": 12841,
+    "n_taxonomic_substitute_pairs": 24,
+    "by_definition": {
+      "baseline": {
+        "table_2x2": {
+          "C_ab": 13,
+          "C_av": 8,
+          "S_ab": 5,
+          "S_av": 8
+        },
+        "n_pairs_in_kappa": 34,
+        "n_complement_pairs": 21,
+        "n_substitute_pairs": 13,
+        "cohens_kappa": 0.225,
+        "kappa_95ci": [
+          -0.115,
+          0.541
+        ]
+      },
+      "mutual_excl": {
+        "table_2x2": {
+          "C_ab": 1,
+          "C_av": 1,
+          "S_ab": 3,
+          "S_av": 1
+        },
+        "n_pairs_in_kappa": 6,
+        "n_complement_pairs": 2,
+        "n_substitute_pairs": 4,
+        "cohens_kappa": -0.2,
+        "kappa_95ci": [
+          -0.8,
+          0.4
+        ]
+      }
+    }
+  },
+  "US": {
+    "n_census_complement_pairs": 13055,
+    "n_taxonomic_substitute_pairs": 116,
+    "by_definition": {
+      "baseline": {
+        "table_2x2": {
+          "C_ab": 3,
+          "C_av": 0,
+          "S_ab": 68,
+          "S_av": 18
+        },
+        "n_pairs_in_kappa": 89,
+        "n_complement_pairs": 3,
+        "n_substitute_pairs": 86,
+        "cohens_kappa": 0.018,
+        "kappa_95ci": [
+          0.005,
+          0.044
+        ]
+      },
+      "mutual_excl": {
+        "table_2x2": {
+          "C_ab": 0,
+          "C_av": 0,
+          "S_ab": 2,
+          "S_av": 6
+        },
+        "n_pairs_in_kappa": 8,
+        "n_complement_pairs": 0,
+        "n_substitute_pairs": 8,
+        "cohens_kappa": null,
+        "kappa_95ci": [
+          null,
+          null
+        ]
+      }
+    }
+  }
+}

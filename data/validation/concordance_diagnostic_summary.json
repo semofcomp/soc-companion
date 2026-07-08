@@ -1,0 +1,54 @@
+{
+  "CA": {
+    "all": {
+      "label": "all",
+      "n_pairs": 35,
+      "kappa": 0.337,
+      "n_clean_codes": 107,
+      "n_mapped_codes": 132,
+      "clean_frac": 0.811
+    },
+    "clean_subset": {
+      "label": "clean",
+      "n_pairs": 19,
+      "kappa": 0.273,
+      "n_clean_codes": 107,
+      "n_mapped_codes": 132,
+      "clean_frac": 0.811
+    },
+    "consumer_final": {
+      "label": "consumer_final",
+      "n_pairs": 23,
+      "kappa": 0.27,
+      "n_clean_codes": 107,
+      "n_mapped_codes": 132,
+      "clean_frac": 0.811
+    }
+  },
+  "US": {
+    "all": {
+      "label": "all",
+      "n_pairs": 103,
+      "kappa": 0.013,
+      "n_clean_codes": 47,
+      "n_mapped_codes": 113,
+      "clean_frac": 0.416
+    },
+    "clean_subset": {
+      "label": "clean",
+      "n_pairs": 6,
+      "kappa": 1.0,
+      "n_clean_codes": 47,
+      "n_mapped_codes": 113,
+      "clean_frac": 0.416
+    },
+    "consumer_final": {
+      "label": "consumer_final",
+      "n_pairs": 5,
+      "kappa": null,
+      "n_clean_codes": 47,
+      "n_mapped_codes": 113,
+      "clean_frac": 0.416
+    }
+  }
+}

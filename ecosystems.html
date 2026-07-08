@@ -1,0 +1,166 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ecosystems — companion</title>
+<script>try{var s=JSON.parse(localStorage.getItem('cv2-state')||'{}');var t=s.theme||localStorage.getItem('site-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.toggle('light',t==='light');}catch(e){}</script>
+<link rel="stylesheet" href="assets/app.css">
+<style>
+:root{--acc:#8b84ec;--gold:#e8b84f}
+.kicker{font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--acc);font-weight:650;margin-bottom:6px}
+.big{font-variant-numeric:tabular-nums;font-weight:700;color:var(--fg)}
+.pill{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:99px;border:1px solid var(--border);color:var(--fg2);margin:2px 3px 2px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;padding:5px 11px;border-radius:99px;
+  border:1px solid var(--border);background:var(--bg2);color:var(--fg2)}
+.chip:hover{color:var(--fg);text-decoration:none;border-color:var(--fg2)}
+.chip .dot{width:9px;height:9px;border-radius:50%;flex:0 0 9px}
+.stats3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:20px 0 6px}
+.stats3 .card{padding:14px 16px}
+.stats3 .v{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.stats3 .k{font-size:12.5px;color:var(--fg2);margin-top:2px}
+#esearch{width:100%;max-width:480px;padding:9px 13px;border-radius:9px;border:1px solid var(--border);
+  background:var(--bg3);color:var(--fg);font-size:14px;margin:8px 0 4px}
+#ecount{font-size:13px;color:var(--fg2);margin-left:10px}
+section.eco{margin-top:34px;border:1px solid var(--border);border-radius:14px;background:var(--bg2);padding:18px 20px;scroll-margin-top:70px}
+section.eco h3{margin:0 0 4px;font-size:18px;display:flex;align-items:center;gap:10px}
+section.eco h3 .dot{width:13px;height:13px;border-radius:50%;flex:0 0 13px}
+section.eco .meta{font-size:13px;color:var(--fg2);margin:2px 0 10px}
+.secbars{margin:8px 0 12px;max-width:560px}
+.secbar{display:grid;grid-template-columns:110px 1fr 44px;gap:8px;align-items:center;font-size:12.5px;margin:4px 0}
+.secbar .lab{color:var(--fg2)}
+.secbar .tr{height:8px;background:var(--bg3);border-radius:4px;overflow:hidden}
+.secbar .fl{height:100%;border-radius:4px}
+.secbar .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--fg)}
+.members{max-height:330px;overflow:auto;border:1px solid var(--border);border-radius:10px;background:var(--bg3);margin-top:8px}
+.mrow{display:grid;grid-template-columns:76px 1fr 64px;gap:10px;padding:5px 12px;font-size:13px;border-bottom:1px solid var(--border)}
+.mrow:last-child{border-bottom:none}
+.mrow .code{color:var(--fg2);font-variant-numeric:tabular-nums}
+.mrow .deg{text-align:right;color:var(--fg2);font-variant-numeric:tabular-nums}
+.mrow.hide{display:none}
+.mrow mark{background:rgba(232,184,79,.35);color:inherit;border-radius:3px;padding:0 1px}
+.mhead{position:sticky;top:0;background:var(--bg3);display:grid;grid-template-columns:76px 1fr 64px;gap:10px;
+  padding:6px 12px;font-size:11.5px;color:var(--fg2);border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.6px}
+.mhead span:last-child{text-align:right}
+.nomatch{padding:10px 12px;font-size:13px;color:var(--fg2);display:none}
+.maplinks{display:flex;gap:8px;margin:2px 0 10px;flex-wrap:wrap}
+.maplink{display:inline-flex;align-items:center;font-size:12px;padding:4px 11px;border-radius:99px;border:1px solid var(--border);background:var(--bg3);color:var(--fg2)}
+.maplink:hover{color:var(--teal);border-color:var(--teal);text-decoration:none}
+.ecofoot{margin-top:50px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--fg2)}
+</style>
+</head>
+<body data-controls="economy">
+<div id="hdr"></div>
+<main class="wrap">
+
+<header>
+  <div class="kicker">Complement ecosystems</div>
+  <h1>Fifteen demand-side ecosystems in the complement graph</h1>
+  <p class="lead">
+    Treat the LLM complement census for <b id="eco-econ">Canada</b> as a graph — <span id="eco-nodes">2,988</span> categories connected by <span id="eco-edges">15,925</span> distinct
+    "bought together" links — and ask which categories cluster together. <b>Louvain community
+    detection</b> greedily groups nodes so that links fall <i>inside</i> groups far more often than
+    chance; how well it succeeds is measured by <b>modularity</b>, which runs from ~0 (no community
+    structure) toward 1. The complement graph scores <span class="big" id="eco-mod">0.555</span> (seed 42) and
+    splits into <span class="big"><span id="eco-ncomm">15</span> communities</span>.
+  </p>
+  <p class="lead">
+    These communities are not the supply-side taxonomy in disguise. NAPCS sections group categories
+    by <i>what they are</i> (industry of origin); the ecosystems group them by <i>what they are
+    bought with</i>. The average community spans members from many NAPCS sections — section
+    entropy <span class="big"><span id="eco-ment">2.3</span> bits</span> within a community versus <span class="big"><span id="eco-rent">2.9</span>
+    bits</span> for random sets of the same size. Lower than random (the communities are real),
+    but far from zero: each ecosystem cuts across the official classification, mixing farm goods,
+    manufactured products, wholesale lines, and services that demand actually joins together.
+  </p>
+  <div class="stats3">
+    <div class="card"><div class="v" id="eco-mod-c">0.555</div><div class="k">Louvain modularity (exact partition, seed 42)</div></div>
+    <div class="card"><div class="v" id="eco-ncomm-c">15</div><div class="k">communities · <span id="eco-nodes-c">2,988</span> categories in the graph</div></div>
+    <div class="card"><div class="v"><span id="eco-ment-c">2.3</span> vs <span id="eco-rent-c">2.9</span></div><div class="k">section entropy, communities vs random (bits)</div></div>
+  </div>
+</header>
+
+<section style="margin-top:38px">
+  <div class="kicker">Browse</div>
+  <h2>The fifteen ecosystems</h2>
+  <p class="lead">Labels are informal summaries of each community's most connected members — jump to one,
+  or search every member list at once. Colors match the "ecosystems" view on the
+  <a href="explore-2d.html">2D map</a> and <a href="explore-3d.html">3D universe</a>.</p>
+  <div class="chips" id="chips"></div>
+  <div style="margin-top:14px">
+    <input id="esearch" placeholder="Search members (title or NAPCS code)…" autocomplete="off">
+    <span id="ecount"></span>
+  </div>
+  <div id="ecos"></div>
+</section>
+
+<div class="ecofoot">
+  Communities: exact Louvain partition (python-louvain, random_state 42) of the undirected complement
+  graph (edge weight 1, or 2 if mutual); membership in
+  <a href="data.html">graph_{CA,US}.json</a>. Member "links in eco" = weighted complement
+  links to members of the same community. Theme labels are editorial summaries, not NAPCS terms.
+</div>
+</main>
+<div id="ftr"></div>
+<script src="assets/app.js"></script>
+<script>
+function renderEco(g){
+const ECODATA=g.ecosystems_view||[];
+fillStats(g);
+const chips=document.getElementById('chips');
+chips.innerHTML=ECODATA.map(c=>'<a class="chip" href="#eco-'+c.id+'"><span class="dot" style="background:'+c.color+'"></span>'+c.label+' <span style="opacity:.7">('+c.n+')</span></a>').join('');
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+const host=document.getElementById('ecos');
+host.innerHTML=ECODATA.map(c=>{
+  const mx=c.sections[0][1];
+  const bars=c.sections.map(s=>'<div class="secbar"><span class="lab">section '+s[0]+'</span><span class="tr"><span class="fl" style="width:'+(100*s[1]/mx).toFixed(1)+'%;background:'+c.color+'"></span></span><span class="v">'+s[1]+'</span></div>').join('');
+  const rows=c.members.map(m=>'<div class="mrow" data-t="'+m[0]+' '+esc(m[1]).toLowerCase()+'"><span class="code">'+m[0]+'</span><span class="ttl">'+esc(m[1])+'</span><span class="deg">'+m[2]+'</span></div>').join('');
+  return '<section class="eco" id="eco-'+c.id+'">'
+   +'<h3><span class="dot" style="background:'+c.color+'"></span>'+c.label
+   +'<span style="color:var(--fg2);font-weight:400;font-size:14px">· community '+c.id+'</span></h3>'
+   +'<div class="meta"><b style="color:var(--fg)">'+c.n+'</b> members · '
+   +c.edges_in+' complement links inside the community · spans '+c.n_sections+' NAPCS sections '
+   +'(entropy '+c.entropy.toFixed(2)+' bits)</div>'
+   +'<div class="maplinks"><a class="maplink" href="explore-2d.html#eco='+c.id+'">View on 2-D map</a><a class="maplink" href="explore-3d.html#eco='+c.id+'">View in 3-D universe</a></div>'
+   +'<div class="secbars"><div style="font-size:12px;color:var(--fg2);margin-bottom:2px">Top NAPCS sections</div>'+bars+'</div>'
+   +'<div class="members"><div class="mhead"><span>Code</span><span>Member ('+c.n+', sorted by links within the ecosystem)</span><span>links in eco</span></div>'
+   +rows+'<div class="nomatch">no matches in this ecosystem</div></div>'
+   +'</section>';
+}).join('');
+const inp=document.getElementById('esearch'),cnt=document.getElementById('ecount');
+const allRows=[...document.querySelectorAll('.mrow')];
+inp.oninput=()=>{
+  const v=inp.value.trim().toLowerCase();
+  if(!v){allRows.forEach(r=>r.classList.remove('hide'));cnt.textContent='';
+    document.querySelectorAll('.ttl mark').forEach(m=>{m.replaceWith(m.textContent);});
+    document.querySelectorAll('.nomatch').forEach(n=>n.style.display='none');return;}
+  let tot=0;
+  document.querySelectorAll('section.eco').forEach(sec=>{
+    let hits=0;
+    sec.querySelectorAll('.mrow').forEach(r=>{
+      const ok=r.dataset.t.includes(v);
+      r.classList.toggle('hide',!ok); if(ok)hits++;
+      const t=r.querySelector('.ttl'),plain=t.textContent;
+      if(ok){const i=plain.toLowerCase().indexOf(v);
+        t.innerHTML=i<0?esc(plain):esc(plain.slice(0,i))+'<mark>'+esc(plain.slice(i,i+v.length))+'</mark>'+esc(plain.slice(i+v.length));}
+      else t.textContent=plain;
+    });
+    sec.querySelector('.nomatch').style.display=hits?'none':'block';
+    tot+=hits;
+  });
+  cnt.textContent=tot+' matching member'+(tot===1?'':'s');
+};
+}
+function fillStats(g){function S(id,v){var el=document.getElementById(id);if(el)el.textContent=v;}
+ S('eco-econ',CV2.econName());
+ S('eco-nodes',g.n_nodes.toLocaleString());S('eco-nodes-c',g.n_nodes.toLocaleString());S('eco-edges',g.n_edges.toLocaleString());
+ S('eco-mod',g.modularity.toFixed(3));S('eco-mod-c',g.modularity.toFixed(3));
+ S('eco-ncomm',g.n_communities);S('eco-ncomm-c',g.n_communities);
+ S('eco-ment',g.mean_community_entropy.toFixed(1));S('eco-ment-c',g.mean_community_entropy.toFixed(1));
+ S('eco-rent',g.random_entropy_baseline.toFixed(1));S('eco-rent-c',g.random_entropy_baseline.toFixed(1));}
+/* economy-aware: load the canonical graph for the selected economy */
+function load(){CV2.data('graph').then(renderEco).catch(function(e){console.error('graph load failed',e);});}
+window.addEventListener('cv2:ready',load);
+window.addEventListener('cv2:change',function(e){if(e.detail.key==='country')load();});
+</script>
+</body>
+</html>

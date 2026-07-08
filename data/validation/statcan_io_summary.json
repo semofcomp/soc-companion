@@ -1,0 +1,871 @@
+{
+  "provenance": {
+    "source": "StatCan 36-10-0001 (Input-Output tables, detail level), Symmetric I-O.",
+    "geo": "Canada",
+    "year": "2023",
+    "valuation": "Basic price",
+    "construct": "Cross-industry CO-USE + sector supply-chain linkage; CONVERGENT supply-side evidence for PRODUCTION complementarity.",
+    "matrix": {
+      "year": "2023",
+      "valuation": "Basic price",
+      "n_sectors": 260,
+      "n_using_industries": 252,
+      "n_final_demand_cols": 306,
+      "n_intermediate_cells": 57573,
+      "couse_shape": [
+        260,
+        260
+      ],
+      "sc_shape": [
+        260,
+        260
+      ]
+    },
+    "census": "general-rubric census, primary gpt-4o, Canada (7-digit NAPCS).",
+    "production_definition": "production subset = BOTH endpoints gpt4o_consumer_final==False.",
+    "vs_bea": "Same-economy (Canada) + recent (2023) vs 1997 US BEA fallback (different economy, 26y older)."
+  },
+  "linkage_measures": {
+    "couse": "cosine of sector use-rows across intermediate using-industry cols (log1p,L2)",
+    "supplychain": "symmetric max of column-normalized direct-requirement coefficients (sector x sector)"
+  },
+  "crosswalk": {
+    "source": "NAPCS L4 title+definition -> StatCan sector title (rapidfuzz token_set_ratio); NON-CIRCULAR.",
+    "substitute_anchor": "prefix6",
+    "coverage_by_confidence": {
+      "50": 1315,
+      "60": 916,
+      "70": 496,
+      "80": 249,
+      "90": 83
+    },
+    "n_census_codes": 3049,
+    "threshold_used": 70,
+    "napcs_kept": 496,
+    "distinct_statcan_sectors": 141,
+    "collapse_ratio": 3.52,
+    "concentration_top1_share_pct": 8.5,
+    "concentration_top6_share_pct": 22.2
+  },
+  "pair_counts": {
+    "complement_raw": 15983,
+    "substitute_raw": 3689,
+    "random_raw": 10000
+  },
+  "threshold_sweep": {
+    "60": {
+      "napcs_kept": 916,
+      "distinct_statcan_sectors": 191,
+      "collapse_ratio": 4.8,
+      "concentration_top1_share_pct": 4.6,
+      "concentration_top6_share_pct": 16.3,
+      "claimA": {
+        "all": {
+          "couse": {
+            "complement_linkage_mean_ci": [
+              0.7379090312533146,
+              0.7212034745801505,
+              0.7547532061614116
+            ],
+            "substitute_linkage_mean_ci": [
+              0.689496537771331,
+              0.6411915218348998,
+              0.7372375593465276
+            ],
+            "random_linkage_mean_ci": [
+              0.6552301432021442,
+              0.6266012339723139,
+              0.6812562521555755
+            ],
+            "n_complement": 2269,
+            "n_substitute": 326,
+            "n_random": 883,
+            "auc_complement_vs_random": 0.5721377850161241,
+            "auc_complement_vs_substitute": 0.48877914380811527,
+            "auc_substitute_vs_random": 0.5751499002980637,
+            "diag_complement": {
+              "mapped": 2269,
+              "same_cell": 230,
+              "unmapped": 13484,
+              "subset_filtered": 0
+            }
+          },
+          "supplychain": {
+            "complement_linkage_mean_ci": [
+              0.007643250255457171,
+              0.006880145154854996,
+              0.008454843380901453
+            ],
+            "substitute_linkage_mean_ci": [
+              0.0068241693824174455,
+              0.005251794606606382,
+              0.008608689572469679
+            ],
+            "random_linkage_mean_ci": [
+              0.004017968204282864,
+              0.0031766808412501913,
+              0.0050128945243147335
+            ],
+            "n_complement": 2269,
+            "n_substitute": 326,
+            "n_random": 883,
+            "auc_complement_vs_random": 0.6027028834650094,
+            "auc_complement_vs_substitute": 0.546263049314987,
+            "auc_substitute_vs_random": 0.5476467563868296,
+            "diag_complement": {
+              "mapped": 2269,
+              "same_cell": 230,
+              "unmapped": 13484,
+              "subset_filtered": 0
+            }
+          }
+        },
+        "production": {
+          "couse": {
+            "complement_linkage_mean_ci": [
+              0.7663765932000106,
+              0.748997797574958,
+              0.7851634444019843
+            ],
+            "substitute_linkage_mean_ci": [
+              0.7107082296703048,
+              0.6595839321679141,
+              0.7614355940928028
+            ],
+            "random_linkage_mean_ci": [
+              0.6923699428474238,
+              0.6561703222830261,
+              0.7276976857559166
+            ],
+            "n_complement": 1611,
+            "n_substitute": 263,
+            "n_random": 501,
+            "auc_complement_vs_random": 0.5674764685402628,
+            "auc_complement_vs_substitute": 0.49358851810154997,
+            "auc_substitute_vs_random": 0.5672571207395096,
+            "diag_complement": {
+              "mapped": 1611,
+              "same_cell": 162,
+              "unmapped": 8053,
+              "subset_filtered": 6157
+            }
+          },
+          "supplychain": {
+            "complement_linkage_mean_ci": [
+              0.008421636125674606,
+              0.007386226997877301,
+              0.009517056452825166
+            ],
+            "substitute_linkage_mean_ci": [
+              0.007613710393281791,
+              0.005741646364116418,
+              0.009864781505926058
+            ],
+            "random_linkage_mean_ci": [
+              0.004679144302392645,
+              0.0034625546423104176,
+              0.006133939320356373
+            ],
+            "n_complement": 1611,
+            "n_substitute": 263,
+            "n_random": 501,
+            "auc_complement_vs_random": 0.6008423872305049,
+            "auc_complement_vs_substitute": 0.5383142983244944,
+            "auc_substitute_vs_random": 0.5545866442020901,
+            "diag_complement": {
+              "mapped": 1611,
+              "same_cell": 162,
+              "unmapped": 8053,
+              "subset_filtered": 6157
+            }
+          }
+        },
+        "consumer": {
+          "couse": {
+            "complement_linkage_mean_ci": [
+              0.6682110946330602,
+              0.6371518689144847,
+              0.7000392479805991
+            ],
+            "substitute_linkage_mean_ci": [
+              0.6009461414311706,
+              0.49131340214919467,
+              0.710442426416097
+            ],
+            "random_linkage_mean_ci": [
+              0.6065206153951147,
+              0.5637330364930521,
+              0.6515377419659617
+            ],
+            "n_complement": 658,
+            "n_substitute": 63,
+            "n_random": 382,
+            "auc_complement_vs_random": 0.5581306990881459,
+            "auc_complement_vs_substitute": 0.49591113040961066,
+            "auc_substitute_vs_random": 0.5506315964431148,
+            "diag_complement": {
+              "mapped": 658,
+              "same_cell": 68,
+              "unmapped": 5431,
+              "subset_filtered": 9826
+            }
+          },
+          "supplychain": {
+            "complement_linkage_mean_ci": [
+              0.005737506126398979,
+              0.004828432430646006,
+              0.006785272327663213
+            ],
+            "substitute_linkage_mean_ci": [
+              0.0035281489719837453,
+              0.0019248439572506133,
+              0.005412450840537489
+            ],
+            "random_linkage_mean_ci": [
+              0.0031508236358195143,
+              0.0022732375935997284,
+              0.004319035796185926
+            ],
+            "n_complement": 658,
+            "n_substitute": 63,
+            "n_random": 382,
+            "auc_complement_vs_random": 0.5865047979757794,
+            "auc_complement_vs_substitute": 0.6097481545809813,
+            "auc_substitute_vs_random": 0.46490900024931436,
+            "diag_complement": {
+              "mapped": 658,
+              "same_cell": 68,
+              "unmapped": 5431,
+              "subset_filtered": 9826
+            }
+          }
+        }
+      }
+    },
+    "70": {
+      "napcs_kept": 496,
+      "distinct_statcan_sectors": 141,
+      "collapse_ratio": 3.52,
+      "concentration_top1_share_pct": 8.5,
+      "concentration_top6_share_pct": 22.2,
+      "claimA": {
+        "all": {
+          "couse": {
+            "complement_linkage_mean_ci": [
+              0.7834111016782657,
+              0.7593524082157602,
+              0.8047577980816525
+            ],
+            "substitute_linkage_mean_ci": [
+              0.7510971496941624,
+              0.6765639467316551,
+              0.8126737024171827
+            ],
+            "random_linkage_mean_ci": [
+              0.6853175354759667,
+              0.6401045110812351,
+              0.732568116776279
+            ],
+            "n_complement": 1006,
+            "n_substitute": 122,
+            "n_random": 266,
+            "auc_complement_vs_random": 0.5827478736602939,
+            "auc_complement_vs_substitute": 0.49904670338623996,
+            "auc_substitute_vs_random": 0.5799950696413164,
+            "diag_complement": {
+              "mapped": 1006,
+              "same_cell": 129,
+              "unmapped": 14848,
+              "subset_filtered": 0
+            }
+          },
+          "supplychain": {
+            "complement_linkage_mean_ci": [
+              0.007871674871037413,
+              0.0069945773962415084,
+              0.008817666188850859
+            ],
+            "substitute_linkage_mean_ci": [
+              0.0065796739378274505,
+              0.004387631620008789,
+              0.009167695166444625
+            ],
+            "random_linkage_mean_ci": [
+              0.0036220482811572976,
+              0.002744847321261761,
+              0.0047215687918794776
+            ],
+            "n_complement": 1006,
+            "n_substitute": 122,
+            "n_random": 266,
+            "auc_complement_vs_random": 0.6341649352008252,
+            "auc_complement_vs_substitute": 0.570649871264218,
+            "auc_substitute_vs_random": 0.5477782571182054,
+            "diag_complement": {
+              "mapped": 1006,
+              "same_cell": 129,
+              "unmapped": 14848,
+              "subset_filtered": 0
+            }
+          }
+        },
+        "production": {
+          "couse": {
+            "complement_linkage_mean_ci": [
+              0.8100944387921072,
+              0.7848909018306345,
+              0.8332712167975308
+            ],
+            "substitute_linkage_mean_ci": [
+              0.7377758808973292,
+              0.6571808064187694,
+              0.8043012845455966
+            ],
+            "random_linkage_mean_ci": [
+              0.7418772813194575,
+              0.6819887578083703,
+              0.7993429203454471
+            ],
+            "n_complement": 742,
+            "n_substitute": 107,
+            "n_random": 158,
+            "auc_complement_vs_random": 0.5758086253369272,
+            "auc_complement_vs_substitute": 0.5363188654054463,
+            "auc_substitute_vs_random": 0.5343664971016208,
+            "diag_complement": {
+              "mapped": 742,
+              "same_cell": 103,
+              "unmapped": 8981,
+              "subset_filtered": 6157
+            }
+          },
+          "supplychain": {
+            "complement_linkage_mean_ci": [
+              0.008314953584256136,
+              0.007353213930278774,
+              0.009313658422271802
+            ],
+            "substitute_linkage_mean_ci": [
+              0.006922972126087803,
+              0.004392238496411595,
+              0.00992913118066329
+            ],
+            "random_linkage_mean_ci": [
+              0.003389980511483393,
+              0.002410222153203327,
+              0.004564293863343343
+            ],
+            "n_complement": 742,
+            "n_substitute": 107,
+            "n_random": 158,
+            "auc_complement_vs_random": 0.6442475007676823,
+            "auc_complement_vs_substitute": 0.5894777942917601,
+            "auc_substitute_vs_random": 0.5321187743996214,
+            "diag_complement": {
+              "mapped": 742,
+              "same_cell": 103,
+              "unmapped": 8981,
+              "subset_filtered": 6157
+            }
+          }
+        },
+        "consumer": {
+          "couse": {
+            "complement_linkage_mean_ci": [
+              0.7084147526689077,
+              0.6561230620491995,
+              0.756599158275706
+            ],
+            "substitute_linkage_mean_ci": [
+              0.8461222004449065,
+              0.6516470523483837,
+              0.9788815474160927
+            ],
+            "random_linkage_mean_ci": [
+              0.6025727221123411,
+              0.5211450981372291,
+              0.6818536446332149
+            ],
+            "n_complement": 264,
+            "n_substitute": 15,
+            "n_random": 108,
+            "auc_complement_vs_random": 0.5721099887766554,
+            "auc_complement_vs_substitute": 0.31843434343434346,
+            "auc_substitute_vs_random": 0.741358024691358,
+            "diag_complement": {
+              "mapped": 264,
+              "same_cell": 26,
+              "unmapped": 5867,
+              "subset_filtered": 9826
+            }
+          },
+          "supplychain": {
+            "complement_linkage_mean_ci": [
+              0.0066257930331272185,
+              0.005004003844826479,
+              0.0084278039041418
+            ],
+            "substitute_linkage_mean_ci": [
+              0.004130813528236934,
+              0.001838191386762354,
+              0.006639933506043809
+            ],
+            "random_linkage_mean_ci": [
+              0.00396155483308764,
+              0.002465280212952994,
+              0.0060025625331570935
+            ],
+            "n_complement": 264,
+            "n_substitute": 15,
+            "n_random": 108,
+            "auc_complement_vs_random": 0.5961174242424242,
+            "auc_complement_vs_substitute": 0.5138888888888888,
+            "auc_substitute_vs_random": 0.5746913580246914,
+            "diag_complement": {
+              "mapped": 264,
+              "same_cell": 26,
+              "unmapped": 5867,
+              "subset_filtered": 9826
+            }
+          }
+        }
+      }
+    },
+    "80": {
+      "napcs_kept": 249,
+      "distinct_statcan_sectors": 86,
+      "collapse_ratio": 2.9,
+      "concentration_top1_share_pct": 16.9,
+      "concentration_top6_share_pct": 35.7,
+      "claimA": {
+        "all": {
+          "couse": {
+            "complement_linkage_mean_ci": [
+              0.897653252712435,
+              0.8744342388380745,
+              0.9211724423501022
+            ],
+            "substitute_linkage_mean_ci": [
+              0.9198334368836291,
+              0.8484674224274179,
+              0.9719586025727147
+            ],
+            "random_linkage_mean_ci": [
+              0.7222019365374769,
+              0.620169744994917,
+              0.8211960828830913
+            ],
+            "n_complement": 353,
+            "n_substitute": 41,
+            "n_random": 60,
+            "auc_complement_vs_random": 0.6296742209631728,
+            "auc_complement_vs_substitute": 0.4824155323706212,
+            "auc_substitute_vs_random": 0.6473577235772358,
+            "diag_complement": {
+              "mapped": 353,
+              "same_cell": 44,
+              "unmapped": 15586,
+              "subset_filtered": 0
+            }
+          },
+          "supplychain": {
+            "complement_linkage_mean_ci": [
+              0.0060723712520755965,
+              0.005230714465987333,
+              0.006963498228274929
+            ],
+            "substitute_linkage_mean_ci": [
+              0.006307558430615302,
+              0.003797273536080879,
+              0.009165996559731845
+            ],
+            "random_linkage_mean_ci": [
+              0.0030012341889933936,
+              0.002069935873802059,
+              0.00397386571962292
+            ],
+            "n_complement": 353,
+            "n_substitute": 41,
+            "n_random": 60,
+            "auc_complement_vs_random": 0.6387393767705383,
+            "auc_complement_vs_substitute": 0.5362398949768534,
+            "auc_substitute_vs_random": 0.59369918699187,
+            "diag_complement": {
+              "mapped": 353,
+              "same_cell": 44,
+              "unmapped": 15586,
+              "subset_filtered": 0
+            }
+          }
+        },
+        "production": {
+          "couse": {
+            "complement_linkage_mean_ci": [
+              0.9327797988193676,
+              0.909427136138603,
+              0.9536969539253071
+            ],
+            "substitute_linkage_mean_ci": [
+              0.909260730056811,
+              0.8262246451254496,
+              0.9700681735198168
+            ],
+            "random_linkage_mean_ci": [
+              0.7254250310079324,
+              0.5936754689838188,
+              0.8389308716990987
+            ],
+            "n_complement": 249,
+            "n_substitute": 35,
+            "n_random": 40,
+            "auc_complement_vs_random": 0.6700803212851406,
+            "auc_complement_vs_substitute": 0.5642570281124498,
+            "auc_substitute_vs_random": 0.6185714285714285,
+            "diag_complement": {
+              "mapped": 249,
+              "same_cell": 32,
+              "unmapped": 9545,
+              "subset_filtered": 6157
+            }
+          },
+          "supplychain": {
+            "complement_linkage_mean_ci": [
+              0.005790109572079445,
+              0.004985023315681856,
+              0.006696236528998151
+            ],
+            "substitute_linkage_mean_ci": [
+              0.006589465902267296,
+              0.0036750404213416405,
+              0.009797008059766998
+            ],
+            "random_linkage_mean_ci": [
+              0.002570900648462343,
+              0.0015914259053517305,
+              0.0037013507172651804
+            ],
+            "n_complement": 249,
+            "n_substitute": 35,
+            "n_random": 40,
+            "auc_complement_vs_random": 0.6936746987951807,
+            "auc_complement_vs_substitute": 0.5579460699942628,
+            "auc_substitute_vs_random": 0.6178571428571429,
+            "diag_complement": {
+              "mapped": 249,
+              "same_cell": 32,
+              "unmapped": 9545,
+              "subset_filtered": 6157
+            }
+          }
+        },
+        "consumer": {
+          "couse": {
+            "complement_linkage_mean_ci": [
+              0.8135521952064141,
+              0.7547474068921104,
+              0.8690095113837816
+            ],
+            "substitute_linkage_mean_ci": [
+              0.9815075600400665,
+              0.9704681171571768,
+              0.9888713112871793
+            ],
+            "random_linkage_mean_ci": [
+              0.7157557475965655,
+              0.5503578534041036,
+              0.8758362063671844
+            ],
+            "n_complement": 104,
+            "n_substitute": 6,
+            "n_random": 20,
+            "auc_complement_vs_random": 0.5295673076923076,
+            "auc_complement_vs_substitute": 0.20032051282051283,
+            "auc_substitute_vs_random": 0.85,
+            "diag_complement": {
+              "mapped": 104,
+              "same_cell": 12,
+              "unmapped": 6041,
+              "subset_filtered": 9826
+            }
+          },
+          "supplychain": {
+            "complement_linkage_mean_ci": [
+              0.00674817085129715,
+              0.00461063734639079,
+              0.00907468781089314
+            ],
+            "substitute_linkage_mean_ci": [
+              0.004663098179311999,
+              0.0018450091513931308,
+              0.007304281882040047
+            ],
+            "random_linkage_mean_ci": [
+              0.0038619012700554962,
+              0.002149109292872282,
+              0.005823670529969754
+            ],
+            "n_complement": 104,
+            "n_substitute": 6,
+            "n_random": 20,
+            "auc_complement_vs_random": 0.521875,
+            "auc_complement_vs_substitute": 0.44871794871794873,
+            "auc_substitute_vs_random": 0.5833333333333334,
+            "diag_complement": {
+              "mapped": 104,
+              "same_cell": 12,
+              "unmapped": 6041,
+              "subset_filtered": 9826
+            }
+          }
+        }
+      }
+    }
+  },
+  "claimA": {
+    "all": {
+      "couse": {
+        "complement_linkage_mean_ci": [
+          0.7834111016782657,
+          0.7593524082157602,
+          0.8047577980816525
+        ],
+        "substitute_linkage_mean_ci": [
+          0.7510971496941624,
+          0.6765639467316551,
+          0.8126737024171827
+        ],
+        "random_linkage_mean_ci": [
+          0.6853175354759667,
+          0.6401045110812351,
+          0.732568116776279
+        ],
+        "n_complement": 1006,
+        "n_substitute": 122,
+        "n_random": 266,
+        "auc_complement_vs_random": 0.5827478736602939,
+        "auc_complement_vs_substitute": 0.49904670338623996,
+        "auc_substitute_vs_random": 0.5799950696413164,
+        "diag_complement": {
+          "mapped": 1006,
+          "same_cell": 129,
+          "unmapped": 14848,
+          "subset_filtered": 0
+        }
+      },
+      "supplychain": {
+        "complement_linkage_mean_ci": [
+          0.007871674871037413,
+          0.0069945773962415084,
+          0.008817666188850859
+        ],
+        "substitute_linkage_mean_ci": [
+          0.0065796739378274505,
+          0.004387631620008789,
+          0.009167695166444625
+        ],
+        "random_linkage_mean_ci": [
+          0.0036220482811572976,
+          0.002744847321261761,
+          0.0047215687918794776
+        ],
+        "n_complement": 1006,
+        "n_substitute": 122,
+        "n_random": 266,
+        "auc_complement_vs_random": 0.6341649352008252,
+        "auc_complement_vs_substitute": 0.570649871264218,
+        "auc_substitute_vs_random": 0.5477782571182054,
+        "diag_complement": {
+          "mapped": 1006,
+          "same_cell": 129,
+          "unmapped": 14848,
+          "subset_filtered": 0
+        }
+      }
+    },
+    "production": {
+      "couse": {
+        "complement_linkage_mean_ci": [
+          0.8100944387921072,
+          0.7848909018306345,
+          0.8332712167975308
+        ],
+        "substitute_linkage_mean_ci": [
+          0.7377758808973292,
+          0.6571808064187694,
+          0.8043012845455966
+        ],
+        "random_linkage_mean_ci": [
+          0.7418772813194575,
+          0.6819887578083703,
+          0.7993429203454471
+        ],
+        "n_complement": 742,
+        "n_substitute": 107,
+        "n_random": 158,
+        "auc_complement_vs_random": 0.5758086253369272,
+        "auc_complement_vs_substitute": 0.5363188654054463,
+        "auc_substitute_vs_random": 0.5343664971016208,
+        "diag_complement": {
+          "mapped": 742,
+          "same_cell": 103,
+          "unmapped": 8981,
+          "subset_filtered": 6157
+        }
+      },
+      "supplychain": {
+        "complement_linkage_mean_ci": [
+          0.008314953584256136,
+          0.007353213930278774,
+          0.009313658422271802
+        ],
+        "substitute_linkage_mean_ci": [
+          0.006922972126087803,
+          0.004392238496411595,
+          0.00992913118066329
+        ],
+        "random_linkage_mean_ci": [
+          0.003389980511483393,
+          0.002410222153203327,
+          0.004564293863343343
+        ],
+        "n_complement": 742,
+        "n_substitute": 107,
+        "n_random": 158,
+        "auc_complement_vs_random": 0.6442475007676823,
+        "auc_complement_vs_substitute": 0.5894777942917601,
+        "auc_substitute_vs_random": 0.5321187743996214,
+        "diag_complement": {
+          "mapped": 742,
+          "same_cell": 103,
+          "unmapped": 8981,
+          "subset_filtered": 6157
+        }
+      }
+    },
+    "consumer": {
+      "couse": {
+        "complement_linkage_mean_ci": [
+          0.7084147526689077,
+          0.6561230620491995,
+          0.756599158275706
+        ],
+        "substitute_linkage_mean_ci": [
+          0.8461222004449065,
+          0.6516470523483837,
+          0.9788815474160927
+        ],
+        "random_linkage_mean_ci": [
+          0.6025727221123411,
+          0.5211450981372291,
+          0.6818536446332149
+        ],
+        "n_complement": 264,
+        "n_substitute": 15,
+        "n_random": 108,
+        "auc_complement_vs_random": 0.5721099887766554,
+        "auc_complement_vs_substitute": 0.31843434343434346,
+        "auc_substitute_vs_random": 0.741358024691358,
+        "diag_complement": {
+          "mapped": 264,
+          "same_cell": 26,
+          "unmapped": 5867,
+          "subset_filtered": 9826
+        }
+      },
+      "supplychain": {
+        "complement_linkage_mean_ci": [
+          0.0066257930331272185,
+          0.005004003844826479,
+          0.0084278039041418
+        ],
+        "substitute_linkage_mean_ci": [
+          0.004130813528236934,
+          0.001838191386762354,
+          0.006639933506043809
+        ],
+        "random_linkage_mean_ci": [
+          0.00396155483308764,
+          0.002465280212952994,
+          0.0060025625331570935
+        ],
+        "n_complement": 264,
+        "n_substitute": 15,
+        "n_random": 108,
+        "auc_complement_vs_random": 0.5961174242424242,
+        "auc_complement_vs_substitute": 0.5138888888888888,
+        "auc_substitute_vs_random": 0.5746913580246914,
+        "diag_complement": {
+          "mapped": 264,
+          "same_cell": 26,
+          "unmapped": 5867,
+          "subset_filtered": 9826
+        }
+      }
+    }
+  },
+  "primary": {
+    "note": "Primary = confidence>=70 guarded crosswalk (content-token guard), co-use measure. The content guard removes stopword-only false matches; with it the complement>random signal is monotone and present at ALL thresholds (AUC ~0.57-0.67), rising as concordance tightens. THR70 balances N (~1000 overall / ~740 production) and concordance quality; THR60 (large N) and THR80 (cleanest, smaller N) retained in the sweep."
+  },
+  "claimB": {
+    "gemini": {
+      "cosine_io_complement_mean": 0.8185632569868255,
+      "cosine_io_noncomplement_mean": 0.8061652165390831,
+      "auc_cosine_separates_io_complement": 0.5813398873946147,
+      "n_io_complement": 166,
+      "n_io_noncomplement": 826
+    },
+    "openai": {
+      "cosine_io_complement_mean": 0.3971637492187293,
+      "cosine_io_noncomplement_mean": 0.35568657069318643,
+      "auc_cosine_separates_io_complement": 0.5900624288923247,
+      "n_io_complement": 166,
+      "n_io_noncomplement": 826
+    },
+    "glove": {
+      "cosine_io_complement_mean": 0.7018244198287826,
+      "cosine_io_noncomplement_mean": 0.677190435581252,
+      "auc_cosine_separates_io_complement": 0.5296974824236413,
+      "n_io_complement": 166,
+      "n_io_noncomplement": 826
+    },
+    "tfidf": {
+      "cosine_io_complement_mean": 0.08889941545396018,
+      "cosine_io_noncomplement_mean": 0.09736854253880191,
+      "auc_cosine_separates_io_complement": 0.5220215000437586,
+      "n_io_complement": 166,
+      "n_io_noncomplement": 826
+    },
+    "_io_complement_n": 166,
+    "_io_noncomplement_n": 826
+  },
+  "robustness_gpt4o_mini": {
+    "all": {
+      "complement_mean_ci": [
+        0.7803698730729552,
+        0.7585690730527632,
+        0.8017280205423453
+      ],
+      "random_mean_ci": [
+        0.6853175354759667,
+        0.6335680923183784,
+        0.7355471016395909
+      ],
+      "auc_complement_vs_random": 0.5781023322262562,
+      "n_complement": 1021
+    },
+    "production": {
+      "complement_mean_ci": [
+        0.7869205222906659,
+        0.7615878668614977,
+        0.8119835935780559
+      ],
+      "random_mean_ci": [
+        0.7418772813194575,
+        0.6826258975450105,
+        0.7955117066629498
+      ],
+      "auc_complement_vs_random": 0.5501299649272731,
+      "n_complement": 711
+    }
+  }
+}

@@ -1,0 +1,63 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Data — companion</title>
+<script>try{var s=JSON.parse(localStorage.getItem('cv2-state')||'{}');document.documentElement.setAttribute('data-theme',s.theme||'dark');}catch(e){}</script>
+<link rel="stylesheet" href="assets/app.css">
+</head><body data-controls="economy">
+<div id="hdr"></div>
+<main class="wrap">
+  <h1>Data downloads</h1>
+  <p class="lead">All datasets behind the site, per economy and generator. Download links below follow the current <strong>Economy</strong> selection where a file is economy-specific.</p>
+  <div id="econnote" class="muted"></div>
+
+  <h2>Census &amp; labels</h2>
+  <ul id="census"></ul>
+
+  <h2>Analytics outputs</h2>
+  <ul id="analytics"></ul>
+
+  <h2>Site bundles (what the explorers read)</h2>
+  <ul id="bundles"></ul>
+
+  <h2>Validation outputs</h2>
+  <ul>
+    <li><a href="data/validation/amazon_substitute_fix_summary.json">Amazon Claim B rehabilitation</a>, <a href="data/validation/concordance_diagnostic_summary.json">concordance diagnostic</a>, <a href="data/validation/concordance_baseline_gemini-2.5-pro_summary.json">concordance vs Gemini census</a></li>
+    <li><a href="data/validation/amazon_CA.json">Amazon CA</a>, <a href="data/validation/amazon_US.json">Amazon US</a>, <a href="data/validation/yelp_canada_summary.json">Yelp Canada</a></li>
+    <li><a href="data/validation/statcan_io_summary.json">StatCan I-O 2023</a>, <a href="data/validation/bea_2017_summary.json">BEA detail 2017</a></li>
+  </ul>
+
+  <h2>Consolidated notes</h2>
+  <ul>
+    <li><a href="data/GENERAL_RESULTS_NOTE.md">GENERAL_RESULTS_NOTE.md</a> — all headline numbers</li>
+    <li><a href="data/EXHIBIT_economy_domain_2x2.md">EXHIBIT_economy_domain_2x2.md</a> — the 2×2</li>
+    <li><a href="data/GREY_CELL_BOARD.md">GREY_CELL_BOARD.md</a> — the evidence board</li>
+    <li><a href="data/validation/VALIDATION_CANONICAL.json">VALIDATION_CANONICAL.json</a> — every external-validation number (Amazon, Yelp, StatCan I-O, BEA) in one canonical file</li>
+  </ul>
+  <p class="muted" style="font-size:12.5px">Embeddings (parquet, large) are not bundled with the site; the embedding-analytics scripts on the <a href="code.html">Code</a> page regenerate everything from the census + embeddings.</p>
+</main>
+<div id="ftr"></div>
+<script src="assets/app.js"></script>
+<script>
+function L(href,txt){return '<li><a href="'+href+'">'+txt+'</a></li>';}
+function render(){
+  const C=CV2.get("country");
+  document.getElementById("econnote").textContent="Economy-specific files below resolve to: "+CV2.econName()+" ("+C+").";
+  document.getElementById("census").innerHTML=
+    L("data/meta_"+C+".json","meta_"+C+".json — category titles, sections, domain labels")+
+    L("data/census/census_complements_"+C+"_gpt-4o.json","census_complements_"+C+"_gpt-4o.json")+
+    L("data/census/census_complements_"+C+"_gemini-2.5-pro.json","census_complements_"+C+"_gemini-2.5-pro.json")+
+    L("data/census/consumer_final_xvendor_"+C+".csv","consumer_final_xvendor_"+C+".csv — cross-vendor consensus labels");
+  document.getElementById("analytics").innerHTML=
+    L("data/"+C+"_general_stats.json","general_stats — position spectrum + cosine AUC (+ _replication, _consensus)")+
+    L("data/"+C+"_rank.json","rank — percentile / retrieval AUC")+
+    L("data/"+C+"_probe.json","probe — learned read-out AUC")+
+    L("data/"+C+"_consumer_vs_production_xvendor.json","economy×domain 2×2 (cross-vendor cut; gpt-4o cut also in data/)");
+  document.getElementById("bundles").innerHTML=
+    L("data/coords2d_"+C+".json","coords2d_"+C+".json — UMAP 2-D positions")+
+    L("data/pairs_"+C+".json","pairs_"+C+".json — per-focal complements/substitutes with 4-model cosines")+
+    L("data/graph_"+C+".json","graph_"+C+".json — communities, hubs, reciprocity, edges");
+}
+window.addEventListener("cv2:ready",render);
+window.addEventListener("cv2:change",e=>{if(e.detail.key==="country")render();});
+</script>
+</body></html>

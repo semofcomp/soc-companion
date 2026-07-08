@@ -1,0 +1,194 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Analytics — The Semantics of Complementarity</title>
+<script>try{var s=JSON.parse(localStorage.getItem('cv2-state')||'{}');var t=s.theme||localStorage.getItem('site-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.toggle('light',t==='light');}catch(e){}</script>
+<link rel="stylesheet" href="assets/app.css">
+<link rel="stylesheet" href="assets/analytics.css">
+<script src="assets/vendor/plotly-2.27.0.min.js"></script>
+</head><body data-controls="none">
+<div id="hdr"></div>
+
+<div class="ax-secnav"><div class="inner">
+  <button data-t="s1" class="on"><span class="ax-secnum">1</span>Phenomenon</button>
+  <button data-t="s2"><span class="ax-secnum">2</span>Pathology</button>
+  <button data-t="s3"><span class="ax-secnum">3</span>The fix</button>
+  <button data-t="s4"><span class="ax-secnum">4</span>Generality</button>
+  <button data-t="s5"><span class="ax-secnum">5</span>Robustness</button>
+  <button data-t="s6"><span class="ax-secnum">6</span>Real-world</button>
+  <button data-t="s7"><span class="ax-secnum">7</span>Structure</button>
+</div></div>
+
+<main><div class="wrap"><div class="ax">
+
+  <span class="ax-eyebrow">Analytics</span>
+  <h1 class="ax-title">What text embeddings know about complementarity</h1>
+  <p class="ax-dek">Goods and services used <em>together</em> are present in embedding space — but not along the axis cosine similarity reads. Each section below carries its own exhibits and its full analysis; move through them in order, or jump to any one.</p>
+
+  <!-- 1 -->
+  <section class="ax-section pane on" id="s1">
+    <p class="ax-seceyebrow">The phenomenon · 1 of 7</p>
+    <h2 class="ax-sechead">Used together, not alike</h2>
+    <div class="ax-prose">
+      <p>Complementarity is the relationship between things consumed or produced <em>together</em> — bread and butter, lumber and nails, a flight and a hotel. It is not similarity, and the difference is the whole point. A category's <b>substitutes</b> are the things like it, the rivals you would choose instead; its <b>complements</b> are the things unlike it that you reach for alongside.</p>
+      <p>That split is visible in embedding space to the naked eye. Place every category by its embedding and a focal category's substitutes cluster tightly around it, while its complements scatter across the map — near in use, far in description.</p>
+    </div>
+    <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Two worked focals</p><p class="n">Each focal's complements (teal) and same‑class substitutes (coral), placed in the embedding map. Hover any point for its category.</p></div>
+      <div class="ax-cardbody"><div style="display:flex;gap:16px;flex-wrap:wrap">
+        <div style="flex:1 1 320px;min-width:280px"><div style="font-size:12.5px;font-weight:600;margin:0 0 2px">Nature‑park visits <span style="font-weight:400;color:var(--fg2)">· a consumption focal</span></div><div id="eg-np" class="ax-plot" style="height:330px"></div></div>
+        <div style="flex:1 1 320px;min-width:280px"><div style="font-size:12.5px;font-weight:600;margin:0 0 2px">Women's clothing at wholesale <span style="font-weight:400;color:var(--fg2)">· a production focal</span></div><div id="eg-wc" class="ax-plot" style="height:330px"></div></div>
+      </div></div></div>
+    <div class="ax-note"><div class="nh">How to read it</div>
+      <p>Each point is a category and the dark diamond is the focal; faint spokes tie the focal to its own neighbors. <b style="color:var(--coral)">Coral</b> points are same‑class <b>substitutes</b> — they sit almost on top of the focal, because by embedding geometry they look nearly identical to it. <b style="color:var(--teal)">Teal</b> points are <b>complements</b> — they fling out across the map, because what you use a category <em>with</em> reads nothing like the category itself. The coral huddle beside the teal scatter <em>is</em> the phenomenon, one focal at a time.</p></div>
+    <div class="ax-stats">
+      <div class="ax-stat"><div class="v">3,049</div><div class="l">Canadian NAPCS categories mapped</div></div>
+      <div class="ax-stat"><div class="v">908 / 1,931</div><div class="l">consumption / production categories</div></div>
+      <div class="ax-stat"><div class="v">15,925</div><div class="l">elicited complement pairs (census)</div></div>
+    </div>
+    <div class="ax-note"><div class="nh">What counts as each</div>
+      <p><b>Substitutes</b> are same‑class siblings — NAPCS neighbors sharing a six‑digit parent, interchangeable in use. <b>Complements</b> are cross‑class pairs an LLM census (GPT‑4o, ≈5.5 per focal) names as used together. The two are constructed to be disjoint, which is exactly what makes the test in §3 clean.</p></div>
+    <div class="ax-prose"><p>Across all 3,049 categories this scattering is the rule, not the exception — and the whole structure is browsable in the <a href="explore-3d.html">3‑D map</a>.</p></div>
+  </section>
+
+  <!-- 2 -->
+  <section class="ax-section pane" id="s2">
+    <p class="ax-seceyebrow">The pathology · 2 of 7</p>
+    <h2 class="ax-sechead">Cosine mistakes complements for strangers</h2>
+    <div class="ax-prose">
+      <p>If complements scatter, then cosine similarity — the default way to compare embeddings — should struggle to find them. It does not merely struggle; it fails systematically, and in an informative way.</p>
+      <p>Rank every relationship type by its mean cosine and a clean gradient appears: random pairs lowest, complements barely above them, then same‑group, then same‑class, with substitutes highest of all. Complements sit down near the noise floor — the things a category is used <em>with</em> look, to cosine, almost as unrelated as a category drawn at random.</p>
+    </div>
+    <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">The cosine gradient</p><p class="n">Mean cosine by relationship type, per representation.</p></div>
+      <div class="ax-cardbody"><div id="b-gradient" class="ax-plot sm"></div></div></div>
+    <div class="ax-note"><div class="nh">How to read it</div><p>Five bars per embedding; bar height is the <b>average cosine similarity</b> for that relationship. Read left to right: <b>random</b> pairs (grey) set the floor, <b>complements</b> (teal) sit barely above it, and <b>substitutes</b> (coral) tower over both. The gap that matters is teal‑vs‑coral — by cosine, a category's complements look almost as unrelated to it as random noise, while its substitutes look highly related. Cosine is measuring the wrong thing.</p></div>
+    <div class="ax-prose"><p>Turned into a decision the failure is not weak but <em>inverted</em>. Asked to separate complements from substitutes on cosine alone, every representation scores an AUC <em>below</em> the 0.50 coin‑flip line — worst of all for the transformer embeddings that are otherwise the strongest:</p></div>
+    <div class="ax-stats" id="b-cosauc"></div>
+    <div class="ax-note"><div class="nh">Why the transformers fail hardest</div>
+      <p>Gemini and OpenAI post the <b>lowest</b> cosine AUC (≈0.06). Their geometry packs same‑class substitutes extremely tightly — a strong similarity prior that is precisely what you want for synonymy and precisely what buries the cross‑class complement signal deepest. The sharper a model's sense of "alike," the more thoroughly complementarity is hidden — which is why, in §3, the probe recovers the most exactly there.</p></div>
+    <div class="ax-prose"><p>An AUC of 0.06 is not ignorance; it is <b>confident error</b>. By cosine, the average complement looks <em>less</em> related to its focal than a category drawn at random.</p></div>
+  </section>
+
+  <!-- 3 -->
+  <section class="ax-section pane" id="s3">
+    <p class="ax-seceyebrow">The fix · 3 of 7</p>
+    <h2 class="ax-sechead">Off the cosine axis</h2>
+    <div class="ax-prose">
+      <p>That leaves a sharp question. Is complementarity simply absent from the embedding — a real ceiling on what distributional meaning can carry — or is it present, just not along the one axis cosine reads? We test the second directly, and deliberately weakly.</p>
+      <p>We train a thin linear read‑out: a logistic regression over the <em>same</em> Gemini vectors, given only each pair's elementwise product and absolute difference, scored strictly out‑of‑fold so no focal appears in both training and test. One linear boundary — no new embedding, no fine‑tuning, no extra data.</p>
+    </div>
+    <div class="ax-stats">
+      <div class="ax-stat"><div class="v teal">0.91</div><div class="l">probe AUC — complements vs. substitutes</div></div>
+      <div class="ax-stat"><div class="v coral">0.08</div><div class="l">raw cosine AUC — below chance</div></div>
+      <div class="ax-stat"><div class="v">83%</div><div class="l">balanced accuracy at the cut‑off</div></div>
+      <div class="ax-stat"><div class="v">15,983 / 3,689</div><div class="l">complement / substitute pairs</div></div>
+    </div>
+    <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">The off‑axis scatter</p><p class="n">Every pair by cosine (x) and probe score (y). Hover any dot to read the pair.</p></div>
+      <div class="ax-cardbody"><div id="b-scatter" class="ax-plot"></div></div></div>
+    <div class="ax-note"><div class="nh">How to read it</div><p>Every dot is one pair — <b style="color:var(--teal)">teal</b> a focal and one of its complements, <b style="color:var(--coral)">coral</b> two same‑class substitutes. Left–right is raw cosine (how alike the embedding thinks they are); up–down is the probe's learned verdict (how complement‑like). Scan <b>across</b> and the colors are interleaved — cosine cannot separate them. Scan <b>up</b> and they fall into two bands — the probe can. <em>Same dots, two yardsticks.</em> The dashed line is the probe's decision threshold: call everything above it a complement and you are right 83% of the time.</p></div>
+    <div class="ax-prose"><p>Read left–right (cosine) the two classes sit on top of one another — that is the 0.08. Read up–down (the probe) they fall into two clean bands, split by the dashed cut‑off that alone recovers 83% balanced accuracy. The information was in the vectors the whole time; cosine just collapses the single direction that carries it.</p></div>
+    <p class="ax-pull">Complementarity lives in the geometry — only not along the direction similarity reads.</p>
+    <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">The same gap as ROC area</p><p class="n">Area under each curve = AUC.</p></div>
+      <div class="ax-cardbody"><div id="b-roc" class="ax-plot sm"></div></div></div>
+    <div class="ax-note"><div class="nh">How to read it — and what AUC means</div><p>AUC, in plain terms, is the chance that if you draw one complement and one substitute at random, the measure scores the complement higher. The probe's <b>0.91</b> means it ranks the complement above the substitute 91% of the time — almost always right. Cosine's <b>0.08</b> means it does so only 8% of the time — almost always <em>wrong</em>: a score below 0.50 is not "no signal," it is <b>reversed</b> signal (flip cosine's calls and you'd score 0.92). Each point on a curve is one threshold; the curve trades catching complements (up) against false alarms on substitutes (right). Perfect hugs the top‑left corner, the diagonal is a coin flip — and cosine bows the wrong way, below it.</p></div>
+    <div class="ax-prose"><p>As area under the ROC curve the gap is stark: the probe bows up to 0.91 while raw cosine sags <em>below</em> the chance diagonal to 0.08. Cosine is not blind to the comparison — it is inverted by it.</p></div>
+    <div class="ax-note"><div class="nh">How the read-out is built</div>
+      <p>Logistic regression on the elementwise product and |difference| of anisotropy‑corrected, PCA‑300 Gemini vectors — complement pairs against same‑subclass substitute pairs. Grouped <b>out‑of‑fold</b> by focal (GroupKFold), so the 0.91 is held‑out generalization, not memorization. The dashed line is Youden's optimal cut‑off; above it, a pair is called a complement.</p></div>
+    <div class="ax-note"><div class="nh">Complements cosine would never connect</div>
+      <p class="ax-muted">Real complement pairs the probe ranks high yet cosine places at near‑zero — or negative — similarity:</p>
+      <div id="b-pairs"></div></div>
+  </section>
+
+  <!-- 4 -->
+  <section class="ax-section pane" id="s4">
+    <p class="ax-seceyebrow">Generality · 4 of 7</p>
+    <h2 class="ax-sechead">It survives every cut</h2>
+    <div class="ax-prose"><p>A result this sharp invites a deflationary worry: is it an artifact of one economy, or one kind of category? We cut the data four ways — Canada and the United States, each split into consumption and production categories — and re‑ran the entire pathology‑and‑probe test in every cell.</p></div>
+    <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Economy × domain cross‑survival</p><p class="n">Cosine AUC (pathology) vs. probe AUC (recovery), Gemini.</p></div>
+      <div class="ax-cardbody"><div id="b-2x2"></div></div></div>
+    <div class="ax-note"><div class="nh">How to read it</div><p>One tile per slice of the data (economy × domain). In each, the short <b style="color:var(--coral)">coral</b> bar is the cosine AUC and the long <b style="color:var(--teal)">teal</b> bar is the probe AUC; 0.50 is the coin‑flip line. What matters is the <em>repetition</em> — coral stays well below 0.50 and teal well above it in all four tiles at once. The result does not depend on which economy or which kind of category you look at.</p></div>
+    <div class="ax-prose"><p>In all four cells the same shape holds: cosine well below 0.50, the probe well above. The magnitudes move — production is cleaner than consumption, Canada cleaner than the US — but the direction never does.</p></div>
+    <div class="ax-note"><div class="nh">Consumption vs. production exemplars</div>
+      <p>Canada is the richer <b>consumption</b> exemplar; the United States, roughly two‑thirds producer‑framed, is the <b>production</b> exemplar — and the finding survives the framing in both. Complementarity‑off‑the‑axis is not a quirk of one market or one accounting tradition. The interactive version is on the <a href="generality.html">Generality</a> page.</p></div>
+  </section>
+
+  <!-- 5 -->
+  <section class="ax-section pane" id="s5">
+    <p class="ax-seceyebrow">Robustness &amp; transparency · 5 of 7</p>
+    <h2 class="ax-sechead">Pressure-tested</h2>
+    <div class="ax-prose">
+      <p>Beyond the 2×2, the result is stressed along three further axes — representation, generator, and dose — and the whole audit is kept in the open.</p>
+      <p><b>Representation.</b> The pathology‑and‑recovery holds across all four embeddings, and is sharpest exactly where it should be: the two transformers are the worst on cosine and the best under the probe.</p>
+    </div>
+    <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Representation report card</p><p class="n">Cosine vs. probe AUC across four embeddings.</p></div>
+      <div class="ax-cardbody"><div id="b-report"></div></div></div>
+    <div class="ax-note"><div class="nh">How to read it</div><p>One row per embedding. The <b style="color:var(--coral)">cosine</b> column is how well raw similarity separates complements from substitutes (all far below 0.50 — the pathology); the <b style="color:var(--teal)">probe</b> column is how well the learned read‑out does (all far above); "gain" is the distance between them. The two transformer rows are the tell — they have the <em>lowest</em> cosine and the <em>highest</em> probe. The failure and the fix are sharpest in exactly the same place.</p></div>
+    <div class="ax-prose"><p><b>Dose.</b> The signal is graded, not binary: the higher the generator ranked a complement, the higher its cosine percentile — a smooth decline from first‑listed to sixth across every representation.</p></div>
+    <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Dose–response</p><p class="n">Mean cosine percentile by the generator's rank of the complement.</p></div>
+      <div class="ax-cardbody"><div id="b-dose" class="ax-plot sm"></div></div></div>
+    <div class="ax-note"><div class="nh">How to read it</div><p>Each line is one embedding. The x‑axis is how early the generator listed a complement (1 = named first, most confident); the y‑axis is that complement's average cosine percentile. The lines slope <em>down</em> left‑to‑right — complements the generator was surest of also sit higher by similarity. A graded dose–response like this is hard to fake: it means the census is tracking a real, continuous signal rather than flipping a coin.</p></div>
+    <div class="ax-prose"><p>And the audit stays in the open. The evidence board tracks every claim, economy by economy, caveats marked rather than hidden:</p></div>
+    <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Evidence board</p><p class="n">Blue clears the benchmark · amber caveated · grey outstanding.</p></div>
+      <div class="ax-cardbody"><div id="b-evid"></div></div></div>
+    <div class="ax-note"><div class="nh">Generator agreement (κ)</div>
+      <p>Re‑eliciting the whole census with Gemini agrees with GPT‑4o on the product/service label at <b>κ = 0.91</b> (95.6% raw agreement) — "almost perfect" by the usual benchmarks — and the GPT‑4o ∩ Gemini consensus census reproduces every headline. The finding is not an artifact of one model's idiosyncrasies.</p></div>
+  </section>
+
+  <!-- 6 -->
+  <section class="ax-section pane" id="s6">
+    <p class="ax-seceyebrow">External validation · 6 of 7</p>
+    <h2 class="ax-sechead">Does the world agree?</h2>
+    <div class="ax-prose"><p>The census is model‑elicited, so the last question is whether it tracks anything outside the model. We check it against two kinds of external ground truth: behavior and the economy.</p></div>
+    <div id="b-valid" style="margin:16px 0"></div>
+    <div class="ax-prose">
+      <p><b>Behavior.</b> Amazon co‑purchase (also‑buy / also‑view lift) and Yelp co‑occurrence both recover the complement signal above chance. <b>Economy.</b> The StatCan and BEA input–output accounts — independent, authoritative maps of what industries actually use together — agree as well.</p>
+    </div>
+    <div class="ax-callout"><span class="ic">!</span><div>The limits are stated plainly, not buried: US production validation leans on the Canadian StatCan tables, with BEA reproduced under crosswalk limits; and US Amazon concordance is attenuated by coarse category mapping. The convergent evidence is real and the caveats are documented — full detail on the <a href="validation.html">Validation</a> page.</div></div>
+  </section>
+
+  <!-- 7 -->
+  <section class="ax-section pane" id="s7">
+    <p class="ax-seceyebrow">The structure it unlocks · 7 of 7</p>
+    <h2 class="ax-sechead">A map of the economy's complements</h2>
+    <div class="ax-prose"><p>Once complementarity is recoverable, the census stops being a list and becomes a graph — every category pointing to the things used alongside it. That graph turns out to have real economic structure.</p></div>
+    <div id="b-graph" style="margin:16px 0"></div>
+    <div class="ax-prose"><p>It partitions into fifteen dense community‑clusters at high modularity (0.55) — coherent supply‑and‑use neighborhoods, not noise. A handful of hub categories anchor whole chains: Drafting services alone is named a complement by 414 others. And complementarity is overwhelmingly <em>one‑directional</em> — only 3.3% of links are mutual, the rare pairs that each name the other (accounting and financial‑management consulting among them).</p></div>
+    <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Complements cosine would never connect</p><p class="n">Real pairs the probe ranks high at near‑zero similarity.</p></div>
+      <div class="ax-cardbody"><div id="b-leader"></div></div></div>
+    <div class="ax-callout"><span class="ic">→</span><div>Explore the whole graph directly: <a href="explore-3d.html">3‑D Graph</a> · <a href="explore-2d.html">2‑D Graph</a> · <a href="ecosystems.html">Community Clusters</a> · <a href="reciprocity.html">Reciprocity</a>.</div></div>
+  </section>
+
+</div></div></main>
+<div id="ftr"></div>
+<script src="assets/app.js"></script>
+<script src="assets/analytics-exhibits.js"></script>
+<script>
+function esc(s){return (s||'').replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+function bPairs(d){var el=document.getElementById('b-pairs');if(!el)return;
+  var c=d.points.filter(function(p){return p.t==='c'&&p.x<0.12&&p.y>d.cutoff;}).sort(function(a,b){return a.x-b.x;}).slice(0,5);
+  el.innerHTML=c.map(function(p){return '<div class="ax-pair"><span class="dot" style="background:var(--teal)"></span><span><b>'+esc(p.f)+'</b> + '+esc(p.p)+'</span><span class="num">cos '+p.x.toFixed(2)+'</span></div>';}).join('')||'<span class="ax-muted">—</span>';}
+var rendered={};
+var RENDER={
+  s1:function(){AX.get('data/ego_CA.json').then(function(e){AX.egonet('eg-np',e['8325115']);AX.egonet('eg-wc',e['5511412']);});},
+  s2:function(){AX.gradient('b-gradient');AX.cosineAUCtiles('b-cosauc');},
+  s3:function(){AX.load('CA').then(function(d){AX.offaxis('b-scatter',d);AX.roc('b-roc',d);bPairs(d);});},
+  s4:function(){AX.twobytwo('b-2x2');},
+  s5:function(){AX.reportcard('b-report');AX.dose('b-dose');AX.evidenceBoard('b-evid');},
+  s6:function(){AX.validationCards('b-valid');},
+  s7:function(){AX.graphStats('b-graph');AX.load('CA').then(function(d){AX.leaderboard('b-leader',d);});}
+};
+function show(id,scroll){
+  document.querySelectorAll('.ax-section.pane').forEach(function(p){p.classList.toggle('on',p.id===id);});
+  document.querySelectorAll('.ax-secnav button').forEach(function(b){b.classList.toggle('on',b.dataset.t===id);});
+  if(!rendered[id]){rendered[id]=1;if(RENDER[id])RENDER[id]();}
+  setTimeout(function(){if(window.Plotly){document.querySelectorAll('#'+id+' .ax-plot').forEach(function(el){if(el.data)Plotly.Plots.resize(el);});}},40);
+  if(scroll){window.scrollTo({top:0,behavior:'auto'});}
+  history.replaceState(null,'',location.pathname+location.search+'#'+id);
+}
+function place(){var hdr=document.getElementById('hdr'),nav=document.querySelector('.ax-secnav');if(hdr&&nav)nav.style.top=hdr.offsetHeight+'px';}
+window.addEventListener('cv2:ready',function(){
+  place();setTimeout(place,140);window.addEventListener('resize',place);
+  document.querySelectorAll('.ax-secnav button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t,true);});});
+  var init=(location.hash||'#s1').replace('#','');if(!document.getElementById(init))init='s1';
+  show(init,false);
+});
+</script>
+</body></html>

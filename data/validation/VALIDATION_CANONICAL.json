@@ -1,0 +1,3766 @@
+{
+ "_meta": {
+  "generated_by": "analytics-general/build_validation_canonical.py",
+  "policy": "single source of truth for every Section-7 number cited in the paper, e-companion, or site"
+ },
+ "amazon": {
+  "CA": {
+   "claimA": {
+    "provenance": "General gpt-4o census. Reuses amazon_category_pair_lift.parquet (also_buy + also_view); only census + re-derived anchors are new.",
+    "dataset": "Amazon Product Co-purchase Graph (also_buy / also_view lift between leaf categories)",
+    "economy": "CA",
+    "granularity": "Amazon leaf category (cid)",
+    "n_napcs_categories": 3049,
+    "n_mapped_napcs_codes": 132,
+    "anchors": "substitute=taxonomic (CA 6-digit prefix / US trilateral_code, both mapped); random=within mapped slice, seed 42",
+    "coverage": {
+     "complements_gpt4o": {
+      "pairs": 15660,
+      "both_mapped": 58
+     },
+     "substitutes_taxonomic": {
+      "pairs": 24,
+      "both_mapped": 24
+     },
+     "random_within_slice": {
+      "pairs": 5000,
+      "both_mapped": 5000
+     }
+    },
+    "claim_A": {
+     "complements_gpt4o": {
+      "n": 58,
+      "linked_pct": 34.5,
+      "mean_buy_lift_linked": 680.44,
+      "median_buy_lift_linked": 15.75,
+      "mean_buy_lift_linked_ci": [
+       78.7224,
+       1712.5657
+      ]
+     },
+     "substitutes_taxonomic": {
+      "n": 24,
+      "linked_pct": 41.7,
+      "mean_buy_lift_linked": 480.8,
+      "median_buy_lift_linked": 66.3,
+      "mean_buy_lift_linked_ci": [
+       48.8438,
+       929.6507
+      ]
+     },
+     "random_within_slice": {
+      "n": 5000,
+      "linked_pct": 6.9,
+      "mean_buy_lift_linked": 1006.12,
+      "median_buy_lift_linked": 8.9,
+      "mean_buy_lift_linked_ci": [
+       274.7504,
+       2105.2595
+      ]
+     },
+     "auc_complement_vs_random": {
+      "auc": 0.66,
+      "ci": [
+       0.551,
+       0.768
+      ]
+     },
+     "auc_complement_vs_substitute": {
+      "auc": 0.385,
+      "ci": [
+       0.17,
+       0.605
+      ]
+     }
+    },
+    "claim_A_prime": {
+     "table_2x2": {
+      "C_ab": 14,
+      "C_av": 7,
+      "S_ab": 5,
+      "S_av": 8
+     },
+     "cohens_kappa": 0.274,
+     "odds_ratio": 2.988,
+     "fisher_p": 0.1596,
+     "also_buy_share_complements": 0.615,
+     "also_buy_share_substitutes": 0.449,
+     "mann_whitney_p_comp_gt_sub": 0.0966,
+     "auc_abshare_comp_vs_sub": 0.636
+    },
+    "claim_B": {
+     "n_behavioral_complement_pairs": 155,
+     "n_behavioral_substitute_pairs": 74,
+     "per_model": {
+      "tfidf": {
+       "mean_cos_complement": 0.0895,
+       "mean_cos_substitute": 0.152,
+       "n_comp": 144,
+       "n_sub": 72,
+       "auc_substitute_over_complement": 0.545,
+       "auc_95ci": [
+        0.478,
+        0.609
+       ]
+      },
+      "glove": {
+       "mean_cos_complement": 0.4584,
+       "mean_cos_substitute": 0.5234,
+       "n_comp": 155,
+       "n_sub": 74,
+       "auc_substitute_over_complement": 0.597,
+       "auc_95ci": [
+        0.511,
+        0.678
+       ]
+      },
+      "gemini": {
+       "mean_cos_complement": 0.8235,
+       "mean_cos_substitute": 0.8373,
+       "n_comp": 155,
+       "n_sub": 74,
+       "auc_substitute_over_complement": 0.584,
+       "auc_95ci": [
+        0.498,
+        0.665
+       ]
+      },
+      "openai": {
+       "mean_cos_complement": 0.4026,
+       "mean_cos_substitute": 0.4381,
+       "n_comp": 155,
+       "n_sub": 74,
+       "auc_substitute_over_complement": 0.548,
+       "auc_95ci": [
+        0.459,
+        0.623
+       ]
+      }
+     }
+    },
+    "coverage_consumer_vs_production": {
+     "n_mapped": 132,
+     "consumer_final": 69,
+     "non_consumer_or_production": 63,
+     "label_breakdown": {
+      "non_consumer": 56,
+      "consumer_final": 69,
+      "REVIEW": 7
+     },
+     "pct_consumer": 52.3
+    }
+   },
+   "claimB_mutual_exclusion": {
+    "n_comp_pairs": 85,
+    "n_sub_pairs": 26,
+    "per_model": {
+     "tfidf": {
+      "auc_sub_over_comp": 0.528,
+      "auc_95ci": [
+       0.441,
+       0.621
+      ]
+     },
+     "glove": {
+      "auc_sub_over_comp": 0.659,
+      "auc_95ci": [
+       0.546,
+       0.767
+      ]
+     },
+     "gemini": {
+      "auc_sub_over_comp": 0.59,
+      "auc_95ci": [
+       0.476,
+       0.699
+      ]
+     },
+     "openai": {
+      "auc_sub_over_comp": 0.551,
+      "auc_95ci": [
+       0.43,
+       0.669
+      ]
+     }
+    }
+   }
+  },
+  "US": {
+   "claimA": {
+    "provenance": "General gpt-4o census. Reuses amazon_category_pair_lift.parquet (also_buy + also_view); only census + re-derived anchors are new.",
+    "dataset": "Amazon Product Co-purchase Graph (also_buy / also_view lift between leaf categories)",
+    "economy": "US",
+    "granularity": "Amazon leaf category (cid)",
+    "n_napcs_categories": 3520,
+    "n_mapped_napcs_codes": 113,
+    "anchors": "substitute=taxonomic (CA 6-digit prefix / US trilateral_code, both mapped); random=within mapped slice, seed 42",
+    "coverage": {
+     "complements_gpt4o": {
+      "pairs": 18150,
+      "both_mapped": 46
+     },
+     "substitutes_taxonomic": {
+      "pairs": 116,
+      "both_mapped": 116
+     },
+     "random_within_slice": {
+      "pairs": 5000,
+      "both_mapped": 5000
+     }
+    },
+    "claim_A": {
+     "complements_gpt4o": {
+      "n": 46,
+      "linked_pct": 37.0,
+      "mean_buy_lift_linked": 2374.43,
+      "median_buy_lift_linked": 2480.53,
+      "mean_buy_lift_linked_ci": [
+       1848.1955,
+       2870.7801
+      ]
+     },
+     "substitutes_taxonomic": {
+      "n": 116,
+      "linked_pct": 86.2,
+      "mean_buy_lift_linked": 2869.66,
+      "median_buy_lift_linked": 2480.53,
+      "mean_buy_lift_linked_ci": [
+       2382.8274,
+       3429.9921
+      ]
+     },
+     "random_within_slice": {
+      "n": 5000,
+      "linked_pct": 7.5,
+      "mean_buy_lift_linked": 2099.13,
+      "median_buy_lift_linked": 2346.5,
+      "mean_buy_lift_linked_ci": [
+       1870.1541,
+       2358.6239
+      ]
+     },
+     "auc_complement_vs_random": {
+      "auc": 0.626,
+      "ci": [
+       0.531,
+       0.712
+      ]
+     },
+     "auc_complement_vs_substitute": {
+      "auc": 0.481,
+      "ci": [
+       0.362,
+       0.603
+      ]
+     }
+    },
+    "claim_A_prime": {
+     "table_2x2": {
+      "C_ab": 12,
+      "C_av": 8,
+      "S_ab": 56,
+      "S_av": 49
+     },
+     "cohens_kappa": 0.034,
+     "odds_ratio": 1.288,
+     "fisher_p": 0.6318,
+     "also_buy_share_complements": 0.493,
+     "also_buy_share_substitutes": 0.499,
+     "mann_whitney_p_comp_gt_sub": 0.4125,
+     "auc_abshare_comp_vs_sub": 0.516
+    },
+    "claim_B": {
+     "n_behavioral_complement_pairs": 285,
+     "n_behavioral_substitute_pairs": 115,
+     "per_model": {
+      "tfidf": {
+       "mean_cos_complement": 0.0968,
+       "mean_cos_substitute": 0.0879,
+       "n_comp": 285,
+       "n_sub": 115,
+       "auc_substitute_over_complement": 0.392,
+       "auc_95ci": [
+        0.33,
+        0.456
+       ]
+      },
+      "glove": {
+       "mean_cos_complement": 0.7068,
+       "mean_cos_substitute": 0.6397,
+       "n_comp": 285,
+       "n_sub": 115,
+       "auc_substitute_over_complement": 0.372,
+       "auc_95ci": [
+        0.314,
+        0.438
+       ]
+      },
+      "gemini": {
+       "mean_cos_complement": 0.8522,
+       "mean_cos_substitute": 0.8388,
+       "n_comp": 285,
+       "n_sub": 115,
+       "auc_substitute_over_complement": 0.407,
+       "auc_95ci": [
+        0.346,
+        0.474
+       ]
+      },
+      "openai": {
+       "mean_cos_complement": 0.4917,
+       "mean_cos_substitute": 0.4304,
+       "n_comp": 285,
+       "n_sub": 115,
+       "auc_substitute_over_complement": 0.372,
+       "auc_95ci": [
+        0.311,
+        0.439
+       ]
+      }
+     }
+    },
+    "coverage_consumer_vs_production": {
+     "n_mapped": 113,
+     "consumer_final": 21,
+     "non_consumer_or_production": 92,
+     "label_breakdown": {
+      "non_consumer": 76,
+      "consumer_final": 21,
+      "REVIEW": 16
+     },
+     "pct_consumer": 18.6
+    }
+   },
+   "claimB_mutual_exclusion": {
+    "n_comp_pairs": 91,
+    "n_sub_pairs": 55,
+    "per_model": {
+     "tfidf": {
+      "auc_sub_over_comp": 0.532,
+      "auc_95ci": [
+       0.435,
+       0.626
+      ]
+     },
+     "glove": {
+      "auc_sub_over_comp": 0.541,
+      "auc_95ci": [
+       0.44,
+       0.639
+      ]
+     },
+     "gemini": {
+      "auc_sub_over_comp": 0.595,
+      "auc_95ci": [
+       0.506,
+       0.692
+      ]
+     },
+     "openai": {
+      "auc_sub_over_comp": 0.599,
+      "auc_95ci": [
+       0.501,
+       0.689
+      ]
+     }
+    }
+   }
+  }
+ },
+ "amazon_concordance": {
+  "CA": {
+   "all": {
+    "label": "all",
+    "n_pairs": 35,
+    "kappa": 0.337,
+    "n_clean_codes": 107,
+    "n_mapped_codes": 132,
+    "clean_frac": 0.811
+   },
+   "clean_subset": {
+    "label": "clean",
+    "n_pairs": 19,
+    "kappa": 0.273,
+    "n_clean_codes": 107,
+    "n_mapped_codes": 132,
+    "clean_frac": 0.811
+   },
+   "consumer_final": {
+    "label": "consumer_final",
+    "n_pairs": 23,
+    "kappa": 0.27,
+    "n_clean_codes": 107,
+    "n_mapped_codes": 132,
+    "clean_frac": 0.811
+   }
+  },
+  "US": {
+   "all": {
+    "label": "all",
+    "n_pairs": 103,
+    "kappa": 0.013,
+    "n_clean_codes": 47,
+    "n_mapped_codes": 113,
+    "clean_frac": 0.416
+   },
+   "clean_subset": {
+    "label": "clean",
+    "n_pairs": 6,
+    "kappa": 1.0,
+    "n_clean_codes": 47,
+    "n_mapped_codes": 113,
+    "clean_frac": 0.416
+   },
+   "consumer_final": {
+    "label": "consumer_final",
+    "n_pairs": 5,
+    "kappa": null,
+    "n_clean_codes": 47,
+    "n_mapped_codes": 113,
+    "clean_frac": 0.416
+   }
+  }
+ },
+ "yelp_CA_main": {
+  "provenance": "General gpt-4o census. PARTIAL recovered Yelp co-visitation aggregate (recoverable-lift coverage reported honestly).",
+  "dataset": "Yelp Open Dataset (user co-visitation lift between business categories; partial recovery)",
+  "economy": "CA",
+  "granularity": "Yelp business category",
+  "n_napcs_categories": 3049,
+  "n_mapped_napcs_codes": 916,
+  "n_yelp_categories_in_covisit_table": 198,
+  "n_covisit_pairs_available": 1044,
+  "anchors": "substitute=taxonomic (CA 6-digit prefix / US trilateral_code, both mapped); random=within mapped slice, seed 42",
+  "claim_A": {
+   "complements_gpt4o": {
+    "label": "complements_gpt4o",
+    "n_pairs_total": 15660,
+    "n_both_mapped": 2368,
+    "n_recoverable_lift": 1457,
+    "recoverable_coverage_pct": 61.5,
+    "mean_lift": 38.1374,
+    "median_lift": 7.2906,
+    "pct_cooccur": 98.1,
+    "mean_lift_ci": [
+     32.7366,
+     43.7671
+    ]
+   },
+   "substitutes_taxonomic": {
+    "label": "substitutes_taxonomic",
+    "n_pairs_total": 586,
+    "n_both_mapped": 586,
+    "n_recoverable_lift": 130,
+    "recoverable_coverage_pct": 22.2,
+    "mean_lift": 44.9299,
+    "median_lift": 7.6616,
+    "pct_cooccur": 98.5,
+    "mean_lift_ci": [
+     22.7278,
+     75.2053
+    ]
+   },
+   "random_within_slice": {
+    "label": "random_within_slice",
+    "n_pairs_total": 5000,
+    "n_both_mapped": 5000,
+    "n_recoverable_lift": 1497,
+    "recoverable_coverage_pct": 29.9,
+    "mean_lift": 9.5349,
+    "median_lift": 5.0924,
+    "pct_cooccur": 98.1,
+    "mean_lift_ci": [
+     8.527,
+     10.6648
+    ]
+   },
+   "auc_complement_vs_random": {
+    "auc": 0.632,
+    "ci": [
+     0.613,
+     0.655
+    ]
+   },
+   "auc_complement_vs_substitute": {
+    "auc": 0.488,
+    "ci": [
+     0.442,
+     0.544
+    ]
+   },
+   "breakout": {
+    "service_pairs": {
+     "n": 952,
+     "mean_lift": 49.6367,
+     "pct_cooccur": 97.5
+    },
+    "product_service_pairs": {
+     "n": 505,
+     "mean_lift": 16.4596,
+     "pct_cooccur": 99.2
+    }
+   }
+  },
+  "claim_B": {
+   "n_behavioral_complement_pairs": 1429,
+   "n_behavioral_substitute_pairs": 586,
+   "per_model": {
+    "tfidf": {
+     "mean_cos_complement": 0.0749,
+     "mean_cos_substitute": 0.4166,
+     "n_comp": 1415,
+     "n_sub": 565,
+     "auc_substitute_over_complement": 0.872,
+     "auc_95ci": [
+      0.851,
+      0.892
+     ]
+    },
+    "glove": {
+     "mean_cos_complement": 0.7042,
+     "mean_cos_substitute": 0.7956,
+     "n_comp": 1429,
+     "n_sub": 586,
+     "auc_substitute_over_complement": 0.698,
+     "auc_95ci": [
+      0.665,
+      0.723
+     ]
+    },
+    "gemini": {
+     "mean_cos_complement": 0.806,
+     "mean_cos_substitute": 0.8943,
+     "n_comp": 1429,
+     "n_sub": 586,
+     "auc_substitute_over_complement": 0.947,
+     "auc_95ci": [
+      0.937,
+      0.956
+     ]
+    },
+    "openai": {
+     "mean_cos_complement": 0.3582,
+     "mean_cos_substitute": 0.6398,
+     "n_comp": 1429,
+     "n_sub": 586,
+     "auc_substitute_over_complement": 0.937,
+     "auc_95ci": [
+      0.925,
+      0.948
+     ]
+    }
+   }
+  },
+  "coverage_consumer_vs_production": {
+   "n_mapped": 916,
+   "consumer_final": 313,
+   "non_consumer_or_production": 603,
+   "label_breakdown": {
+    "consumer_final": 313,
+    "non_consumer": 536,
+    "REVIEW": 67
+   },
+   "pct_consumer": 34.2
+  }
+ },
+ "yelp_US_main": {
+  "provenance": "General gpt-4o census. PARTIAL recovered Yelp co-visitation aggregate (recoverable-lift coverage reported honestly).",
+  "dataset": "Yelp Open Dataset (user co-visitation lift between business categories; partial recovery)",
+  "economy": "US",
+  "granularity": "Yelp business category",
+  "n_napcs_categories": 3520,
+  "n_mapped_napcs_codes": 987,
+  "n_yelp_categories_in_covisit_table": 198,
+  "n_covisit_pairs_available": 1044,
+  "anchors": "substitute=taxonomic (CA 6-digit prefix / US trilateral_code, both mapped); random=within mapped slice, seed 42",
+  "claim_A": {
+   "complements_gpt4o": {
+    "label": "complements_gpt4o",
+    "n_pairs_total": 18150,
+    "n_both_mapped": 2336,
+    "n_recoverable_lift": 917,
+    "recoverable_coverage_pct": 39.3,
+    "mean_lift": 41.5299,
+    "median_lift": 7.5647,
+    "pct_cooccur": 98.6,
+    "mean_lift_ci": [
+     33.7363,
+     50.1178
+    ]
+   },
+   "substitutes_taxonomic": {
+    "label": "substitutes_taxonomic",
+    "n_pairs_total": 3205,
+    "n_both_mapped": 3205,
+    "n_recoverable_lift": 623,
+    "recoverable_coverage_pct": 19.4,
+    "mean_lift": 12.6825,
+    "median_lift": 8.8939,
+    "pct_cooccur": 99.7,
+    "mean_lift_ci": [
+     11.2784,
+     14.2391
+    ]
+   },
+   "random_within_slice": {
+    "label": "random_within_slice",
+    "n_pairs_total": 5000,
+    "n_both_mapped": 5000,
+    "n_recoverable_lift": 1484,
+    "recoverable_coverage_pct": 29.7,
+    "mean_lift": 7.4491,
+    "median_lift": 5.2335,
+    "pct_cooccur": 99.1,
+    "mean_lift_ci": [
+     6.6443,
+     8.3952
+    ]
+   },
+   "auc_complement_vs_random": {
+    "auc": 0.654,
+    "ci": [
+     0.632,
+     0.677
+    ]
+   },
+   "auc_complement_vs_substitute": {
+    "auc": 0.504,
+    "ci": [
+     0.474,
+     0.534
+    ]
+   },
+   "breakout": {
+    "service_pairs": {
+     "n": 589,
+     "mean_lift": 55.9737,
+     "pct_cooccur": 99.2
+    },
+    "product_service_pairs": {
+     "n": 328,
+     "mean_lift": 15.5928,
+     "pct_cooccur": 97.6
+    }
+   }
+  },
+  "claim_B": {
+   "n_behavioral_complement_pairs": 904,
+   "n_behavioral_substitute_pairs": 3205,
+   "per_model": {
+    "tfidf": {
+     "mean_cos_complement": 0.0645,
+     "mean_cos_substitute": 0.2215,
+     "n_comp": 904,
+     "n_sub": 3205,
+     "auc_substitute_over_complement": 0.828,
+     "auc_95ci": [
+      0.812,
+      0.844
+     ]
+    },
+    "glove": {
+     "mean_cos_complement": 0.6686,
+     "mean_cos_substitute": 0.7603,
+     "n_comp": 904,
+     "n_sub": 3205,
+     "auc_substitute_over_complement": 0.715,
+     "auc_95ci": [
+      0.698,
+      0.732
+     ]
+    },
+    "gemini": {
+     "mean_cos_complement": 0.8185,
+     "mean_cos_substitute": 0.8742,
+     "n_comp": 904,
+     "n_sub": 3205,
+     "auc_substitute_over_complement": 0.851,
+     "auc_95ci": [
+      0.836,
+      0.866
+     ]
+    },
+    "openai": {
+     "mean_cos_complement": 0.3854,
+     "mean_cos_substitute": 0.5767,
+     "n_comp": 904,
+     "n_sub": 3205,
+     "auc_substitute_over_complement": 0.885,
+     "auc_95ci": [
+      0.872,
+      0.897
+     ]
+    }
+   }
+  },
+  "coverage_consumer_vs_production": {
+   "n_mapped": 987,
+   "consumer_final": 167,
+   "non_consumer_or_production": 820,
+   "label_breakdown": {
+    "non_consumer": 684,
+    "consumer_final": 167,
+    "REVIEW": 136
+   },
+   "pct_consumer": 16.9
+  }
+ },
+ "yelp_CA_edmonton": {
+  "feasibility": {
+   "total_businesses": 150346,
+   "canadian_businesses": 5573,
+   "provinces": {
+    "AB": 5573
+   },
+   "metros": "Edmonton CMA only (Edmonton + Sherwood Park, St. Albert, Beaumont, Spruce Grove)",
+   "unique_yelp_categories_CA": 727,
+   "cats_ge5_biz": 396,
+   "feasible": true,
+   "caveat": "Single metro (Edmonton, AB). Above the ~2000-business / category bar, so feasible, but geographically narrow."
+  },
+  "covisitation_stream": {
+   "reviews_scanned": 5863626,
+   "canadian_reviews_kept": 92570,
+   "canadian_users": 21391,
+   "categories_with_users": 715,
+   "coverage_note": "~84% of the ~6.99M-review file streamed in one decompress window; isal stream non-resumable across sandbox calls and full stream (~55s) exceeds the ~45s ceiling, so last ~16% not reached. Edmonton reviews are date-interleaved (not geographically clustered), so the kept set is a representative sample."
+  },
+  "crosswalk_coverage": {
+   "napcs_codes_mapped": 916,
+   "distinct_yelp_labels": 205,
+   "labels_present_in_CA_covis": 162,
+   "labels_ge10_users": 150
+  },
+  "claimA": {
+   "denominator_users": 21391,
+   "all_gpt4o": {
+    "n_census_pairs": 15983,
+    "n_mapped": 1466,
+    "mean_lift": [
+     37.51331934395832,
+     31.92179663402414,
+     43.559379613503836
+    ],
+    "pct_covisited": [
+     0.897680763983629,
+     0.882656889495225,
+     0.9127046384720326
+    ],
+    "AUC_vs_random": [
+     0.5790556558586438,
+     0.5616583879978335,
+     0.5958006533406128
+    ]
+   },
+   "service_gpt4o": {
+    "n_census_pairs": 8470,
+    "n_mapped": 1127,
+    "mean_lift": [
+     40.2126899257472,
+     33.91558031799253,
+     46.82952683793359
+    ],
+    "pct_covisited": [
+     0.878438331854481,
+     0.8598047914818101,
+     0.8988464951197871
+    ],
+    "AUC_vs_random": [
+     0.5807769392010851,
+     0.560837831594831,
+     0.601072510343562
+    ]
+   },
+   "product_service_gpt4o": {
+    "n_census_pairs": 4226,
+    "n_mapped": 392,
+    "mean_lift": [
+     21.34701325651014,
+     16.97932476483345,
+     26.08836936874829
+    ],
+    "pct_covisited": 0.9387755102040817,
+    "AUC_vs_random": [
+     0.5610891755614084,
+     0.5306068632315,
+     0.5922180528366046
+    ]
+   },
+   "all_mini": {
+    "n_census_pairs": 16333,
+    "n_mapped": 1509,
+    "mean_lift": [
+     30.27777061362071,
+     25.995011196121773,
+     35.11190631413381
+    ],
+    "pct_covisited": [
+     0.9012591119946984,
+     0.8853545394300861,
+     0.9158383035122598
+    ],
+    "AUC_vs_random": [
+     0.5716303683306316,
+     0.555101944244339,
+     0.5895334483947439
+    ]
+   },
+   "substitute": {
+    "n_mapped": 202,
+    "mean_lift": [
+     31.043890944429002,
+     24.117584719087642,
+     39.464193684777086
+    ],
+    "pct_covisited": [
+     0.9603960396039604,
+     0.9306930693069307,
+     0.9851485148514851
+    ]
+   },
+   "random": {
+    "n_mapped": 14428,
+    "mean_lift": [
+     11.681584337388383,
+     11.237941278250805,
+     12.16169300782109
+    ],
+    "pct_covisited": [
+     0.936581646797893,
+     0.9323537565844192,
+     0.9403261020238425
+    ]
+   }
+  },
+  "claimB": {
+   "behavioral_complements": 488,
+   "substitutes": 586,
+   "tercile_threshold_lift": 16.892738923096783,
+   "AUC_convention": "P(substitute cosine > complement cosine)",
+   "gemini": {
+    "auc": [
+     0.9280525303530465,
+     0.9136255630000559,
+     0.942596986376098
+    ],
+    "comp_cos": 0.8125238353844548,
+    "sub_cos": 0.8942889089063573
+   },
+   "openai": {
+    "auc": [
+     0.9126111033402339,
+     0.8962841996307279,
+     0.9279676397359145
+    ],
+    "comp_cos": 0.3844222005487221,
+    "sub_cos": 0.6398480045815783
+   },
+   "glove": {
+    "auc": [
+     0.6887460589996084,
+     0.6565830792256476,
+     0.7211193210429139
+    ],
+    "comp_cos": 0.7135495956840192,
+    "sub_cos": 0.7956079855154399
+   },
+   "tfidf": {
+    "auc": [
+     0.8441177491887204,
+     0.8194564164521905,
+     0.8685656699350977
+    ],
+    "comp_cos": 0.05920827672242532,
+    "sub_cos": 0.36334491524349144
+   }
+  },
+  "comparison_prior_mostly_US": {
+   "claimA_AUC_prior": "~0.62-0.65",
+   "claimA_AUC_CA": 0.579,
+   "claimB_prior": "gemini/openai ~0.90-0.93",
+   "claimB_CA": {
+    "gemini": 0.928,
+    "openai": 0.913
+   }
+  }
+ },
+ "statcan_io_CA": {
+  "provenance": {
+   "source": "StatCan 36-10-0001 (Input-Output tables, detail level), Symmetric I-O.",
+   "geo": "Canada",
+   "year": "2023",
+   "valuation": "Basic price",
+   "construct": "Cross-industry CO-USE + sector supply-chain linkage; CONVERGENT supply-side evidence for PRODUCTION complementarity.",
+   "matrix": {
+    "year": "2023",
+    "valuation": "Basic price",
+    "n_sectors": 260,
+    "n_using_industries": 252,
+    "n_final_demand_cols": 306,
+    "n_intermediate_cells": 57573,
+    "couse_shape": [
+     260,
+     260
+    ],
+    "sc_shape": [
+     260,
+     260
+    ]
+   },
+   "census": "general-rubric census, primary gpt-4o, Canada (7-digit NAPCS).",
+   "production_definition": "production subset = BOTH endpoints gpt4o_consumer_final==False.",
+   "vs_bea": "Same-economy (Canada) + recent (2023) vs 1997 US BEA fallback (different economy, 26y older)."
+  },
+  "linkage_measures": {
+   "couse": "cosine of sector use-rows across intermediate using-industry cols (log1p,L2)",
+   "supplychain": "symmetric max of column-normalized direct-requirement coefficients (sector x sector)"
+  },
+  "crosswalk": {
+   "source": "NAPCS L4 title+definition -> StatCan sector title (rapidfuzz token_set_ratio); NON-CIRCULAR.",
+   "substitute_anchor": "prefix6",
+   "coverage_by_confidence": {
+    "50": 1315,
+    "60": 916,
+    "70": 496,
+    "80": 249,
+    "90": 83
+   },
+   "n_census_codes": 3049,
+   "threshold_used": 70,
+   "napcs_kept": 496,
+   "distinct_statcan_sectors": 141,
+   "collapse_ratio": 3.52,
+   "concentration_top1_share_pct": 8.5,
+   "concentration_top6_share_pct": 22.2
+  },
+  "pair_counts": {
+   "complement_raw": 15983,
+   "substitute_raw": 3689,
+   "random_raw": 10000
+  },
+  "threshold_sweep": {
+   "60": {
+    "napcs_kept": 916,
+    "distinct_statcan_sectors": 191,
+    "collapse_ratio": 4.8,
+    "concentration_top1_share_pct": 4.6,
+    "concentration_top6_share_pct": 16.3,
+    "claimA": {
+     "all": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.7379090312533146,
+        0.7212034745801505,
+        0.7547532061614116
+       ],
+       "substitute_linkage_mean_ci": [
+        0.689496537771331,
+        0.6411915218348998,
+        0.7372375593465276
+       ],
+       "random_linkage_mean_ci": [
+        0.6552301432021442,
+        0.6266012339723139,
+        0.6812562521555755
+       ],
+       "n_complement": 2269,
+       "n_substitute": 326,
+       "n_random": 883,
+       "auc_complement_vs_random": 0.5721377850161241,
+       "auc_complement_vs_substitute": 0.48877914380811527,
+       "auc_substitute_vs_random": 0.5751499002980637,
+       "diag_complement": {
+        "mapped": 2269,
+        "same_cell": 230,
+        "unmapped": 13484,
+        "subset_filtered": 0
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.007643250255457171,
+        0.006880145154854996,
+        0.008454843380901453
+       ],
+       "substitute_linkage_mean_ci": [
+        0.0068241693824174455,
+        0.005251794606606382,
+        0.008608689572469679
+       ],
+       "random_linkage_mean_ci": [
+        0.004017968204282864,
+        0.0031766808412501913,
+        0.0050128945243147335
+       ],
+       "n_complement": 2269,
+       "n_substitute": 326,
+       "n_random": 883,
+       "auc_complement_vs_random": 0.6027028834650094,
+       "auc_complement_vs_substitute": 0.546263049314987,
+       "auc_substitute_vs_random": 0.5476467563868296,
+       "diag_complement": {
+        "mapped": 2269,
+        "same_cell": 230,
+        "unmapped": 13484,
+        "subset_filtered": 0
+       }
+      }
+     },
+     "production": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.7663765932000106,
+        0.748997797574958,
+        0.7851634444019843
+       ],
+       "substitute_linkage_mean_ci": [
+        0.7107082296703048,
+        0.6595839321679141,
+        0.7614355940928028
+       ],
+       "random_linkage_mean_ci": [
+        0.6923699428474238,
+        0.6561703222830261,
+        0.7276976857559166
+       ],
+       "n_complement": 1611,
+       "n_substitute": 263,
+       "n_random": 501,
+       "auc_complement_vs_random": 0.5674764685402628,
+       "auc_complement_vs_substitute": 0.49358851810154997,
+       "auc_substitute_vs_random": 0.5672571207395096,
+       "diag_complement": {
+        "mapped": 1611,
+        "same_cell": 162,
+        "unmapped": 8053,
+        "subset_filtered": 6157
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.008421636125674606,
+        0.007386226997877301,
+        0.009517056452825166
+       ],
+       "substitute_linkage_mean_ci": [
+        0.007613710393281791,
+        0.005741646364116418,
+        0.009864781505926058
+       ],
+       "random_linkage_mean_ci": [
+        0.004679144302392645,
+        0.0034625546423104176,
+        0.006133939320356373
+       ],
+       "n_complement": 1611,
+       "n_substitute": 263,
+       "n_random": 501,
+       "auc_complement_vs_random": 0.6008423872305049,
+       "auc_complement_vs_substitute": 0.5383142983244944,
+       "auc_substitute_vs_random": 0.5545866442020901,
+       "diag_complement": {
+        "mapped": 1611,
+        "same_cell": 162,
+        "unmapped": 8053,
+        "subset_filtered": 6157
+       }
+      }
+     },
+     "consumer": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.6682110946330602,
+        0.6371518689144847,
+        0.7000392479805991
+       ],
+       "substitute_linkage_mean_ci": [
+        0.6009461414311706,
+        0.49131340214919467,
+        0.710442426416097
+       ],
+       "random_linkage_mean_ci": [
+        0.6065206153951147,
+        0.5637330364930521,
+        0.6515377419659617
+       ],
+       "n_complement": 658,
+       "n_substitute": 63,
+       "n_random": 382,
+       "auc_complement_vs_random": 0.5581306990881459,
+       "auc_complement_vs_substitute": 0.49591113040961066,
+       "auc_substitute_vs_random": 0.5506315964431148,
+       "diag_complement": {
+        "mapped": 658,
+        "same_cell": 68,
+        "unmapped": 5431,
+        "subset_filtered": 9826
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.005737506126398979,
+        0.004828432430646006,
+        0.006785272327663213
+       ],
+       "substitute_linkage_mean_ci": [
+        0.0035281489719837453,
+        0.0019248439572506133,
+        0.005412450840537489
+       ],
+       "random_linkage_mean_ci": [
+        0.0031508236358195143,
+        0.0022732375935997284,
+        0.004319035796185926
+       ],
+       "n_complement": 658,
+       "n_substitute": 63,
+       "n_random": 382,
+       "auc_complement_vs_random": 0.5865047979757794,
+       "auc_complement_vs_substitute": 0.6097481545809813,
+       "auc_substitute_vs_random": 0.46490900024931436,
+       "diag_complement": {
+        "mapped": 658,
+        "same_cell": 68,
+        "unmapped": 5431,
+        "subset_filtered": 9826
+       }
+      }
+     }
+    }
+   },
+   "70": {
+    "napcs_kept": 496,
+    "distinct_statcan_sectors": 141,
+    "collapse_ratio": 3.52,
+    "concentration_top1_share_pct": 8.5,
+    "concentration_top6_share_pct": 22.2,
+    "claimA": {
+     "all": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.7834111016782657,
+        0.7593524082157602,
+        0.8047577980816525
+       ],
+       "substitute_linkage_mean_ci": [
+        0.7510971496941624,
+        0.6765639467316551,
+        0.8126737024171827
+       ],
+       "random_linkage_mean_ci": [
+        0.6853175354759667,
+        0.6401045110812351,
+        0.732568116776279
+       ],
+       "n_complement": 1006,
+       "n_substitute": 122,
+       "n_random": 266,
+       "auc_complement_vs_random": 0.5827478736602939,
+       "auc_complement_vs_substitute": 0.49904670338623996,
+       "auc_substitute_vs_random": 0.5799950696413164,
+       "diag_complement": {
+        "mapped": 1006,
+        "same_cell": 129,
+        "unmapped": 14848,
+        "subset_filtered": 0
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.007871674871037413,
+        0.0069945773962415084,
+        0.008817666188850859
+       ],
+       "substitute_linkage_mean_ci": [
+        0.0065796739378274505,
+        0.004387631620008789,
+        0.009167695166444625
+       ],
+       "random_linkage_mean_ci": [
+        0.0036220482811572976,
+        0.002744847321261761,
+        0.0047215687918794776
+       ],
+       "n_complement": 1006,
+       "n_substitute": 122,
+       "n_random": 266,
+       "auc_complement_vs_random": 0.6341649352008252,
+       "auc_complement_vs_substitute": 0.570649871264218,
+       "auc_substitute_vs_random": 0.5477782571182054,
+       "diag_complement": {
+        "mapped": 1006,
+        "same_cell": 129,
+        "unmapped": 14848,
+        "subset_filtered": 0
+       }
+      }
+     },
+     "production": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.8100944387921072,
+        0.7848909018306345,
+        0.8332712167975308
+       ],
+       "substitute_linkage_mean_ci": [
+        0.7377758808973292,
+        0.6571808064187694,
+        0.8043012845455966
+       ],
+       "random_linkage_mean_ci": [
+        0.7418772813194575,
+        0.6819887578083703,
+        0.7993429203454471
+       ],
+       "n_complement": 742,
+       "n_substitute": 107,
+       "n_random": 158,
+       "auc_complement_vs_random": 0.5758086253369272,
+       "auc_complement_vs_substitute": 0.5363188654054463,
+       "auc_substitute_vs_random": 0.5343664971016208,
+       "diag_complement": {
+        "mapped": 742,
+        "same_cell": 103,
+        "unmapped": 8981,
+        "subset_filtered": 6157
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.008314953584256136,
+        0.007353213930278774,
+        0.009313658422271802
+       ],
+       "substitute_linkage_mean_ci": [
+        0.006922972126087803,
+        0.004392238496411595,
+        0.00992913118066329
+       ],
+       "random_linkage_mean_ci": [
+        0.003389980511483393,
+        0.002410222153203327,
+        0.004564293863343343
+       ],
+       "n_complement": 742,
+       "n_substitute": 107,
+       "n_random": 158,
+       "auc_complement_vs_random": 0.6442475007676823,
+       "auc_complement_vs_substitute": 0.5894777942917601,
+       "auc_substitute_vs_random": 0.5321187743996214,
+       "diag_complement": {
+        "mapped": 742,
+        "same_cell": 103,
+        "unmapped": 8981,
+        "subset_filtered": 6157
+       }
+      }
+     },
+     "consumer": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.7084147526689077,
+        0.6561230620491995,
+        0.756599158275706
+       ],
+       "substitute_linkage_mean_ci": [
+        0.8461222004449065,
+        0.6516470523483837,
+        0.9788815474160927
+       ],
+       "random_linkage_mean_ci": [
+        0.6025727221123411,
+        0.5211450981372291,
+        0.6818536446332149
+       ],
+       "n_complement": 264,
+       "n_substitute": 15,
+       "n_random": 108,
+       "auc_complement_vs_random": 0.5721099887766554,
+       "auc_complement_vs_substitute": 0.31843434343434346,
+       "auc_substitute_vs_random": 0.741358024691358,
+       "diag_complement": {
+        "mapped": 264,
+        "same_cell": 26,
+        "unmapped": 5867,
+        "subset_filtered": 9826
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.0066257930331272185,
+        0.005004003844826479,
+        0.0084278039041418
+       ],
+       "substitute_linkage_mean_ci": [
+        0.004130813528236934,
+        0.001838191386762354,
+        0.006639933506043809
+       ],
+       "random_linkage_mean_ci": [
+        0.00396155483308764,
+        0.002465280212952994,
+        0.0060025625331570935
+       ],
+       "n_complement": 264,
+       "n_substitute": 15,
+       "n_random": 108,
+       "auc_complement_vs_random": 0.5961174242424242,
+       "auc_complement_vs_substitute": 0.5138888888888888,
+       "auc_substitute_vs_random": 0.5746913580246914,
+       "diag_complement": {
+        "mapped": 264,
+        "same_cell": 26,
+        "unmapped": 5867,
+        "subset_filtered": 9826
+       }
+      }
+     }
+    }
+   },
+   "80": {
+    "napcs_kept": 249,
+    "distinct_statcan_sectors": 86,
+    "collapse_ratio": 2.9,
+    "concentration_top1_share_pct": 16.9,
+    "concentration_top6_share_pct": 35.7,
+    "claimA": {
+     "all": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.897653252712435,
+        0.8744342388380745,
+        0.9211724423501022
+       ],
+       "substitute_linkage_mean_ci": [
+        0.9198334368836291,
+        0.8484674224274179,
+        0.9719586025727147
+       ],
+       "random_linkage_mean_ci": [
+        0.7222019365374769,
+        0.620169744994917,
+        0.8211960828830913
+       ],
+       "n_complement": 353,
+       "n_substitute": 41,
+       "n_random": 60,
+       "auc_complement_vs_random": 0.6296742209631728,
+       "auc_complement_vs_substitute": 0.4824155323706212,
+       "auc_substitute_vs_random": 0.6473577235772358,
+       "diag_complement": {
+        "mapped": 353,
+        "same_cell": 44,
+        "unmapped": 15586,
+        "subset_filtered": 0
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.0060723712520755965,
+        0.005230714465987333,
+        0.006963498228274929
+       ],
+       "substitute_linkage_mean_ci": [
+        0.006307558430615302,
+        0.003797273536080879,
+        0.009165996559731845
+       ],
+       "random_linkage_mean_ci": [
+        0.0030012341889933936,
+        0.002069935873802059,
+        0.00397386571962292
+       ],
+       "n_complement": 353,
+       "n_substitute": 41,
+       "n_random": 60,
+       "auc_complement_vs_random": 0.6387393767705383,
+       "auc_complement_vs_substitute": 0.5362398949768534,
+       "auc_substitute_vs_random": 0.59369918699187,
+       "diag_complement": {
+        "mapped": 353,
+        "same_cell": 44,
+        "unmapped": 15586,
+        "subset_filtered": 0
+       }
+      }
+     },
+     "production": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.9327797988193676,
+        0.909427136138603,
+        0.9536969539253071
+       ],
+       "substitute_linkage_mean_ci": [
+        0.909260730056811,
+        0.8262246451254496,
+        0.9700681735198168
+       ],
+       "random_linkage_mean_ci": [
+        0.7254250310079324,
+        0.5936754689838188,
+        0.8389308716990987
+       ],
+       "n_complement": 249,
+       "n_substitute": 35,
+       "n_random": 40,
+       "auc_complement_vs_random": 0.6700803212851406,
+       "auc_complement_vs_substitute": 0.5642570281124498,
+       "auc_substitute_vs_random": 0.6185714285714285,
+       "diag_complement": {
+        "mapped": 249,
+        "same_cell": 32,
+        "unmapped": 9545,
+        "subset_filtered": 6157
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.005790109572079445,
+        0.004985023315681856,
+        0.006696236528998151
+       ],
+       "substitute_linkage_mean_ci": [
+        0.006589465902267296,
+        0.0036750404213416405,
+        0.009797008059766998
+       ],
+       "random_linkage_mean_ci": [
+        0.002570900648462343,
+        0.0015914259053517305,
+        0.0037013507172651804
+       ],
+       "n_complement": 249,
+       "n_substitute": 35,
+       "n_random": 40,
+       "auc_complement_vs_random": 0.6936746987951807,
+       "auc_complement_vs_substitute": 0.5579460699942628,
+       "auc_substitute_vs_random": 0.6178571428571429,
+       "diag_complement": {
+        "mapped": 249,
+        "same_cell": 32,
+        "unmapped": 9545,
+        "subset_filtered": 6157
+       }
+      }
+     },
+     "consumer": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.8135521952064141,
+        0.7547474068921104,
+        0.8690095113837816
+       ],
+       "substitute_linkage_mean_ci": [
+        0.9815075600400665,
+        0.9704681171571768,
+        0.9888713112871793
+       ],
+       "random_linkage_mean_ci": [
+        0.7157557475965655,
+        0.5503578534041036,
+        0.8758362063671844
+       ],
+       "n_complement": 104,
+       "n_substitute": 6,
+       "n_random": 20,
+       "auc_complement_vs_random": 0.5295673076923076,
+       "auc_complement_vs_substitute": 0.20032051282051283,
+       "auc_substitute_vs_random": 0.85,
+       "diag_complement": {
+        "mapped": 104,
+        "same_cell": 12,
+        "unmapped": 6041,
+        "subset_filtered": 9826
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.00674817085129715,
+        0.00461063734639079,
+        0.00907468781089314
+       ],
+       "substitute_linkage_mean_ci": [
+        0.004663098179311999,
+        0.0018450091513931308,
+        0.007304281882040047
+       ],
+       "random_linkage_mean_ci": [
+        0.0038619012700554962,
+        0.002149109292872282,
+        0.005823670529969754
+       ],
+       "n_complement": 104,
+       "n_substitute": 6,
+       "n_random": 20,
+       "auc_complement_vs_random": 0.521875,
+       "auc_complement_vs_substitute": 0.44871794871794873,
+       "auc_substitute_vs_random": 0.5833333333333334,
+       "diag_complement": {
+        "mapped": 104,
+        "same_cell": 12,
+        "unmapped": 6041,
+        "subset_filtered": 9826
+       }
+      }
+     }
+    }
+   }
+  },
+  "claimA": {
+   "all": {
+    "couse": {
+     "complement_linkage_mean_ci": [
+      0.7834111016782657,
+      0.7593524082157602,
+      0.8047577980816525
+     ],
+     "substitute_linkage_mean_ci": [
+      0.7510971496941624,
+      0.6765639467316551,
+      0.8126737024171827
+     ],
+     "random_linkage_mean_ci": [
+      0.6853175354759667,
+      0.6401045110812351,
+      0.732568116776279
+     ],
+     "n_complement": 1006,
+     "n_substitute": 122,
+     "n_random": 266,
+     "auc_complement_vs_random": 0.5827478736602939,
+     "auc_complement_vs_substitute": 0.49904670338623996,
+     "auc_substitute_vs_random": 0.5799950696413164,
+     "diag_complement": {
+      "mapped": 1006,
+      "same_cell": 129,
+      "unmapped": 14848,
+      "subset_filtered": 0
+     }
+    },
+    "supplychain": {
+     "complement_linkage_mean_ci": [
+      0.007871674871037413,
+      0.0069945773962415084,
+      0.008817666188850859
+     ],
+     "substitute_linkage_mean_ci": [
+      0.0065796739378274505,
+      0.004387631620008789,
+      0.009167695166444625
+     ],
+     "random_linkage_mean_ci": [
+      0.0036220482811572976,
+      0.002744847321261761,
+      0.0047215687918794776
+     ],
+     "n_complement": 1006,
+     "n_substitute": 122,
+     "n_random": 266,
+     "auc_complement_vs_random": 0.6341649352008252,
+     "auc_complement_vs_substitute": 0.570649871264218,
+     "auc_substitute_vs_random": 0.5477782571182054,
+     "diag_complement": {
+      "mapped": 1006,
+      "same_cell": 129,
+      "unmapped": 14848,
+      "subset_filtered": 0
+     }
+    }
+   },
+   "production": {
+    "couse": {
+     "complement_linkage_mean_ci": [
+      0.8100944387921072,
+      0.7848909018306345,
+      0.8332712167975308
+     ],
+     "substitute_linkage_mean_ci": [
+      0.7377758808973292,
+      0.6571808064187694,
+      0.8043012845455966
+     ],
+     "random_linkage_mean_ci": [
+      0.7418772813194575,
+      0.6819887578083703,
+      0.7993429203454471
+     ],
+     "n_complement": 742,
+     "n_substitute": 107,
+     "n_random": 158,
+     "auc_complement_vs_random": 0.5758086253369272,
+     "auc_complement_vs_substitute": 0.5363188654054463,
+     "auc_substitute_vs_random": 0.5343664971016208,
+     "diag_complement": {
+      "mapped": 742,
+      "same_cell": 103,
+      "unmapped": 8981,
+      "subset_filtered": 6157
+     }
+    },
+    "supplychain": {
+     "complement_linkage_mean_ci": [
+      0.008314953584256136,
+      0.007353213930278774,
+      0.009313658422271802
+     ],
+     "substitute_linkage_mean_ci": [
+      0.006922972126087803,
+      0.004392238496411595,
+      0.00992913118066329
+     ],
+     "random_linkage_mean_ci": [
+      0.003389980511483393,
+      0.002410222153203327,
+      0.004564293863343343
+     ],
+     "n_complement": 742,
+     "n_substitute": 107,
+     "n_random": 158,
+     "auc_complement_vs_random": 0.6442475007676823,
+     "auc_complement_vs_substitute": 0.5894777942917601,
+     "auc_substitute_vs_random": 0.5321187743996214,
+     "diag_complement": {
+      "mapped": 742,
+      "same_cell": 103,
+      "unmapped": 8981,
+      "subset_filtered": 6157
+     }
+    }
+   },
+   "consumer": {
+    "couse": {
+     "complement_linkage_mean_ci": [
+      0.7084147526689077,
+      0.6561230620491995,
+      0.756599158275706
+     ],
+     "substitute_linkage_mean_ci": [
+      0.8461222004449065,
+      0.6516470523483837,
+      0.9788815474160927
+     ],
+     "random_linkage_mean_ci": [
+      0.6025727221123411,
+      0.5211450981372291,
+      0.6818536446332149
+     ],
+     "n_complement": 264,
+     "n_substitute": 15,
+     "n_random": 108,
+     "auc_complement_vs_random": 0.5721099887766554,
+     "auc_complement_vs_substitute": 0.31843434343434346,
+     "auc_substitute_vs_random": 0.741358024691358,
+     "diag_complement": {
+      "mapped": 264,
+      "same_cell": 26,
+      "unmapped": 5867,
+      "subset_filtered": 9826
+     }
+    },
+    "supplychain": {
+     "complement_linkage_mean_ci": [
+      0.0066257930331272185,
+      0.005004003844826479,
+      0.0084278039041418
+     ],
+     "substitute_linkage_mean_ci": [
+      0.004130813528236934,
+      0.001838191386762354,
+      0.006639933506043809
+     ],
+     "random_linkage_mean_ci": [
+      0.00396155483308764,
+      0.002465280212952994,
+      0.0060025625331570935
+     ],
+     "n_complement": 264,
+     "n_substitute": 15,
+     "n_random": 108,
+     "auc_complement_vs_random": 0.5961174242424242,
+     "auc_complement_vs_substitute": 0.5138888888888888,
+     "auc_substitute_vs_random": 0.5746913580246914,
+     "diag_complement": {
+      "mapped": 264,
+      "same_cell": 26,
+      "unmapped": 5867,
+      "subset_filtered": 9826
+     }
+    }
+   }
+  },
+  "primary": {
+   "note": "Primary = confidence>=70 guarded crosswalk (content-token guard), co-use measure. The content guard removes stopword-only false matches; with it the complement>random signal is monotone and present at ALL thresholds (AUC ~0.57-0.67), rising as concordance tightens. THR70 balances N (~1000 overall / ~740 production) and concordance quality; THR60 (large N) and THR80 (cleanest, smaller N) retained in the sweep."
+  },
+  "claimB": {
+   "gemini": {
+    "cosine_io_complement_mean": 0.8185632569868255,
+    "cosine_io_noncomplement_mean": 0.8061652165390831,
+    "auc_cosine_separates_io_complement": 0.5813398873946147,
+    "n_io_complement": 166,
+    "n_io_noncomplement": 826
+   },
+   "openai": {
+    "cosine_io_complement_mean": 0.3971637492187293,
+    "cosine_io_noncomplement_mean": 0.35568657069318643,
+    "auc_cosine_separates_io_complement": 0.5900624288923247,
+    "n_io_complement": 166,
+    "n_io_noncomplement": 826
+   },
+   "glove": {
+    "cosine_io_complement_mean": 0.7018244198287826,
+    "cosine_io_noncomplement_mean": 0.677190435581252,
+    "auc_cosine_separates_io_complement": 0.5296974824236413,
+    "n_io_complement": 166,
+    "n_io_noncomplement": 826
+   },
+   "tfidf": {
+    "cosine_io_complement_mean": 0.08889941545396018,
+    "cosine_io_noncomplement_mean": 0.09736854253880191,
+    "auc_cosine_separates_io_complement": 0.5220215000437586,
+    "n_io_complement": 166,
+    "n_io_noncomplement": 826
+   },
+   "_io_complement_n": 166,
+   "_io_noncomplement_n": 826
+  },
+  "robustness_gpt4o_mini": {
+   "all": {
+    "complement_mean_ci": [
+     0.7803698730729552,
+     0.7585690730527632,
+     0.8017280205423453
+    ],
+    "random_mean_ci": [
+     0.6853175354759667,
+     0.6335680923183784,
+     0.7355471016395909
+    ],
+    "auc_complement_vs_random": 0.5781023322262562,
+    "n_complement": 1021
+   },
+   "production": {
+    "complement_mean_ci": [
+     0.7869205222906659,
+     0.7615878668614977,
+     0.8119835935780559
+    ],
+    "random_mean_ci": [
+     0.7418772813194575,
+     0.6826258975450105,
+     0.7955117066629498
+    ],
+    "auc_complement_vs_random": 0.5501299649272731,
+    "n_complement": 711
+   }
+  }
+ },
+ "bea_2017_US": {
+  "provenance": {
+   "source": "BEA 2017 benchmark DETAIL I-O accounts, after redefinitions, producers' prices (Use table).",
+   "vintage": "2017 benchmark (detail sheet 2017)",
+   "construct": "PRODUCTION/supply-chain linkage + cross-industry co-use; CONVERGENT (supply-side) evidence for the PRODUCTION complement construct, NOT consumer co-use.",
+   "use_table_cells": {
+    "sheet": "2017",
+    "n_cells": 47204,
+    "n_commodities": 402,
+    "n_using_cols": 392
+   },
+   "census": "general-rubric census, generator gpt-4o, both economies (CA, US).",
+   "generator": "gpt-4o",
+   "production_definition": "production complement subset = BOTH endpoints have gpt4o_consumer_final == False."
+  },
+  "linkage_measures": {
+   "couse": "cosine of commodity use-rows across intermediate-industry columns (log1p, L2)",
+   "supplychain": "symmetric max of column-normalized direct-requirement coefficients"
+  },
+  "generators": {
+   "gpt-4o (PRIMARY)": {
+    "CA": {
+     "crosswalk": {
+      "source": "built fresh: CA NAPCS title -> BEA 2017 detail commodity title (rapidfuzz token_set_ratio)",
+      "substitute_anchor": "prefix6",
+      "coverage_by_confidence": {
+       "50": 2784,
+       "60": 1678,
+       "70": 1043,
+       "80": 359,
+       "90": 137
+      },
+      "threshold_used": 60,
+      "napcs_kept": 1678,
+      "n_census_codes": 3049,
+      "match_rate_pct_conf60": 55.0,
+      "distinct_bea_cells": 312,
+      "concentration_top1_share_pct": 17.0,
+      "concentration_top6_share_pct": 31.0
+     },
+     "pair_counts": {
+      "complement_raw": 15983,
+      "substitute_raw": 3689,
+      "random_raw": 10000
+     },
+     "claimA": {
+      "all": {
+       "couse": {
+        "complement_linkage_mean_ci": [
+         0.4670939930616679,
+         0.45932345958960524,
+         0.47597031699966047
+        ],
+        "substitute_linkage_mean_ci": [
+         0.43572407525366885,
+         0.4146487237857767,
+         0.45702825817017895
+        ],
+        "random_linkage_mean_ci": [
+         0.3734012049448137,
+         0.3624258692372977,
+         0.3854062070002506
+        ],
+        "n_complement": 6689,
+        "n_substitute": 963,
+        "n_random": 2865,
+        "auc_complement_vs_random": 0.5789433930364692,
+        "auc_complement_vs_substitute": 0.5305190229553426,
+        "auc_substitute_vs_random": 0.5458924354701622,
+        "diag_complement": {
+         "mapped": 6689,
+         "same_cell": 950,
+         "unmapped": 8344,
+         "subset_filtered": 0
+        }
+       },
+       "supplychain": {
+        "complement_linkage_mean_ci": [
+         0.013342113567076213,
+         0.012747691022651672,
+         0.014068851435706842
+        ],
+        "substitute_linkage_mean_ci": [
+         0.012528909017891188,
+         0.010552720537245389,
+         0.01493841852950194
+        ],
+        "random_linkage_mean_ci": [
+         0.008153590222860265,
+         0.007321005643437576,
+         0.00902232925648498
+        ],
+        "n_complement": 6689,
+        "n_substitute": 963,
+        "n_random": 2865,
+        "auc_complement_vs_random": 0.5949958215892989,
+        "auc_complement_vs_substitute": 0.5338635043010898,
+        "auc_substitute_vs_random": 0.559221201923164,
+        "diag_complement": {
+         "mapped": 6689,
+         "same_cell": 950,
+         "unmapped": 8344,
+         "subset_filtered": 0
+        }
+       }
+      },
+      "production": {
+       "couse": {
+        "complement_linkage_mean_ci": [
+         0.4819949898022005,
+         0.47294981260881874,
+         0.49223053223617824
+        ],
+        "substitute_linkage_mean_ci": [
+         0.43617108783129177,
+         0.41040761142775106,
+         0.4618237191586681
+        ],
+        "random_linkage_mean_ci": [
+         0.39293567375550753,
+         0.377289047187105,
+         0.4085266915014058
+        ],
+        "n_complement": 4636,
+        "n_substitute": 746,
+        "n_random": 1583,
+        "auc_complement_vs_random": 0.5757163853213909,
+        "auc_complement_vs_substitute": 0.5438585889194485,
+        "auc_substitute_vs_random": 0.5284638730208194,
+        "diag_complement": {
+         "mapped": 4636,
+         "same_cell": 629,
+         "unmapped": 4561,
+         "subset_filtered": 6157
+        }
+       },
+       "supplychain": {
+        "complement_linkage_mean_ci": [
+         0.014659231660896862,
+         0.013869430736146137,
+         0.01557159870141841
+        ],
+        "substitute_linkage_mean_ci": [
+         0.013901832427792072,
+         0.011240342092734446,
+         0.01694345296188494
+        ],
+        "random_linkage_mean_ci": [
+         0.009266154105414169,
+         0.008016536637711652,
+         0.010588334286524736
+        ],
+        "n_complement": 4636,
+        "n_substitute": 746,
+        "n_random": 1583,
+        "auc_complement_vs_random": 0.5866519785010822,
+        "auc_complement_vs_substitute": 0.5298216892162283,
+        "auc_substitute_vs_random": 0.5570539190697407,
+        "diag_complement": {
+         "mapped": 4636,
+         "same_cell": 629,
+         "unmapped": 4561,
+         "subset_filtered": 6157
+        }
+       }
+      },
+      "consumer": {
+       "couse": {
+        "complement_linkage_mean_ci": [
+         0.4334451762622967,
+         0.4194427322811545,
+         0.4487023382791055
+        ],
+        "substitute_linkage_mean_ci": [
+         0.43418734077022786,
+         0.38762367471380416,
+         0.48567675158467727
+        ],
+        "random_linkage_mean_ci": [
+         0.3492802500873033,
+         0.33261433334495705,
+         0.3679408699428592
+        ],
+        "n_complement": 2053,
+        "n_substitute": 217,
+        "n_random": 1282,
+        "auc_complement_vs_random": 0.5662781455242623,
+        "auc_complement_vs_substitute": 0.503654312784932,
+        "auc_substitute_vs_random": 0.56074178451009,
+        "diag_complement": {
+         "mapped": 2053,
+         "same_cell": 321,
+         "unmapped": 3783,
+         "subset_filtered": 9826
+        }
+       },
+       "supplychain": {
+        "complement_linkage_mean_ci": [
+         0.010367851763397438,
+         0.00945510277508207,
+         0.011369158071101839
+        ],
+        "substitute_linkage_mean_ci": [
+         0.007809089369107508,
+         0.00568439336591257,
+         0.010550331960143853
+        ],
+        "random_linkage_mean_ci": [
+         0.006779808143232471,
+         0.005767043016401339,
+         0.007914609176153841
+        ],
+        "n_complement": 2053,
+        "n_substitute": 217,
+        "n_random": 1282,
+        "auc_complement_vs_random": 0.5991422316415307,
+        "auc_complement_vs_substitute": 0.5582052565538573,
+        "auc_substitute_vs_random": 0.5340338037484633,
+        "diag_complement": {
+         "mapped": 2053,
+         "same_cell": 321,
+         "unmapped": 3783,
+         "subset_filtered": 9826
+        }
+       }
+      }
+     },
+     "claimB": {
+      "gemini": {
+       "cosine_io_complement_mean": 0.8071624665509783,
+       "cosine_io_noncomplement_mean": 0.7954636035853977,
+       "auc_cosine_separates_io_complement": 0.5900200171607431,
+       "n_io_complement": 1349,
+       "n_io_noncomplement": 6667
+      },
+      "openai": {
+       "cosine_io_complement_mean": 0.36150392777497636,
+       "cosine_io_noncomplement_mean": 0.3170882392888031,
+       "auc_cosine_separates_io_complement": 0.6059063244020898,
+       "n_io_complement": 1349,
+       "n_io_noncomplement": 6667
+      },
+      "glove": {
+       "cosine_io_complement_mean": 0.7022375848069732,
+       "cosine_io_noncomplement_mean": 0.5631572063314269,
+       "auc_cosine_separates_io_complement": 0.7178300276980221,
+       "n_io_complement": 1349,
+       "n_io_noncomplement": 6667
+      },
+      "_io_complement_n": 1349,
+      "_io_noncomplement_n": 6667
+     }
+    },
+    "US": {
+     "crosswalk": {
+      "source": "built fresh: US NAPCS title -> BEA 2017 detail commodity title (rapidfuzz token_set_ratio)",
+      "substitute_anchor": "trilateral",
+      "coverage_by_confidence": {
+       "50": 3454,
+       "60": 3114,
+       "70": 2944,
+       "80": 2345,
+       "90": 564
+      },
+      "threshold_used": 60,
+      "napcs_kept": 3114,
+      "n_census_codes": 3520,
+      "match_rate_pct_conf60": 88.5,
+      "distinct_bea_cells": 223,
+      "concentration_top1_share_pct": 40.8,
+      "concentration_top6_share_pct": 61.3
+     },
+     "pair_counts": {
+      "complement_raw": 18407,
+      "substitute_raw": 23983,
+      "random_raw": 10000
+     },
+     "claimA": {
+      "all": {
+       "couse": {
+        "complement_linkage_mean_ci": [
+         0.30779674315926686,
+         0.302371450203067,
+         0.3132545396731982
+        ],
+        "substitute_linkage_mean_ci": [
+         0.3004510511613477,
+         0.2944469329774841,
+         0.30642695282922877
+        ],
+        "random_linkage_mean_ci": [
+         0.2110777185680434,
+         0.20491710968398041,
+         0.21641888102266435
+        ],
+        "n_complement": 12671,
+        "n_substitute": 12083,
+        "n_random": 6431,
+        "auc_complement_vs_random": 0.5777859457953403,
+        "auc_complement_vs_substitute": 0.5292045698727855,
+        "auc_substitute_vs_random": 0.5421401251616145,
+        "diag_complement": {
+         "mapped": 12671,
+         "same_cell": 2953,
+         "unmapped": 2783,
+         "subset_filtered": 0
+        }
+       },
+       "supplychain": {
+        "complement_linkage_mean_ci": [
+         0.008122581283837768,
+         0.007787309656226554,
+         0.008470618035335258
+        ],
+        "substitute_linkage_mean_ci": [
+         0.005389244652622277,
+         0.00503233544350256,
+         0.0058047869746650155
+        ],
+        "random_linkage_mean_ci": [
+         0.004556796537255284,
+         0.004262013450270112,
+         0.004858235282459977
+        ],
+        "n_complement": 12671,
+        "n_substitute": 12083,
+        "n_random": 6431,
+        "auc_complement_vs_random": 0.5716294636258276,
+        "auc_complement_vs_substitute": 0.5779256252166302,
+        "auc_substitute_vs_random": 0.4917782427825536,
+        "diag_complement": {
+         "mapped": 12671,
+         "same_cell": 2953,
+         "unmapped": 2783,
+         "subset_filtered": 0
+        }
+       }
+      },
+      "production": {
+       "couse": {
+        "complement_linkage_mean_ci": [
+         0.3086453961495852,
+         0.3031677877099952,
+         0.31529333227933826
+        ],
+        "substitute_linkage_mean_ci": [
+         0.3218900510834064,
+         0.3154904055778772,
+         0.3284495094337282
+        ],
+        "random_linkage_mean_ci": [
+         0.21550295379083378,
+         0.2081308368702663,
+         0.22286771704378214
+        ],
+        "n_complement": 9376,
+        "n_substitute": 10760,
+        "n_random": 4091,
+        "auc_complement_vs_random": 0.5718417103055654,
+        "auc_complement_vs_substitute": 0.5082451130863266,
+        "auc_substitute_vs_random": 0.558887607123807,
+        "diag_complement": {
+         "mapped": 9376,
+         "same_cell": 2116,
+         "unmapped": 1769,
+         "subset_filtered": 5146
+        }
+       },
+       "supplychain": {
+        "complement_linkage_mean_ci": [
+         0.007979449840308002,
+         0.007617643507322112,
+         0.008355186540435223
+        ],
+        "substitute_linkage_mean_ci": [
+         0.005477702203485378,
+         0.005091261477655719,
+         0.005940182006756566
+        ],
+        "random_linkage_mean_ci": [
+         0.004459088789177826,
+         0.004030280295141004,
+         0.0048917883968504945
+        ],
+        "n_complement": 9376,
+        "n_substitute": 10760,
+        "n_random": 4091,
+        "auc_complement_vs_random": 0.5633137973308595,
+        "auc_complement_vs_substitute": 0.5486467168409099,
+        "auc_substitute_vs_random": 0.514061013431424,
+        "diag_complement": {
+         "mapped": 9376,
+         "same_cell": 2116,
+         "unmapped": 1769,
+         "subset_filtered": 5146
+        }
+       }
+      },
+      "consumer": {
+       "couse": {
+        "complement_linkage_mean_ci": [
+         0.3053818811145858,
+         0.29594640684726137,
+         0.31538213705857693
+        ],
+        "substitute_linkage_mean_ci": [
+         0.12608700039690926,
+         0.11370432014722498,
+         0.13844884181496234
+        ],
+        "random_linkage_mean_ci": [
+         0.20334112143281463,
+         0.19344750702163227,
+         0.2126172855858291
+        ],
+        "n_complement": 3295,
+        "n_substitute": 1323,
+        "n_random": 2340,
+        "auc_complement_vs_random": 0.5868712631155727,
+        "auc_complement_vs_substitute": 0.7113707867230521,
+        "auc_substitute_vs_random": 0.3600454806804013,
+        "diag_complement": {
+         "mapped": 3295,
+         "same_cell": 837,
+         "unmapped": 1014,
+         "subset_filtered": 13261
+        }
+       },
+       "supplychain": {
+        "complement_linkage_mean_ci": [
+         0.008529865172922771,
+         0.007808983172763614,
+         0.009294817756942051
+        ],
+        "substitute_linkage_mean_ci": [
+         0.004669816650137798,
+         0.0038152514172772505,
+         0.005464706009545927
+        ],
+        "random_linkage_mean_ci": [
+         0.004727618074599247,
+         0.004301627598339994,
+         0.005193673682648485
+        ],
+        "n_complement": 3295,
+        "n_substitute": 1323,
+        "n_random": 2340,
+        "auc_complement_vs_random": 0.5988902507036042,
+        "auc_complement_vs_substitute": 0.7270117691318645,
+        "auc_substitute_vs_random": 0.3570847142275714,
+        "diag_complement": {
+         "mapped": 3295,
+         "same_cell": 837,
+         "unmapped": 1014,
+         "subset_filtered": 13261
+        }
+       }
+      }
+     },
+     "claimB": {
+      "gemini": {
+       "cosine_io_complement_mean": 0.8358984729601064,
+       "cosine_io_noncomplement_mean": 0.8359255541367734,
+       "auc_cosine_separates_io_complement": 0.4965332164846734,
+       "n_io_complement": 3832,
+       "n_io_noncomplement": 18717
+      },
+      "openai": {
+       "cosine_io_complement_mean": 0.42665456069458624,
+       "cosine_io_noncomplement_mean": 0.4316531086274337,
+       "auc_cosine_separates_io_complement": 0.48603266174354126,
+       "n_io_complement": 3832,
+       "n_io_noncomplement": 18717
+      },
+      "glove": {
+       "cosine_io_complement_mean": 0.6797835497926557,
+       "cosine_io_noncomplement_mean": 0.6730000345719261,
+       "auc_cosine_separates_io_complement": 0.5042721031501282,
+       "n_io_complement": 3826,
+       "n_io_noncomplement": 18679
+      },
+      "_io_complement_n": 3832,
+      "_io_noncomplement_n": 18717
+     }
+    }
+   },
+   "gemini-2.5-pro (REPLICATION)": {
+    "CA": {
+     "crosswalk": {
+      "source": "built fresh: CA NAPCS title -> BEA 2017 detail commodity title (rapidfuzz token_set_ratio)",
+      "substitute_anchor": "prefix6",
+      "coverage_by_confidence": {
+       "50": 2784,
+       "60": 1678,
+       "70": 1043,
+       "80": 359,
+       "90": 137
+      },
+      "threshold_used": 60,
+      "napcs_kept": 1678,
+      "n_census_codes": 3049,
+      "match_rate_pct_conf60": 55.0,
+      "distinct_bea_cells": 312,
+      "concentration_top1_share_pct": 17.0,
+      "concentration_top6_share_pct": 31.0
+     },
+     "pair_counts": {
+      "complement_raw": 13200,
+      "substitute_raw": 3689,
+      "random_raw": 10000
+     },
+     "claimA": {
+      "all": {
+       "couse": {
+        "complement_linkage_mean_ci": [
+         0.4625525776749101,
+         0.45349613005315803,
+         0.4711816734914817
+        ],
+        "substitute_linkage_mean_ci": [
+         0.43572407499775834,
+         0.41478759138992394,
+         0.4568971103792024
+        ],
+        "random_linkage_mean_ci": [
+         0.3734012047513136,
+         0.36168084106169135,
+         0.38485652065900094
+        ],
+        "n_complement": 5346,
+        "n_substitute": 963,
+        "n_random": 2865,
+        "auc_complement_vs_random": 0.5735843014202525,
+        "auc_complement_vs_substitute": 0.5263712662178106,
+        "auc_substitute_vs_random": 0.5458924354701622,
+        "diag_complement": {
+         "mapped": 5346,
+         "same_cell": 938,
+         "unmapped": 6916,
+         "subset_filtered": 0
+        }
+       },
+       "supplychain": {
+        "complement_linkage_mean_ci": [
+         0.01375521100508091,
+         0.013001610345676195,
+         0.014522894456656981
+        ],
+        "substitute_linkage_mean_ci": [
+         0.01252890899108353,
+         0.010437162706722753,
+         0.014792129861866258
+        ],
+        "random_linkage_mean_ci": [
+         0.008153590269801397,
+         0.007292980809770979,
+         0.009061828793063722
+        ],
+        "n_complement": 5346,
+        "n_substitute": 963,
+        "n_random": 2865,
+        "auc_complement_vs_random": 0.6050495583460486,
+        "auc_complement_vs_substitute": 0.5443330850911329,
+        "auc_substitute_vs_random": 0.559221201923164,
+        "diag_complement": {
+         "mapped": 5346,
+         "same_cell": 938,
+         "unmapped": 6916,
+         "subset_filtered": 0
+        }
+       }
+      },
+      "production": {
+       "couse": {
+        "complement_linkage_mean_ci": [
+         0.485801677749651,
+         0.47574361207856547,
+         0.4964861706888344
+        ],
+        "substitute_linkage_mean_ci": [
+         0.4361710882266289,
+         0.41162179424777007,
+         0.45866974152366496
+        ],
+        "random_linkage_mean_ci": [
+         0.3929356734956122,
+         0.3759376555345808,
+         0.4080124898543034
+        ],
+        "n_complement": 3701,
+        "n_substitute": 746,
+        "n_random": 1583,
+        "auc_complement_vs_random": 0.5788876100652656,
+        "auc_complement_vs_substitute": 0.5470413039588605,
+        "auc_substitute_vs_random": 0.5284638730208194,
+        "diag_complement": {
+         "mapped": 3701,
+         "same_cell": 618,
+         "unmapped": 3560,
+         "subset_filtered": 5321
+        }
+       },
+       "supplychain": {
+        "complement_linkage_mean_ci": [
+         0.01535636333294985,
+         0.014433072118995156,
+         0.016366990273065974
+        ],
+        "substitute_linkage_mean_ci": [
+         0.013901832379041293,
+         0.011222183263817293,
+         0.0167262064631511
+        ],
+        "random_linkage_mean_ci": [
+         0.009266154169575673,
+         0.00799596247219636,
+         0.010635541470080601
+        ],
+        "n_complement": 3701,
+        "n_substitute": 746,
+        "n_random": 1583,
+        "auc_complement_vs_random": 0.6064656510686788,
+        "auc_complement_vs_substitute": 0.548542057686025,
+        "auc_substitute_vs_random": 0.5570539190697407,
+        "diag_complement": {
+         "mapped": 3701,
+         "same_cell": 618,
+         "unmapped": 3560,
+         "subset_filtered": 5321
+        }
+       }
+      },
+      "consumer": {
+       "couse": {
+        "complement_linkage_mean_ci": [
+         0.4102456358046268,
+         0.3949857294899065,
+         0.4272854496804554
+        ],
+        "substitute_linkage_mean_ci": [
+         0.4341873382754658,
+         0.3872178303516654,
+         0.4827329822898572
+        ],
+        "random_linkage_mean_ci": [
+         0.3492802499757873,
+         0.33126328404186994,
+         0.3659444968367043
+        ],
+        "n_complement": 1645,
+        "n_substitute": 217,
+        "n_random": 1282,
+        "auc_complement_vs_random": 0.5422978438894395,
+        "auc_complement_vs_substitute": 0.4844438530388133,
+        "auc_substitute_vs_random": 0.56074178451009,
+        "diag_complement": {
+         "mapped": 1645,
+         "same_cell": 320,
+         "unmapped": 3356,
+         "subset_filtered": 7879
+        }
+       },
+       "supplychain": {
+        "complement_linkage_mean_ci": [
+         0.010152861603595832,
+         0.009142930945303773,
+         0.011235918291344956
+        ],
+        "substitute_linkage_mean_ci": [
+         0.007809089417735647,
+         0.005729407557616724,
+         0.01061724825414978
+        ],
+        "random_linkage_mean_ci": [
+         0.006779808168910069,
+         0.005753025014421996,
+         0.007858846338012562
+        ],
+        "n_complement": 1645,
+        "n_substitute": 217,
+        "n_random": 1282,
+        "auc_complement_vs_random": 0.5874388896528505,
+        "auc_complement_vs_substitute": 0.5500371184850056,
+        "auc_substitute_vs_random": 0.5340338037484633,
+        "diag_complement": {
+         "mapped": 1645,
+         "same_cell": 320,
+         "unmapped": 3356,
+         "subset_filtered": 7879
+        }
+       }
+      }
+     },
+     "claimB": {
+      "gemini": {
+       "cosine_io_complement_mean": 0.8115737002590684,
+       "cosine_io_noncomplement_mean": 0.7955606453419152,
+       "auc_cosine_separates_io_complement": 0.6172450475438757,
+       "n_io_complement": 1217,
+       "n_io_noncomplement": 6089
+      },
+      "openai": {
+       "cosine_io_complement_mean": 0.3724871934678042,
+       "cosine_io_noncomplement_mean": 0.3176888649557713,
+       "auc_cosine_separates_io_complement": 0.6206301947029768,
+       "n_io_complement": 1217,
+       "n_io_noncomplement": 6089
+      },
+      "glove": {
+       "cosine_io_complement_mean": 0.7050908564604458,
+       "cosine_io_noncomplement_mean": 0.5517504531444395,
+       "auc_cosine_separates_io_complement": 0.7264871267920802,
+       "n_io_complement": 1217,
+       "n_io_noncomplement": 6089
+      },
+      "_io_complement_n": 1217,
+      "_io_noncomplement_n": 6089
+     }
+    },
+    "US": {
+     "crosswalk": {
+      "source": "built fresh: US NAPCS title -> BEA 2017 detail commodity title (rapidfuzz token_set_ratio)",
+      "substitute_anchor": "trilateral",
+      "coverage_by_confidence": {
+       "50": 3454,
+       "60": 3114,
+       "70": 2944,
+       "80": 2345,
+       "90": 564
+      },
+      "threshold_used": 60,
+      "napcs_kept": 3114,
+      "n_census_codes": 3520,
+      "match_rate_pct_conf60": 88.5,
+      "distinct_bea_cells": 223,
+      "concentration_top1_share_pct": 40.8,
+      "concentration_top6_share_pct": 61.3
+     },
+     "pair_counts": {
+      "complement_raw": 13258,
+      "substitute_raw": 23983,
+      "random_raw": 10000
+     },
+     "claimA": {
+      "all": {
+       "couse": {
+        "complement_linkage_mean_ci": [
+         0.3393549876646557,
+         0.3319982614689325,
+         0.34672224668100005
+        ],
+        "substitute_linkage_mean_ci": [
+         0.30045105114440923,
+         0.29426025390807825,
+         0.3065445070326558
+        ],
+        "random_linkage_mean_ci": [
+         0.20540637938606185,
+         0.1999425478445505,
+         0.21099465058659503
+        ],
+        "n_complement": 8673,
+        "n_substitute": 12083,
+        "n_random": 6370,
+        "auc_complement_vs_random": 0.6003750338706113,
+        "auc_complement_vs_substitute": 0.5474103227685743,
+        "auc_substitute_vs_random": 0.5446415757780012,
+        "diag_complement": {
+         "mapped": 8673,
+         "same_cell": 2181,
+         "unmapped": 2404,
+         "subset_filtered": 0
+        }
+       },
+       "supplychain": {
+        "complement_linkage_mean_ci": [
+         0.009704976075366703,
+         0.009227218494354407,
+         0.010213100235088802
+        ],
+        "substitute_linkage_mean_ci": [
+         0.00538924466264182,
+         0.005008273389135418,
+         0.0058190312976235375
+        ],
+        "random_linkage_mean_ci": [
+         0.004567871338043818,
+         0.004292422251873354,
+         0.004845482998849884
+        ],
+        "n_complement": 8673,
+        "n_substitute": 12083,
+        "n_random": 6370,
+        "auc_complement_vs_random": 0.6026219518486159,
+        "auc_complement_vs_substitute": 0.6086053171242196,
+        "auc_substitute_vs_random": 0.49277496660656,
+        "diag_complement": {
+         "mapped": 8673,
+         "same_cell": 2181,
+         "unmapped": 2404,
+         "subset_filtered": 0
+        }
+       }
+      },
+      "production": {
+       "couse": {
+        "complement_linkage_mean_ci": [
+         0.3449986844890129,
+         0.3366456554511279,
+         0.3536976380711119
+        ],
+        "substitute_linkage_mean_ci": [
+         0.3218900510973339,
+         0.31556258336084025,
+         0.3286078950472068
+        ],
+        "random_linkage_mean_ci": [
+         0.20373509899905587,
+         0.19627259445782994,
+         0.2111483658186035
+        ],
+        "n_complement": 5977,
+        "n_substitute": 10760,
+        "n_random": 4040,
+        "auc_complement_vs_random": 0.6052006495195278,
+        "auc_complement_vs_substitute": 0.5316225518763688,
+        "auc_substitute_vs_random": 0.5679699404652361,
+        "diag_complement": {
+         "mapped": 5977,
+         "same_cell": 1462,
+         "unmapped": 1553,
+         "subset_filtered": 4266
+        }
+       },
+       "supplychain": {
+        "complement_linkage_mean_ci": [
+         0.00952903548171885,
+         0.008959861864493835,
+         0.01016415194502214
+        ],
+        "substitute_linkage_mean_ci": [
+         0.005477702213487457,
+         0.005074927037256534,
+         0.005921365855055605
+        ],
+        "random_linkage_mean_ci": [
+         0.004364585803769202,
+         0.004010774939836474,
+         0.004734852843838784
+        ],
+        "n_complement": 5977,
+        "n_substitute": 10760,
+        "n_random": 4040,
+        "auc_complement_vs_random": 0.5947719972766894,
+        "auc_complement_vs_substitute": 0.574015409441272,
+        "auc_substitute_vs_random": 0.5224088920276786,
+        "diag_complement": {
+         "mapped": 5977,
+         "same_cell": 1462,
+         "unmapped": 1553,
+         "subset_filtered": 4266
+        }
+       }
+      },
+      "consumer": {
+       "couse": {
+        "complement_linkage_mean_ci": [
+         0.32684297879255525,
+         0.31458035127869677,
+         0.33966506877597125
+        ],
+        "substitute_linkage_mean_ci": [
+         0.1260870001289377,
+         0.11375744508624075,
+         0.13863360587127707
+        ],
+        "random_linkage_mean_ci": [
+         0.2083042217738319,
+         0.1984814919466243,
+         0.21869502347461328
+        ],
+        "n_complement": 2696,
+        "n_substitute": 1323,
+        "n_random": 2330,
+        "auc_complement_vs_random": 0.5891259185440837,
+        "auc_complement_vs_substitute": 0.7139632971553277,
+        "auc_substitute_vs_random": 0.3463868046026231,
+        "diag_complement": {
+         "mapped": 2696,
+         "same_cell": 719,
+         "unmapped": 851,
+         "subset_filtered": 8992
+        }
+       },
+       "supplychain": {
+        "complement_linkage_mean_ci": [
+         0.010095034283168342,
+         0.009192818623815779,
+         0.011071646106194858
+        ],
+        "substitute_linkage_mean_ci": [
+         0.00466981666029938,
+         0.0038069080995915194,
+         0.005586213068339997
+        ],
+        "random_linkage_mean_ci": [
+         0.004920349260133709,
+         0.004479767146850354,
+         0.005414822050379742
+        ],
+        "n_complement": 2696,
+        "n_substitute": 1323,
+        "n_random": 2330,
+        "auc_complement_vs_random": 0.6253655073165141,
+        "auc_complement_vs_substitute": 0.7475182291841893,
+        "auc_substitute_vs_random": 0.34372200000648806,
+        "diag_complement": {
+         "mapped": 2696,
+         "same_cell": 719,
+         "unmapped": 851,
+         "subset_filtered": 8992
+        }
+       }
+      }
+     },
+     "claimB": {
+      "gemini": {
+       "cosine_io_complement_mean": 0.839530376588921,
+       "cosine_io_noncomplement_mean": 0.8353395525599815,
+       "auc_cosine_separates_io_complement": 0.5267440011466116,
+       "n_io_complement": 3352,
+       "n_io_noncomplement": 16735
+      },
+      "openai": {
+       "cosine_io_complement_mean": 0.43624988716253066,
+       "cosine_io_noncomplement_mean": 0.42914419650806535,
+       "auc_cosine_separates_io_complement": 0.5144142547773698,
+       "n_io_complement": 3352,
+       "n_io_noncomplement": 16735
+      },
+      "glove": {
+       "cosine_io_complement_mean": 0.6816841225751872,
+       "cosine_io_noncomplement_mean": 0.6674627436128711,
+       "auc_cosine_separates_io_complement": 0.5234950119353734,
+       "n_io_complement": 3349,
+       "n_io_noncomplement": 16705
+      },
+      "_io_complement_n": 3352,
+      "_io_noncomplement_n": 16735
+     }
+    }
+   }
+  },
+  "gemini_coverage_note": "CORRECTED 2026-06-18: the gemini-2.5-pro census is now the FULL census (CA 3049 / US 3520 focals), matching the gpt-4o census. Earlier gemini numbers in this folder were a PARTIAL-CENSUS ARTIFACT (only CA 598 / US 562 focals were visible mid-write on the mount; mapped n_comp was ~264-409 CA and ~563-1367 US, yielding noisy sub-0.5 AUCs that spuriously suggested non-replication). With the full census the gemini replication now AGREES with the gpt-4o primary: Claim A AUC(complement>random) CA couse 0.574 / supplychain 0.605, US couse 0.600 / supplychain 0.603 (gpt-4o primary: CA 0.579/0.595, US 0.578/0.572), on mapped n_comp ~5346 CA / ~8673 US (vs the prior few hundred). The production-side finding replicates across both generators.",
+  "stability_check_auc_complement_vs_random_gpt4o": {
+   "note": "production-side finding is vintage-stable across the three detail benchmark years on the same Use-table sheets.",
+   "2007": {
+    "CA": {
+     "couse": {
+      "all": 0.5800549572544541,
+      "production": 0.5783798360165193,
+      "consumer": 0.5642285214058343
+     },
+     "supplychain": {
+      "all": 0.5931320390826855,
+      "production": 0.5825983118738407,
+      "consumer": 0.6039629992408659
+     }
+    },
+    "US": {
+     "couse": {
+      "all": 0.5705312236703283,
+      "production": 0.5645859829868779,
+      "consumer": 0.5814476090424497
+     },
+     "supplychain": {
+      "all": 0.5863532912364974,
+      "production": 0.573401560217509,
+      "consumer": 0.62457251987601
+     }
+    }
+   },
+   "2012": {
+    "CA": {
+     "couse": {
+      "all": 0.5794975836184384,
+      "production": 0.5774274989276158,
+      "consumer": 0.5640279093871987
+     },
+     "supplychain": {
+      "all": 0.5929534227875883,
+      "production": 0.5806620248466096,
+      "consumer": 0.606925256065284
+     }
+    },
+    "US": {
+     "couse": {
+      "all": 0.5708024441777059,
+      "production": 0.564828375448312,
+      "consumer": 0.5811759594308912
+     },
+     "supplychain": {
+      "all": 0.5783618705960952,
+      "production": 0.567203248014663,
+      "consumer": 0.6131000739270845
+     }
+    }
+   },
+   "2017": {
+    "CA": {
+     "couse": {
+      "all": 0.5789433930364692,
+      "production": 0.5757163853213909,
+      "consumer": 0.5662781455242623
+     },
+     "supplychain": {
+      "all": 0.5949958215892989,
+      "production": 0.5866519785010822,
+      "consumer": 0.5991422316415307
+     }
+    },
+    "US": {
+     "couse": {
+      "all": 0.5777859457953403,
+      "production": 0.5718417103055654,
+      "consumer": 0.5868712631155727
+     },
+     "supplychain": {
+      "all": 0.5716294636258276,
+      "production": 0.5633137973308595,
+      "consumer": 0.5988902507036042
+     }
+    }
+   }
+  }
+ },
+ "bea_2007_US_gpt4o": {
+  "provenance": {
+   "source": "BEA 2017 benchmark DETAIL I-O accounts, after redefinitions, producers' prices (Use table).",
+   "vintage": "2017 benchmark (detail sheet 2007)",
+   "construct": "PRODUCTION/supply-chain linkage + cross-industry co-use; CONVERGENT (supply-side) evidence for the PRODUCTION complement construct, NOT consumer co-use.",
+   "use_table_cells": {
+    "sheet": "2007",
+    "n_cells": 47685,
+    "n_commodities": 402,
+    "n_using_cols": 392
+   },
+   "census": "general-rubric census, generator gpt-4o, both economies (CA, US).",
+   "generator": "gpt-4o",
+   "production_definition": "production complement subset = BOTH endpoints have gpt4o_consumer_final == False."
+  },
+  "linkage_measures": {
+   "couse": "cosine of commodity use-rows across intermediate-industry columns (log1p, L2)",
+   "supplychain": "symmetric max of column-normalized direct-requirement coefficients"
+  },
+  "economies": {
+   "CA": {
+    "crosswalk": {
+     "source": "built fresh: CA NAPCS title -> BEA 2017 detail commodity title (rapidfuzz token_set_ratio)",
+     "substitute_anchor": "prefix6",
+     "coverage_by_confidence": {
+      "50": 2784,
+      "60": 1678,
+      "70": 1043,
+      "80": 359,
+      "90": 137
+     },
+     "threshold_used": 60,
+     "napcs_kept": 1678,
+     "n_census_codes": 3049,
+     "match_rate_pct_conf60": 55.0,
+     "distinct_bea_cells": 312,
+     "concentration_top1_share_pct": 17.0,
+     "concentration_top6_share_pct": 31.0
+    },
+    "pair_counts": {
+     "complement_raw": 15983,
+     "substitute_raw": 3689,
+     "random_raw": 10000
+    },
+    "claimA": {
+     "all": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.4677696386840407,
+        0.4601369256901895,
+        0.47678892209348495
+       ],
+       "substitute_linkage_mean_ci": [
+        0.43293919232754197,
+        0.41140453362977536,
+        0.45434228819504713
+       ],
+       "random_linkage_mean_ci": [
+        0.37194615044798923,
+        0.3600475154150412,
+        0.385298329621861
+       ],
+       "n_complement": 6689,
+       "n_substitute": 963,
+       "n_random": 2865,
+       "auc_complement_vs_random": 0.5800549572544541,
+       "auc_complement_vs_substitute": 0.5337931791427069,
+       "auc_substitute_vs_random": 0.5442465462967494,
+       "diag_complement": {
+        "mapped": 6689,
+        "same_cell": 950,
+        "unmapped": 8344,
+        "subset_filtered": 0
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.013934731098687607,
+        0.01326811773525006,
+        0.014672803931284563
+       ],
+       "substitute_linkage_mean_ci": [
+        0.013023410701058622,
+        0.010959801368154021,
+        0.015369499416120118
+       ],
+       "random_linkage_mean_ci": [
+        0.009190442868069708,
+        0.008137292686174727,
+        0.01030189604371183
+       ],
+       "n_complement": 6689,
+       "n_substitute": 963,
+       "n_random": 2865,
+       "auc_complement_vs_random": 0.5931320390826855,
+       "auc_complement_vs_substitute": 0.5284307693836241,
+       "auc_substitute_vs_random": 0.5613698103838536,
+       "diag_complement": {
+        "mapped": 6689,
+        "same_cell": 950,
+        "unmapped": 8344,
+        "subset_filtered": 0
+       }
+      }
+     },
+     "production": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.48406707508788255,
+        0.4751068467197418,
+        0.4942326530885414
+       ],
+       "substitute_linkage_mean_ci": [
+        0.4329257566704371,
+        0.40742276611722655,
+        0.4586954009972702
+       ],
+       "random_linkage_mean_ci": [
+        0.39216121127390546,
+        0.37824861357582074,
+        0.40752680150673776
+       ],
+       "n_complement": 4636,
+       "n_substitute": 746,
+       "n_random": 1583,
+       "auc_complement_vs_random": 0.5783798360165193,
+       "auc_complement_vs_substitute": 0.5487748000841994,
+       "auc_substitute_vs_random": 0.5257041555806584,
+       "diag_complement": {
+        "mapped": 4636,
+        "same_cell": 629,
+        "unmapped": 4561,
+        "subset_filtered": 6157
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.015088550357353037,
+        0.014210118032647335,
+        0.01605787432236438
+       ],
+       "substitute_linkage_mean_ci": [
+        0.014374100539255119,
+        0.01178845628250478,
+        0.01720779541434536
+       ],
+       "random_linkage_mean_ci": [
+        0.010376442433962917,
+        0.008696578773888457,
+        0.01210850101511631
+       ],
+       "n_complement": 4636,
+       "n_substitute": 746,
+       "n_random": 1583,
+       "auc_complement_vs_random": 0.5825983118738407,
+       "auc_complement_vs_substitute": 0.5219285715937979,
+       "auc_substitute_vs_random": 0.5586954386333344,
+       "diag_complement": {
+        "mapped": 4636,
+        "same_cell": 629,
+        "unmapped": 4561,
+        "subset_filtered": 6157
+       }
+      }
+     },
+     "consumer": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.43096743938145377,
+        0.41689739980840573,
+        0.4460402677870397
+       ],
+       "substitute_linkage_mean_ci": [
+        0.4329853812685568,
+        0.3873985900111569,
+        0.4849684686095058
+       ],
+       "random_linkage_mean_ci": [
+        0.34698480779009094,
+        0.3290494083890932,
+        0.363778877119911
+       ],
+       "n_complement": 2053,
+       "n_substitute": 217,
+       "n_random": 1282,
+       "auc_complement_vs_random": 0.5642285214058343,
+       "auc_complement_vs_substitute": 0.5023456737470847,
+       "auc_substitute_vs_random": 0.5629075393430484,
+       "diag_complement": {
+        "mapped": 2053,
+        "same_cell": 321,
+        "unmapped": 3783,
+        "subset_filtered": 9826
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.011329223995339862,
+        0.010358464369119205,
+        0.012375964846156507
+       ],
+       "substitute_linkage_mean_ci": [
+        0.008380025358687248,
+        0.006348961362322485,
+        0.011048783219311619
+       ],
+       "random_linkage_mean_ci": [
+        0.00772598318569143,
+        0.0066240160877272325,
+        0.008940690078952793
+       ],
+       "n_complement": 2053,
+       "n_substitute": 217,
+       "n_random": 1282,
+       "auc_complement_vs_random": 0.6039629992408659,
+       "auc_complement_vs_substitute": 0.556657560813556,
+       "auc_substitute_vs_random": 0.5431533390367873,
+       "diag_complement": {
+        "mapped": 2053,
+        "same_cell": 321,
+        "unmapped": 3783,
+        "subset_filtered": 9826
+       }
+      }
+     }
+    },
+    "claimB": {
+     "gemini": {
+      "cosine_io_complement_mean": 0.8062222294549171,
+      "cosine_io_noncomplement_mean": 0.795132260400696,
+      "auc_cosine_separates_io_complement": 0.5866550265943319,
+      "n_io_complement": 1429,
+      "n_io_noncomplement": 6666
+     },
+     "openai": {
+      "cosine_io_complement_mean": 0.35894186959668134,
+      "cosine_io_noncomplement_mean": 0.3161792846948432,
+      "auc_cosine_separates_io_complement": 0.6032919946998199,
+      "n_io_complement": 1429,
+      "n_io_noncomplement": 6666
+     },
+     "glove": {
+      "cosine_io_complement_mean": 0.6976989132487081,
+      "cosine_io_noncomplement_mean": 0.5647794118331839,
+      "auc_cosine_separates_io_complement": 0.7068201921661725,
+      "n_io_complement": 1429,
+      "n_io_noncomplement": 6666
+     },
+     "_io_complement_n": 1429,
+     "_io_noncomplement_n": 6666
+    }
+   },
+   "US": {
+    "crosswalk": {
+     "source": "built fresh: US NAPCS title -> BEA 2017 detail commodity title (rapidfuzz token_set_ratio)",
+     "substitute_anchor": "trilateral",
+     "coverage_by_confidence": {
+      "50": 3454,
+      "60": 3114,
+      "70": 2944,
+      "80": 2345,
+      "90": 564
+     },
+     "threshold_used": 60,
+     "napcs_kept": 3114,
+     "n_census_codes": 3520,
+     "match_rate_pct_conf60": 88.5,
+     "distinct_bea_cells": 223,
+     "concentration_top1_share_pct": 40.8,
+     "concentration_top6_share_pct": 61.3
+    },
+    "pair_counts": {
+     "complement_raw": 18407,
+     "substitute_raw": 23983,
+     "random_raw": 10000
+    },
+    "claimA": {
+     "all": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.3096380017666087,
+        0.3043023386042375,
+        0.31504430480799867
+       ],
+       "substitute_linkage_mean_ci": [
+        0.29774390422267294,
+        0.2917096415771599,
+        0.3038343712405984
+       ],
+       "random_linkage_mean_ci": [
+        0.21577756086442415,
+        0.21019661815374222,
+        0.22174483446106574
+       ],
+       "n_complement": 12671,
+       "n_substitute": 12083,
+       "n_random": 6431,
+       "auc_complement_vs_random": 0.5705312236703283,
+       "auc_complement_vs_substitute": 0.5410281710187095,
+       "auc_substitute_vs_random": 0.5246736365392054,
+       "diag_complement": {
+        "mapped": 12671,
+        "same_cell": 2953,
+        "unmapped": 2783,
+        "subset_filtered": 0
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.007775411389240911,
+        0.007448520546253526,
+        0.008136722734621188
+       ],
+       "substitute_linkage_mean_ci": [
+        0.006235551297035707,
+        0.0057816258656757675,
+        0.006776197569832092
+       ],
+       "random_linkage_mean_ci": [
+        0.003599151845774713,
+        0.00332305387925623,
+        0.0039028235812699724
+       ],
+       "n_complement": 12671,
+       "n_substitute": 12083,
+       "n_random": 6431,
+       "auc_complement_vs_random": 0.5863532912364974,
+       "auc_complement_vs_substitute": 0.5685615205898398,
+       "auc_substitute_vs_random": 0.5151075969606531,
+       "diag_complement": {
+        "mapped": 12671,
+        "same_cell": 2953,
+        "unmapped": 2783,
+        "subset_filtered": 0
+       }
+      }
+     },
+     "production": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.3097455197380758,
+        0.3041448544341776,
+        0.31636338280147136
+       ],
+       "substitute_linkage_mean_ci": [
+        0.3186695649092681,
+        0.31238449985102,
+        0.3251749746611791
+       ],
+       "random_linkage_mean_ci": [
+        0.21937286304828862,
+        0.21260367840518057,
+        0.22660868213311644
+       ],
+       "n_complement": 9376,
+       "n_substitute": 10760,
+       "n_random": 4091,
+       "auc_complement_vs_random": 0.5645859829868779,
+       "auc_complement_vs_substitute": 0.5191169001452732,
+       "auc_substitute_vs_random": 0.5416684348361032,
+       "diag_complement": {
+        "mapped": 9376,
+        "same_cell": 2116,
+        "unmapped": 1769,
+        "subset_filtered": 5146
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.007727810469490619,
+        0.00734128813800307,
+        0.008129615877874101
+       ],
+       "substitute_linkage_mean_ci": [
+        0.006334124084464821,
+        0.005833678617038824,
+        0.006900189320045106
+       ],
+       "random_linkage_mean_ci": [
+        0.0037182395699071344,
+        0.003318441905331836,
+        0.004166237448837413
+       ],
+       "n_complement": 9376,
+       "n_substitute": 10760,
+       "n_random": 4091,
+       "auc_complement_vs_random": 0.573401560217509,
+       "auc_complement_vs_substitute": 0.5405622805438548,
+       "auc_substitute_vs_random": 0.5347418033419993,
+       "diag_complement": {
+        "mapped": 9376,
+        "same_cell": 2116,
+        "unmapped": 1769,
+        "subset_filtered": 5146
+       }
+      }
+     },
+     "consumer": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.30933205684992415,
+        0.2998152501344164,
+        0.3193481518151696
+       ],
+       "substitute_linkage_mean_ci": [
+        0.12755485736873157,
+        0.11568468064481195,
+        0.1398296454529333
+       ],
+       "random_linkage_mean_ci": [
+        0.20949192785836013,
+        0.20042788528209388,
+        0.2191779264051359
+       ],
+       "n_complement": 3295,
+       "n_substitute": 1323,
+       "n_random": 2340,
+       "auc_complement_vs_random": 0.5814476090424497,
+       "auc_complement_vs_substitute": 0.7177053117655763,
+       "auc_substitute_vs_random": 0.35605203144885683,
+       "diag_complement": {
+        "mapped": 3295,
+        "same_cell": 837,
+        "unmapped": 1014,
+        "subset_filtered": 13261
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.007910860925987112,
+        0.007196434145597908,
+        0.008621537062067627
+       ],
+       "substitute_linkage_mean_ci": [
+        0.0054338557620869045,
+        0.00434220943862864,
+        0.006557935636804849
+       ],
+       "random_linkage_mean_ci": [
+        0.003390951897302176,
+        0.0029807558493747536,
+        0.0038484249014999862
+       ],
+       "n_complement": 3295,
+       "n_substitute": 1323,
+       "n_random": 2340,
+       "auc_complement_vs_random": 0.62457251987601,
+       "auc_complement_vs_substitute": 0.724970723409917,
+       "auc_substitute_vs_random": 0.3617887990903864,
+       "diag_complement": {
+        "mapped": 3295,
+        "same_cell": 837,
+        "unmapped": 1014,
+        "subset_filtered": 13261
+       }
+      }
+     }
+    },
+    "claimB": {
+     "gemini": {
+      "cosine_io_complement_mean": 0.8373983607169275,
+      "cosine_io_noncomplement_mean": 0.8358731570388661,
+      "auc_cosine_separates_io_complement": 0.5064163490611661,
+      "n_io_complement": 3830,
+      "n_io_noncomplement": 18729
+     },
+     "openai": {
+      "cosine_io_complement_mean": 0.42948443016262333,
+      "cosine_io_noncomplement_mean": 0.43155860766749904,
+      "auc_cosine_separates_io_complement": 0.4918655770006358,
+      "n_io_complement": 3830,
+      "n_io_noncomplement": 18729
+     },
+     "glove": {
+      "cosine_io_complement_mean": 0.6801914048469001,
+      "cosine_io_noncomplement_mean": 0.6726281181188392,
+      "auc_cosine_separates_io_complement": 0.502168404991457,
+      "n_io_complement": 3827,
+      "n_io_noncomplement": 18691
+     },
+     "_io_complement_n": 3830,
+     "_io_noncomplement_n": 18729
+    }
+   }
+  }
+ },
+ "bea_2012_US_gpt4o": {
+  "provenance": {
+   "source": "BEA 2017 benchmark DETAIL I-O accounts, after redefinitions, producers' prices (Use table).",
+   "vintage": "2017 benchmark (detail sheet 2012)",
+   "construct": "PRODUCTION/supply-chain linkage + cross-industry co-use; CONVERGENT (supply-side) evidence for the PRODUCTION complement construct, NOT consumer co-use.",
+   "use_table_cells": {
+    "sheet": "2012",
+    "n_cells": 47663,
+    "n_commodities": 402,
+    "n_using_cols": 392
+   },
+   "census": "general-rubric census, generator gpt-4o, both economies (CA, US).",
+   "generator": "gpt-4o",
+   "production_definition": "production complement subset = BOTH endpoints have gpt4o_consumer_final == False."
+  },
+  "linkage_measures": {
+   "couse": "cosine of commodity use-rows across intermediate-industry columns (log1p, L2)",
+   "supplychain": "symmetric max of column-normalized direct-requirement coefficients"
+  },
+  "economies": {
+   "CA": {
+    "crosswalk": {
+     "source": "built fresh: CA NAPCS title -> BEA 2017 detail commodity title (rapidfuzz token_set_ratio)",
+     "substitute_anchor": "prefix6",
+     "coverage_by_confidence": {
+      "50": 2784,
+      "60": 1678,
+      "70": 1043,
+      "80": 359,
+      "90": 137
+     },
+     "threshold_used": 60,
+     "napcs_kept": 1678,
+     "n_census_codes": 3049,
+     "match_rate_pct_conf60": 55.0,
+     "distinct_bea_cells": 312,
+     "concentration_top1_share_pct": 17.0,
+     "concentration_top6_share_pct": 31.0
+    },
+    "pair_counts": {
+     "complement_raw": 15983,
+     "substitute_raw": 3689,
+     "random_raw": 10000
+    },
+    "claimA": {
+     "all": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.4680831152425704,
+        0.4605257910803442,
+        0.47683301598516126
+       ],
+       "substitute_linkage_mean_ci": [
+        0.4358337045143658,
+        0.41454751155992337,
+        0.4573180644187051
+       ],
+       "random_linkage_mean_ci": [
+        0.3736780920290534,
+        0.3616815664002682,
+        0.38496874900629746
+       ],
+       "n_complement": 6689,
+       "n_substitute": 963,
+       "n_random": 2865,
+       "auc_complement_vs_random": 0.5794975836184384,
+       "auc_complement_vs_substitute": 0.5312149781099361,
+       "auc_substitute_vs_random": 0.54559123883878,
+       "diag_complement": {
+        "mapped": 6689,
+        "same_cell": 950,
+        "unmapped": 8344,
+        "subset_filtered": 0
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.014186558982288237,
+        0.013561374914536566,
+        0.014910762412286555
+       ],
+       "substitute_linkage_mean_ci": [
+        0.01342127404968098,
+        0.011423069680503111,
+        0.01569731156417506
+       ],
+       "random_linkage_mean_ci": [
+        0.009345266105772321,
+        0.008384811847613659,
+        0.010401471685889742
+       ],
+       "n_complement": 6689,
+       "n_substitute": 963,
+       "n_random": 2865,
+       "auc_complement_vs_random": 0.5929534227875883,
+       "auc_complement_vs_substitute": 0.532581195673621,
+       "auc_substitute_vs_random": 0.5588768736442074,
+       "diag_complement": {
+        "mapped": 6689,
+        "same_cell": 950,
+        "unmapped": 8344,
+        "subset_filtered": 0
+       }
+      }
+     },
+     "production": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.4842340880131945,
+        0.4752335303139307,
+        0.49441981149690734
+       ],
+       "substitute_linkage_mean_ci": [
+        0.4365355912235457,
+        0.4110363897473258,
+        0.461840715208708
+       ],
+       "random_linkage_mean_ci": [
+        0.3939900244367301,
+        0.37870842876931543,
+        0.4086276962867129
+       ],
+       "n_complement": 4636,
+       "n_substitute": 746,
+       "n_random": 1583,
+       "auc_complement_vs_random": 0.5774274989276158,
+       "auc_complement_vs_substitute": 0.5454127506609886,
+       "auc_substitute_vs_random": 0.5275908234102622,
+       "diag_complement": {
+        "mapped": 4636,
+        "same_cell": 629,
+        "unmapped": 4561,
+        "subset_filtered": 6157
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.01534260040308214,
+        0.014503130743505942,
+        0.0162968948905681
+       ],
+       "substitute_linkage_mean_ci": [
+        0.014636635207056593,
+        0.012007709570171022,
+        0.017523610405736297
+       ],
+       "random_linkage_mean_ci": [
+        0.01049743919408815,
+        0.009024085995028268,
+        0.012175491427868545
+       ],
+       "n_complement": 4636,
+       "n_substitute": 746,
+       "n_random": 1583,
+       "auc_complement_vs_random": 0.5806620248466096,
+       "auc_complement_vs_substitute": 0.5267599182988015,
+       "auc_substitute_vs_random": 0.5546727207138853,
+       "diag_complement": {
+        "mapped": 4636,
+        "same_cell": 629,
+        "unmapped": 4561,
+        "subset_filtered": 6157
+       }
+      }
+     },
+     "consumer": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.4316116540810442,
+        0.41758954987818386,
+        0.4466867778797618
+       ],
+       "substitute_linkage_mean_ci": [
+        0.43342076679524977,
+        0.38781919074416704,
+        0.48467158087919365
+       ],
+       "random_linkage_mean_ci": [
+        0.3485971333696522,
+        0.3317592876608385,
+        0.3664915070352493
+       ],
+       "n_complement": 2053,
+       "n_substitute": 217,
+       "n_random": 1282,
+       "auc_complement_vs_random": 0.5640279093871987,
+       "auc_complement_vs_substitute": 0.502588097445348,
+       "auc_substitute_vs_random": 0.5610922593585771,
+       "diag_complement": {
+        "mapped": 2053,
+        "same_cell": 321,
+        "unmapped": 3783,
+        "subset_filtered": 9826
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.011576033883992804,
+        0.010622028113589276,
+        0.012552106228791922
+       ],
+       "substitute_linkage_mean_ci": [
+        0.009243120024786016,
+        0.0069247579762360895,
+        0.012107501699058438
+       ],
+       "random_linkage_mean_ci": [
+        0.007922574999060968,
+        0.006764400896401429,
+        0.00912748708726925
+       ],
+       "n_complement": 2053,
+       "n_substitute": 217,
+       "n_random": 1282,
+       "auc_complement_vs_random": 0.606925256065284,
+       "auc_complement_vs_substitute": 0.5557204136466585,
+       "auc_substitute_vs_random": 0.5432791505208595,
+       "diag_complement": {
+        "mapped": 2053,
+        "same_cell": 321,
+        "unmapped": 3783,
+        "subset_filtered": 9826
+       }
+      }
+     }
+    },
+    "claimB": {
+     "gemini": {
+      "cosine_io_complement_mean": 0.8033381855442585,
+      "cosine_io_noncomplement_mean": 0.7948166709641593,
+      "auc_cosine_separates_io_complement": 0.5577777484805737,
+      "n_io_complement": 1502,
+      "n_io_noncomplement": 6666
+     },
+     "openai": {
+      "cosine_io_complement_mean": 0.34550308645917016,
+      "cosine_io_noncomplement_mean": 0.31443949927801584,
+      "auc_cosine_separates_io_complement": 0.5679037610818339,
+      "n_io_complement": 1502,
+      "n_io_noncomplement": 6666
+     },
+     "glove": {
+      "cosine_io_complement_mean": 0.6743896001889141,
+      "cosine_io_noncomplement_mean": 0.5631030542508736,
+      "auc_cosine_separates_io_complement": 0.6720961210635045,
+      "n_io_complement": 1502,
+      "n_io_noncomplement": 6666
+     },
+     "_io_complement_n": 1502,
+     "_io_noncomplement_n": 6666
+    }
+   },
+   "US": {
+    "crosswalk": {
+     "source": "built fresh: US NAPCS title -> BEA 2017 detail commodity title (rapidfuzz token_set_ratio)",
+     "substitute_anchor": "trilateral",
+     "coverage_by_confidence": {
+      "50": 3454,
+      "60": 3114,
+      "70": 2944,
+      "80": 2345,
+      "90": 564
+     },
+     "threshold_used": 60,
+     "napcs_kept": 3114,
+     "n_census_codes": 3520,
+     "match_rate_pct_conf60": 88.5,
+     "distinct_bea_cells": 223,
+     "concentration_top1_share_pct": 40.8,
+     "concentration_top6_share_pct": 61.3
+    },
+    "pair_counts": {
+     "complement_raw": 18407,
+     "substitute_raw": 23983,
+     "random_raw": 10000
+    },
+    "claimA": {
+     "all": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.3086917431076737,
+        0.30329755481221,
+        0.31417126685196634
+       ],
+       "substitute_linkage_mean_ci": [
+        0.29721832189861197,
+        0.29124789386702754,
+        0.3032886237424279
+       ],
+       "random_linkage_mean_ci": [
+        0.21475794878309729,
+        0.208878870924419,
+        0.2206013948240577
+       ],
+       "n_complement": 12671,
+       "n_substitute": 12083,
+       "n_random": 6431,
+       "auc_complement_vs_random": 0.5708024441777059,
+       "auc_complement_vs_substitute": 0.5404458303954823,
+       "auc_substitute_vs_random": 0.5253188653048982,
+       "diag_complement": {
+        "mapped": 12671,
+        "same_cell": 2953,
+        "unmapped": 2783,
+        "subset_filtered": 0
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.008193202080334886,
+        0.007859125390293396,
+        0.008534191156369993
+       ],
+       "substitute_linkage_mean_ci": [
+        0.005923636638977848,
+        0.005521971077361744,
+        0.006413289588187766
+       ],
+       "random_linkage_mean_ci": [
+        0.004084979318250015,
+        0.0037923943571098045,
+        0.004388927649618163
+       ],
+       "n_complement": 12671,
+       "n_substitute": 12083,
+       "n_random": 6431,
+       "auc_complement_vs_random": 0.5783618705960952,
+       "auc_complement_vs_substitute": 0.5761600146379225,
+       "auc_substitute_vs_random": 0.49775726444417456,
+       "diag_complement": {
+        "mapped": 12671,
+        "same_cell": 2953,
+        "unmapped": 2783,
+        "subset_filtered": 0
+       }
+      }
+     },
+     "production": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.30917832472079243,
+        0.3035690160067487,
+        0.3157579500586147
+       ],
+       "substitute_linkage_mean_ci": [
+        0.31795752451488335,
+        0.31159801597440745,
+        0.32444920215455175
+       ],
+       "random_linkage_mean_ci": [
+        0.21878923324129074,
+        0.21110612539676846,
+        0.22590400339417693
+       ],
+       "n_complement": 9376,
+       "n_substitute": 10760,
+       "n_random": 4091,
+       "auc_complement_vs_random": 0.564828375448312,
+       "auc_complement_vs_substitute": 0.5196411862288592,
+       "auc_substitute_vs_random": 0.541506414479513,
+       "diag_complement": {
+        "mapped": 9376,
+        "same_cell": 2116,
+        "unmapped": 1769,
+        "subset_filtered": 5146
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.007994979069206692,
+        0.007615189090958117,
+        0.008395288926579378
+       ],
+       "substitute_linkage_mean_ci": [
+        0.006082706025864521,
+        0.005615435309194441,
+        0.006608446220586848
+       ],
+       "random_linkage_mean_ci": [
+        0.004102625497920053,
+        0.003693880690346585,
+        0.004543997939416373
+       ],
+       "n_complement": 9376,
+       "n_substitute": 10760,
+       "n_random": 4091,
+       "auc_complement_vs_random": 0.567203248014663,
+       "auc_complement_vs_substitute": 0.5465767517635789,
+       "auc_substitute_vs_random": 0.5188995769115086,
+       "diag_complement": {
+        "mapped": 9376,
+        "same_cell": 2116,
+        "unmapped": 1769,
+        "subset_filtered": 5146
+       }
+      }
+     },
+     "consumer": {
+      "couse": {
+       "complement_linkage_mean_ci": [
+        0.30730716368290867,
+        0.2979684217320038,
+        0.31726926507238246
+       ],
+       "substitute_linkage_mean_ci": [
+        0.12854574430898266,
+        0.11682813703619975,
+        0.14081367600179318
+       ],
+       "random_linkage_mean_ci": [
+        0.2077100920658026,
+        0.19888973465179563,
+        0.21759850737754646
+       ],
+       "n_complement": 3295,
+       "n_substitute": 1323,
+       "n_random": 2340,
+       "auc_complement_vs_random": 0.5811759594308912,
+       "auc_complement_vs_substitute": 0.7117508949288702,
+       "auc_substitute_vs_random": 0.35981226298686614,
+       "diag_complement": {
+        "mapped": 3295,
+        "same_cell": 837,
+        "unmapped": 1014,
+        "subset_filtered": 13261
+       }
+      },
+      "supplychain": {
+       "complement_linkage_mean_ci": [
+        0.008757250320801642,
+        0.008031577809874216,
+        0.009528904850917707
+       ],
+       "substitute_linkage_mean_ci": [
+        0.004629920385840601,
+        0.003819999863153835,
+        0.005413903198493952
+       ],
+       "random_linkage_mean_ci": [
+        0.00405412866823714,
+        0.003660425035401595,
+        0.004518541129759992
+       ],
+       "n_complement": 3295,
+       "n_substitute": 1323,
+       "n_random": 2340,
+       "auc_complement_vs_random": 0.6131000739270845,
+       "auc_complement_vs_substitute": 0.7231029859254442,
+       "auc_substitute_vs_random": 0.3633924129955876,
+       "diag_complement": {
+        "mapped": 3295,
+        "same_cell": 837,
+        "unmapped": 1014,
+        "subset_filtered": 13261
+       }
+      }
+     }
+    },
+    "claimB": {
+     "gemini": {
+      "cosine_io_complement_mean": 0.8372810853642053,
+      "cosine_io_noncomplement_mean": 0.8353634707636539,
+      "auc_cosine_separates_io_complement": 0.5091200746265975,
+      "n_io_complement": 3746,
+      "n_io_noncomplement": 18718
+     },
+     "openai": {
+      "cosine_io_complement_mean": 0.4307136806705693,
+      "cosine_io_noncomplement_mean": 0.42962021473168743,
+      "auc_cosine_separates_io_complement": 0.49877364647874284,
+      "n_io_complement": 3746,
+      "n_io_noncomplement": 18718
+     },
+     "glove": {
+      "cosine_io_complement_mean": 0.6802547521069328,
+      "cosine_io_noncomplement_mean": 0.6716305198377732,
+      "auc_cosine_separates_io_complement": 0.5067816000247076,
+      "n_io_complement": 3744,
+      "n_io_noncomplement": 18680
+     },
+     "_io_complement_n": 3746,
+     "_io_noncomplement_n": 18718
+    }
+   }
+  }
+ }
+}

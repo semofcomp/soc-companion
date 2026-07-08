@@ -1,0 +1,58 @@
+{
+ "country": "CA",
+ "variant": "primary",
+ "n_cats": 3049,
+ "n_complement_pairs": 15983,
+ "models": [
+  "tfidf",
+  "glove",
+  "gemini",
+  "openai"
+ ],
+ "per_model": {
+  "tfidf": {
+   "mean_pct": 0.6672148704528809,
+   "median_pct": 0.7650147676467896,
+   "frac_pct_ge_90": 0.34186322968153665,
+   "frac_pct_ge_99": 0.12169179753488081,
+   "macro_auc_comp_vs_all": 0.6684339046478271,
+   "precision_at_10": 0.03073204419889503,
+   "recall_at_50": 0.1682032688766114,
+   "comp_vs_sub_auc": 0.15344617938456467,
+   "n_focals_with_subs": 2118
+  },
+  "glove": {
+   "mean_pct": 0.7986911535263062,
+   "median_pct": 0.8936659097671509,
+   "frac_pct_ge_90": 0.48532816117124444,
+   "frac_pct_ge_99": 0.1368954514171307,
+   "macro_auc_comp_vs_all": 0.8008677363395691,
+   "precision_at_10": 0.03370165745856354,
+   "recall_at_50": 0.19119475138121547,
+   "comp_vs_sub_auc": 0.13716693271579955,
+   "n_focals_with_subs": 2118
+  },
+  "gemini": {
+   "mean_pct": 0.8212922811508179,
+   "median_pct": 0.9192648530006409,
+   "frac_pct_ge_90": 0.5455171119314272,
+   "frac_pct_ge_99": 0.16492523306012638,
+   "macro_auc_comp_vs_all": 0.825124979019165,
+   "precision_at_10": 0.03805248618784531,
+   "recall_at_50": 0.23055363720073668,
+   "comp_vs_sub_auc": 0.05474075198225341,
+   "n_focals_with_subs": 2118
+  },
+  "openai": {
+   "mean_pct": 0.8104887008666992,
+   "median_pct": 0.9074499607086182,
+   "frac_pct_ge_90": 0.5167990990427329,
+   "frac_pct_ge_99": 0.1563536257273353,
+   "macro_auc_comp_vs_all": 0.8135653138160706,
+   "precision_at_10": 0.03622237569060774,
+   "recall_at_50": 0.22048802946593002,
+   "comp_vs_sub_auc": 0.06072164890507666,
+   "n_focals_with_subs": 2118
+  }
+ }
+}

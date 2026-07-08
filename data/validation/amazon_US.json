@@ -1,0 +1,145 @@
+{
+  "provenance": "General gpt-4o census. Reuses amazon_category_pair_lift.parquet (also_buy + also_view); only census + re-derived anchors are new.",
+  "dataset": "Amazon Product Co-purchase Graph (also_buy / also_view lift between leaf categories)",
+  "economy": "US",
+  "granularity": "Amazon leaf category (cid)",
+  "n_napcs_categories": 3520,
+  "n_mapped_napcs_codes": 113,
+  "anchors": "substitute=taxonomic (CA 6-digit prefix / US trilateral_code, both mapped); random=within mapped slice, seed 42",
+  "coverage": {
+    "complements_gpt4o": {
+      "pairs": 18150,
+      "both_mapped": 46
+    },
+    "substitutes_taxonomic": {
+      "pairs": 116,
+      "both_mapped": 116
+    },
+    "random_within_slice": {
+      "pairs": 5000,
+      "both_mapped": 5000
+    }
+  },
+  "claim_A": {
+    "complements_gpt4o": {
+      "n": 46,
+      "linked_pct": 37.0,
+      "mean_buy_lift_linked": 2374.43,
+      "median_buy_lift_linked": 2480.53,
+      "mean_buy_lift_linked_ci": [
+        1848.1955,
+        2870.7801
+      ]
+    },
+    "substitutes_taxonomic": {
+      "n": 116,
+      "linked_pct": 86.2,
+      "mean_buy_lift_linked": 2869.66,
+      "median_buy_lift_linked": 2480.53,
+      "mean_buy_lift_linked_ci": [
+        2382.8274,
+        3429.9921
+      ]
+    },
+    "random_within_slice": {
+      "n": 5000,
+      "linked_pct": 7.5,
+      "mean_buy_lift_linked": 2099.13,
+      "median_buy_lift_linked": 2346.5,
+      "mean_buy_lift_linked_ci": [
+        1870.1541,
+        2358.6239
+      ]
+    },
+    "auc_complement_vs_random": {
+      "auc": 0.626,
+      "ci": [
+        0.531,
+        0.712
+      ]
+    },
+    "auc_complement_vs_substitute": {
+      "auc": 0.481,
+      "ci": [
+        0.362,
+        0.603
+      ]
+    }
+  },
+  "claim_A_prime": {
+    "table_2x2": {
+      "C_ab": 12,
+      "C_av": 8,
+      "S_ab": 56,
+      "S_av": 49
+    },
+    "cohens_kappa": 0.034,
+    "odds_ratio": 1.288,
+    "fisher_p": 0.6318,
+    "also_buy_share_complements": 0.493,
+    "also_buy_share_substitutes": 0.499,
+    "mann_whitney_p_comp_gt_sub": 0.4125,
+    "auc_abshare_comp_vs_sub": 0.516
+  },
+  "claim_B": {
+    "n_behavioral_complement_pairs": 285,
+    "n_behavioral_substitute_pairs": 115,
+    "per_model": {
+      "tfidf": {
+        "mean_cos_complement": 0.0968,
+        "mean_cos_substitute": 0.0879,
+        "n_comp": 285,
+        "n_sub": 115,
+        "auc_substitute_over_complement": 0.392,
+        "auc_95ci": [
+          0.33,
+          0.456
+        ]
+      },
+      "glove": {
+        "mean_cos_complement": 0.7068,
+        "mean_cos_substitute": 0.6397,
+        "n_comp": 285,
+        "n_sub": 115,
+        "auc_substitute_over_complement": 0.372,
+        "auc_95ci": [
+          0.314,
+          0.438
+        ]
+      },
+      "gemini": {
+        "mean_cos_complement": 0.8522,
+        "mean_cos_substitute": 0.8388,
+        "n_comp": 285,
+        "n_sub": 115,
+        "auc_substitute_over_complement": 0.407,
+        "auc_95ci": [
+          0.346,
+          0.474
+        ]
+      },
+      "openai": {
+        "mean_cos_complement": 0.4917,
+        "mean_cos_substitute": 0.4304,
+        "n_comp": 285,
+        "n_sub": 115,
+        "auc_substitute_over_complement": 0.372,
+        "auc_95ci": [
+          0.311,
+          0.439
+        ]
+      }
+    }
+  },
+  "coverage_consumer_vs_production": {
+    "n_mapped": 113,
+    "consumer_final": 21,
+    "non_consumer_or_production": 92,
+    "label_breakdown": {
+      "non_consumer": 76,
+      "consumer_final": 21,
+      "REVIEW": 16
+    },
+    "pct_consumer": 18.6
+  }
+}

@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Code — companion</title>
+<script>try{var s=JSON.parse(localStorage.getItem('cv2-state')||'{}');document.documentElement.setAttribute('data-theme',s.theme||'dark');}catch(e){}</script>
+<link rel="stylesheet" href="assets/app.css">
+</head><body data-controls="none">
+<div id="hdr"></div>
+<main class="wrap">
+  <h1>Code &amp; reproducibility</h1>
+  <p class="lead">The general-construct pipeline, in run order. Every figure, table, and bundle on this site is regenerable from the census + embeddings with these scripts.</p>
+
+  <h2>1 · Census generation</h2>
+  <ul>
+    <li><a href="code/RUBRIC_general_v1.md">RUBRIC_general_v1.md</a> — the general-complementarity rubric (consumption + production)</li>
+    <li><a href="code/regenerate_census_general.py">regenerate_census_general.py</a> — GPT-4o primary census, both economies, two-pass + fuzzy resolution (its gpt-4o-mini pass is legacy and unused in the paper)</li>
+    <li><a href="code/regenerate_census_gemini.py">regenerate_census_gemini.py</a> — cross-vendor Gemini-2.5-Pro replication census (the paper's replication generator)</li>
+  </ul>
+
+  <h2>2 · Consumer-final labeling</h2>
+  <ul>
+    <li><a href="code/classify_consumer_final.py">classify_consumer_final.py</a> — GPT-4o + mini consumer-final classifier</li>
+    <li><a href="code/classify_consumer_final_gemini.py">classify_consumer_final_gemini.py</a> — Gemini classifier (cross-vendor consensus)</li>
+  </ul>
+
+  <h2>3 · Embedding analytics</h2>
+  <ul>
+    <li><a href="code/general_analyze.py">general_analyze.py</a> — position spectrum, comp-vs-sub cosine AUC, by-type</li>
+    <li><a href="code/general_rank_only.py">general_rank_only.py</a> / <a href="code/general_rank_probe.py">general_rank_probe.py</a> — percentile/retrieval + linear probe</li>
+    <li><a href="code/general_probe_only.py">general_probe_only.py</a> — probe AUC</li>
+    <li>The economy×domain 2×2 is computed from the cross-vendor consumption/production census (xvendor labels) and rendered by <a href="code/figpub_general.py">figpub_general.py</a> (<code>fig_2x2</code>).</li>
+  </ul>
+
+  <h2>4 · Graph (companion-exclusive)</h2>
+  <ul>
+    <li><a href="code/graph_general.py">graph_general.py</a> — complement graph on the general census: Louvain communities + modularity, hubs, reciprocity, edges (both economies)</li>
+  </ul>
+
+  <h2>5 · Figures</h2>
+  <ul>
+    <li><a href="code/figpub_general.py">figpub_general.py</a>, <a href="code/figpub_general_r2.py">figpub_general_r2.py</a> — spectrum, distributions, percentile, probe, product/service, 2×2</li>
+    <li><a href="code/figpub_general_dose.py">figpub_general_dose.py</a> — dose-response (Figure 14)</li>
+    <li><a href="code/make_umap_figures.py">make_umap_figures.py</a> — UMAP maps + focal/ego figures</li>
+  </ul>
+
+  <h2>6 · Audits (reliability &amp; coverage)</h2>
+  <ul>
+    <li><a href="code/dimension_agreement.py">dimension_agreement.py</a> — cross-generator reliability of the type tag and the four complementarity-dimension tags on the shared pairs (Cohen's κ, prevalences; deterministic)</li>
+    <li><a href="code/coverage_audit.py">coverage_audit.py</a> — audit of focal categories without complements, by NAPCS section, both economies (Appendix A, Table A.1)</li>
+  </ul>
+
+  <p class="muted" style="font-size:12.5px">Environment: Python 3, numpy / pandas / scikit-learn / pyarrow; <code>umap-learn</code> for the maps; <code>networkx</code> + <code>python-louvain</code> for the graph; <code>matplotlib</code> for figures. API keys (OpenAI, Gemini) are required only to regenerate the census/labels, not the analytics.<
