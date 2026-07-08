@@ -1,0 +1,73 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Generality — the 2×2 — companion</title>
+<script>try{var s=JSON.parse(localStorage.getItem('cv2-state')||'{}');document.documentElement.setAttribute('data-theme',s.theme||'dark');}catch(e){}</script>
+<link rel="stylesheet" href="assets/app.css">
+</head><body data-controls="embedding">
+<div id="hdr"></div>
+<main class="wrap">
+  <h1>Generality — the economy × domain 2×2</h1>
+  <p class="lead">The core generality result: cosine ranks complements below substitutes (the <strong>pathology</strong>, AUC&nbsp;&lt;&nbsp;0.50) and a learned probe recovers them (<strong>recovery</strong>, AUC&nbsp;&gt;&nbsp;0.50) in <em>all four</em> cells — Canada/US crossed with consumption/production. Each census reproduces the finding in the domain it is <em>not</em> the exemplar of. Labels are the cross-vendor (GPT-4o ∩ Gemini) consumer-final consensus; the embedding shown follows the <strong>Embedding</strong> switcher (cosine), with the Gemini probe.</p>
+
+  <div style="margin:8px 0"><label class="ctl"><input type="checkbox" id="cut"> use single-model GPT-4o label cut (robustness) instead of cross-vendor consensus</label></div>
+
+  <div id="grid"></div>
+
+  <h2>Domain tilt</h2>
+  <p class="muted" style="margin-top:0">Both censuses are production-majority; the tilt is relative. Canada is the richer consumption exemplar; the US the production exemplar.</p>
+  <div id="tilt"></div>
+
+  <h2>Drill-down</h2>
+  <p class="muted" style="margin-top:0">Per-cell detail for the current embedding: complement position on the random→substitute scale, mean cosines, and pair counts.</p>
+  <div id="drill"></div>
+</main>
+<div id="ftr"></div>
+<script src="assets/app.js"></script>
+<script>
+let DATA={};
+async function fetchJSON(p){const r=await fetch(p);if(!r.ok)throw new Error(p);return r.json();}
+async function loadAll(){
+  const suf=document.getElementById("cut").checked?"":"_xvendor"; // xvendor default
+  DATA={};
+  for(const ec of ["CA","US"]){DATA[ec]=await fetchJSON("data/"+ec+"_consumer_vs_production"+suf+".json");}
+}
+function fmt(x){return (x==null)?"—":(+x).toFixed(3);}
+function cell(ec,sub){
+  const d=DATA[ec]; if(!d||!d.subsets||!d.subsets[sub])return {auc:null,probe:null,n:null};
+  const pm=d.subsets[sub].per_model||{}; const rep=CV2.get("rep");
+  const m=pm[rep]||{}; const g=pm["gemini"]||{};
+  return {auc:m.comp_vs_sub_cosine_auc, probe:g.probe_auc_comp_vs_sub, n:d.subsets[sub].n_cats, pairs:d.subsets[sub].n_complement_pairs,
+          pos:(m.position!=null?m.position:null)};
+}
+function render(){
+  const rep=CV2.get("rep");
+  const econs=[["CA","Canada"],["US","United States"]];
+  let h='<table class="data" style="max-width:760px"><tr><th>cosine: '+rep+'</th><th>Consumption</th><th>Production</th></tr>';
+  for(const [ec,nm] of econs){
+    const cons=cell(ec,"consumer"),prod=cell(ec,"production");
+    const cls=v=>v==null?"":(v<0.5?"cell-info":"cell-warn");
+    h+='<tr><th>'+nm+'</th>'+
+      '<td class="'+cls(cons.auc)+'">cosine '+fmt(cons.auc)+' · probe '+fmt(cons.probe)+'<br><span class="muted" style="font-size:11px">n='+(cons.n||"?")+' cats, '+(cons.pairs||"?")+' pairs</span></td>'+
+      '<td class="'+cls(prod.auc)+'">cosine '+fmt(prod.auc)+' · probe '+fmt(prod.probe)+'<br><span class="muted" style="font-size:11px">n='+(prod.n||"?")+' cats, '+(prod.pairs||"?")+' pairs</span></td></tr>';
+  }
+  h+='</table><p class="muted" style="font-size:12.5px">Cosine AUC &lt; 0.50 (blue) = pathology present. Probe is the Gemini learned read-out. Off-diagonal cells (CA·production, US·consumption) are the cross-survival payoff.</p>';
+  document.getElementById("grid").innerHTML=h;
+  // tilt
+  let t='<table class="data" style="max-width:560px"><tr><th>Economy</th><th>Consumption cats</th><th>Production cats</th></tr>';
+  for(const [ec,nm] of econs){const d=DATA[ec];const c=d.n_consumer_cats,p=d.n_production_cats,tot=c+p;
+    t+='<tr><th>'+nm+'</th><td>'+c+' ('+Math.round(100*c/tot)+'%)</td><td>'+p+' ('+Math.round(100*p/tot)+'%)</td></tr>';}
+  t+='</table>';
+  document.getElementById("tilt").innerHTML=t;
+  // drill
+  let dr='<table class="data"><tr><th>Cell</th><th>position (rand→sub)</th><th>cosine AUC</th><th>Gemini probe</th><th>pairs</th></tr>';
+  for(const [ec,nm] of econs)for(const sub of ["consumer","production"]){const x=cell(ec,sub);
+    dr+='<tr><td>'+nm+' · '+sub+'</td><td>'+(x.pos!=null?(100*x.pos).toFixed(1)+'%':"—")+'</td><td>'+fmt(x.auc)+'</td><td>'+fmt(x.probe)+'</td><td>'+(x.pairs||"?")+'</td></tr>';}
+  dr+='</table>';
+  document.getElementById("drill").innerHTML=dr;
+}
+async function boot(){await loadAll();render();}
+window.addEventListener("cv2:ready",boot);
+window.addEventListener("cv2:change",e=>{if(e.detail.key==="rep")render();});
+document.addEventListener("change",e=>{if(e.target&&e.target.id==="cut")boot();});
+</script>
+</body></html>

@@ -1,0 +1,43 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>External validation — companion</title>
+<script>try{var s=JSON.parse(localStorage.getItem('cv2-state')||'{}');document.documentElement.setAttribute('data-theme',s.theme||'dark');}catch(e){}</script>
+<link rel="stylesheet" href="assets/app.css">
+</head><body>
+<div id="hdr"></div>
+<main class="wrap">
+  <h1>External validation</h1>
+  <p class="lead">The census labels are generated, not observed — so we test them against data no part of the pipeline saw, organized along the paper's axis: <strong>consumption</strong> complements against behavioral co-purchase / co-visitation, <strong>production</strong> complements against national input–output accounts. Claim A: are generated complements economically real (co-occur / link more than chance)? Claim B: does cosine still rank substitutes above complements on externally-defined pairs?</p>
+
+  <div class="note"><strong>Exemplar ≠ validation source.</strong> The US is the production <em>exemplar census</em>, but the cleanest production <em>validation</em> is Canada's (StatCan I-O 2023); BEA-2017 reproduces the US production result with documented crosswalk limits. Likewise the consumption validation is strongest in Canada (Amazon + Yelp), with US Amazon concordance attenuated by coarse category mapping.</p>
+
+  <h2>Consumption — behavioral</h2>
+  <table class="data" style="max-width:820px">
+    <tr><th>Test</th><th>Canada</th><th>United States</th><th>Reads</th></tr>
+    <tr><td>Amazon — Claim A (complement vs random co-occurrence AUC)</td><td class="cell-info">0.66</td><td class="cell-info">0.63</td><td>&gt; 0.5 ✓</td></tr>
+    <tr><td>Amazon — Claim B (substitute-over-complement cosine AUC, mutual-exclusion fix; Gemini / OpenAI)</td><td class="cell-info">0.59 / 0.55</td><td class="cell-info">0.60 / 0.60</td><td>&gt; 0.5 ✓</td></tr>
+    <tr><td>Amazon — relation-concordance κ (census vs buy/view; GPT-4o / Gemini)</td><td class="cell-info">0.31 / 0.22</td><td class="cell-grey">0.01 / 0.02</td><td>&gt; 0: CA ✓, US design-limited</td></tr>
+    <tr><td>Yelp co-visitation (Edmonton metro) — Claim A / Claim B (Gemini)</td><td class="cell-info">0.58 / 0.93</td><td class="muted">—</td><td>&gt; 0.5 ✓ (CA only)</td></tr>
+  </table>
+  <p class="muted" style="font-size:13px"><strong>US concordance — why grey:</strong> measurably caused by Amazon-crosswalk collapse — 44% of US categories share an Amazon node (vs 15% in Canada); on the clean (non-collapsed) subset US κ = 1.0 on n=6. A coverage limit, not a contradiction; it is a consumption-side test for the production exemplar.</p>
+  <p class="muted" style="font-size:13px"><strong>Dropped datasets:</strong> Instacart &amp; Dunnhumby (grocery) were retired once the Amazon Claim B mutual-exclusion fix held — Amazon's breadth carries consumer goods. Retailrocket is fully anonymized (numeric category ids, no names) so it cannot be crosswalked to NAPCS.</p>
+
+  <h2>Production — economic (input–output)</h2>
+  <table class="data" style="max-width:820px">
+    <tr><th>Test</th><th>Canada (StatCan I-O 2023)</th><th>United States (BEA detail 2017)</th><th>Reads</th></tr>
+    <tr><td>Claim A — complement vs random linkage AUC (co-use / supply-chain)</td><td class="cell-info">0.58 / 0.63</td><td class="cell-warn">0.58 / 0.57</td><td>&gt; 0.5 ✓ (both generators)</td></tr>
+    <tr><td>Claim B — cosine separates I-O complements AUC (Gemini / OpenAI / GloVe)</td><td class="cell-info">0.58 / 0.59 / 0.72</td><td class="cell-warn">≈0.50</td><td>CA ✓; US crosswalk-noisy</td></tr>
+  </table>
+  <p class="muted" style="font-size:13px">Production-linkage is convergent supply-side evidence, not consumer co-use. BEA detail is benchmark-only (latest = 2017); StatCan detail is annual (2023). The US BEA crosswalk is concentrated (≈41% of NAPCS codes map to one BEA cell), which flattens US Claim B — hence the production-validation headline rests on Canada, with the US reproduced-with-caveats.</p>
+
+  <h2>Provenance &amp; raw outputs</h2>
+  <p class="muted" style="margin-top:0">Each dataset is used in prior complementarity research (cited in the paper). Raw analysis outputs (download):</p>
+  <ul>
+    <li><a href="data/validation/amazon_substitute_fix_summary.json">Amazon Claim B rehabilitation</a> · <a href="data/validation/concordance_diagnostic_summary.json">concordance diagnostic</a> · <a href="data/validation/concordance_baseline_gemini-2.5-pro_summary.json">concordance vs Gemini census</a></li>
+    <li><a href="data/validation/amazon_CA.json">Amazon CA</a> · <a href="data/validation/amazon_US.json">Amazon US</a> · <a href="data/validation/yelp_canada_summary.json">Yelp Canada</a></li>
+    <li><a href="data/validation/statcan_io_summary.json">StatCan I-O 2023</a> · <a href="data/validation/bea_2017_summary.json">BEA detail 2017</a></li>
+  </ul>
+</main>
+<div id="ftr"></div>
+<script src="assets/app.js"></script>
+</body></html>

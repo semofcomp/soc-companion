@@ -1,0 +1,102 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Overview — The Semantics of Complementarity</title>
+<script>try{var s=JSON.parse(localStorage.getItem('cv2-state')||'{}');var t=s.theme||localStorage.getItem('site-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.toggle('light',t==='light');}catch(e){}</script>
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .ov-brief{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:14px 0 6px}
+  .ov-brief .b{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:15px 16px}
+  .ov-brief .b .h{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);margin:0 0 6px}
+  .ov-brief .b p{margin:0;font-size:13.5px;color:var(--fg);line-height:1.52}
+  .ov-brief .b .mut{color:var(--fg2)}
+  .pipe{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0 6px}
+  .pipe .step{flex:1 1 0;min-width:158px;background:var(--bg2);border:1px solid var(--border);border-radius:11px;padding:12px 13px}
+  .pipe .step .n{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--teal)}
+  .pipe .step.bad .n{color:var(--coral)}
+  .pipe .step .t{font-weight:600;font-size:13.5px;margin:4px 0 3px}
+  .pipe .step .d{font-size:12px;color:var(--fg2);line-height:1.46}
+  .ov-cta{margin:18px 0;background:var(--bg2);display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
+  .ov-cta a.go{white-space:nowrap;background:var(--accent);color:#fff;padding:8px 15px;border-radius:8px;font-size:14px;font-weight:600}
+  .ov-cta a.go:hover{text-decoration:none;filter:brightness(1.05)}
+  .ov-econ .econname{font-size:13px;font-weight:700;color:var(--fg);margin:2px 0 8px;letter-spacing:.01em}
+  .ov-econ .econname .emut{font-weight:400;color:var(--fg2)}
+  .ov-econ .kpis{margin:0}
+</style>
+</head><body data-controls="none">
+<div id="hdr"></div>
+<main><div class="wrap">
+  <h1>The Semantics of Complementarity</h1>
+  <p class="lead">Economic <strong>complementarity</strong> — the goods and services used or produced <em>together</em> — is encoded in the text embeddings of their descriptions, but it does <strong>not</strong> lie along the cosine-similarity axis everyone measures with. Plain cosine ranks complements <em>below</em> their substitutes (most severely for the strongest transformer embeddings); a one-line learned probe recovers them. The result is <strong>general</strong>: it holds across consumption and production, and across two national economies.</p>
+
+  <h2>What this paper does</h2>
+  <div class="ov-brief">
+    <div class="b"><p class="h">The research question</p><p>Do modern text embeddings encode economic complementarity — which products and services are used or produced together — and if so, why does standard similarity miss it, and how can it be recovered? <span class="mut">Complements are, by definition, <em>unalike</em>: a flight and a hotel, lumber and nails.</span></p></div>
+    <div class="b"><p class="h">What it establishes</p><p>Complementarity is present in embedding space but <em>off</em> the cosine axis. A simple learned probe recovers it (AUC ≈ 0.85–0.91), the finding survives every cut of the data, and it agrees with real behavioral and input–output evidence. <span class="mut">The recovered graph then reveals hubs, ecosystems, and rare mutual pairs.</span></p></div>
+    <div class="b"><p class="h">The data</p><p>≈3,000–3,500 NAPCS detailed categories per economy (Canada + United States); ≈16k–18k LLM-elicited complement pairs (~5.5 per category); same-class substitutes and random pairs as anchors; four text embeddings; four external datasets. <span class="mut">Every headline number on this site reads from one canonical results file.</span></p></div>
+  </div>
+
+  <h2>How it works</h2>
+  <div class="pipe">
+    <div class="step"><div class="n">1 · Elicit</div><div class="t">Name the complements</div><div class="d">For each category, an LLM names the categories genuinely <b>used together</b> with it; same-class siblings are its substitutes.</div></div>
+    <div class="step"><div class="n">2 · Embed</div><div class="t">Four representations</div><div class="d">Every category's text, embedded four ways — TF-IDF, GloVe, Gemini, OpenAI — anisotropy-corrected so each model&#x2019;s cosines read against its own baselines (cross-model claims use ranks and probes, not raw cosine).</div></div>
+    <div class="step bad"><div class="n">3 · Cosine fails</div><div class="t">Complements rank low</div><div class="d">Plain cosine ranks complements <b>below</b> substitutes — AUC under 0.5. Similarity is the wrong ruler.</div></div>
+    <div class="step"><div class="n">4 · Probe recovers</div><div class="t">A learned read-out</div><div class="d">Logistic regression on the pair's element-wise product and absolute difference lifts AUC to <b>~0.85–0.91</b>.</div></div>
+    <div class="step"><div class="n">5 · Validate</div><div class="t">Against the world</div><div class="d">The recovered structure matches Amazon co-purchase, Yelp co-visitation, and StatCan / BEA input–output flows.</div></div>
+  </div>
+
+  <h2>The result</h2>
+  <div class="ov-econ">
+    <div class="econname">Canada <span class="emut">· consumption exemplar</span></div>
+    <div class="kpis" id="kpis-CA"></div>
+    <div class="econname" style="margin-top:16px">United States <span class="emut">· production exemplar</span></div>
+    <div class="kpis" id="kpis-US"></div>
+  </div>
+  <div class="card" style="margin:16px 0 0">
+    <h3 style="margin-top:0">Generality at a glance</h3>
+    <p class="muted" style="margin-top:0;font-size:13px">Economy × domain — complement-vs-substitute cosine AUC (transformers; below 0.50 = pathology) and the Gemini probe AUC (above 0.50 = recovery).</p>
+    <table class="data" style="max-width:580px">
+      <tr><th></th><th>Consumption</th><th>Production</th></tr>
+      <tr><th>Canada</th><td class="cell-info" id="g-CA-consumption">cosine 0.07 · probe 0.84</td><td class="cell-info" id="g-CA-production">cosine 0.05 · probe 0.90</td></tr>
+      <tr><th>United States</th><td class="cell-info" id="g-US-consumption">cosine 0.11 · probe 0.82</td><td class="cell-info" id="g-US-production">cosine 0.12 · probe 0.85</td></tr>
+    </table>
+    <p style="margin-bottom:0;font-size:13.5px"><a href="generality.html">Interactive 2×2 →</a> &nbsp;·&nbsp; <a href="explore-3d.html">Explore the universe →</a> &nbsp;·&nbsp; <a href="analytics-braided.html#s4">Generality in the analysis →</a></p>
+  </div>
+
+  <div class="card ov-cta">
+    <div><strong>Read the full analysis.</strong> <span class="muted">Seven sections, from the phenomenon to the structure it unlocks — each with live, interactive exhibits.</span></div>
+    <a class="go" href="analytics-braided.html">Open Analytics →</a>
+  </div>
+
+  <h2>Go deeper</h2>
+  <div class="cards">
+    <a class="card" href="explore-3d.html"><h3>The universe</h3><p class="muted">Map of every category; where a focal's complements and substitutes fall.</p></a>
+    <a class="card" href="analytics-braided.html#s2"><h3>The pathology</h3><p class="muted">Cosine ranks complements below substitutes — gradient, positions, distributions.</p></a>
+    <a class="card" href="analytics-braided.html#s3"><h3>The fix</h3><p class="muted">A trained linear probe recovers what the cosine axis hides.</p></a>
+    <a class="card" href="generality.html"><h3>Generality</h3><p class="muted">Holds within consumption and production, both economies — the 2×2.</p></a>
+    <a class="card" href="validation.html"><h3>External validation</h3><p class="muted">Behavioral (Amazon, Yelp) and economic input–output (StatCan, BEA).</p></a>
+    <a class="card" href="ecosystems.html"><h3>Community Clusters</h3><p class="muted">Hubs, ecosystems, and rare mutual pairs in the complement graph.</p></a>
+    <a class="card" href="explore-2d.html"><h3>Look up a category</h3><p class="muted">Search any category to see its complements, substitutes, and cosines.</p></a>
+    <a class="card" href="methods.html"><h3>Methods</h3><p class="muted">Generation, labeling, anchors, representations, and the probe — in plain language.</p></a>
+    <a class="card" href="data.html"><h3>Data &amp; code</h3><p class="muted">The categories, census, anchors, and the reproducible build behind every figure.</p></a>
+  </div>
+
+  <div class="card" style="background:var(--bg2)">
+    <strong>Scope &amp; honest limits.</strong> <span class="muted">Canada is the richer <em>consumption</em> exemplar; the United States (≈two-thirds producer-framed) is the <em>production</em> exemplar — the producer framing is why it is the production case, and the finding survives it. Two US-side caveats are documented: production validation leans on Canada (StatCan), with BEA reproduced under crosswalk limits; US Amazon relation-concordance is attenuated by coarse category mapping. See <a href="validation.html">validation</a>.</span>
+  </div>
+</div></main>
+<div id="ftr"></div>
+<script src="assets/app.js"></script>
+<script>
+/* Both economies' headline numbers + the 2x2 glance, read from the single source of truth (RESULTS_CANONICAL.json). */
+function tiles(x){return ''+
+  '<div class="kpi"><div class="v">'+x.universe.detailed_categories.toLocaleString()+'</div><div class="l">detailed categories</div></div>'+
+  '<div class="kpi"><div class="v">'+x.headline_6_4.gemini.comp_vs_sub_cosine_auc.toFixed(3)+'</div><div class="l">comp-vs-sub cosine AUC (Gemini) — pathology &lt;0.5</div></div>'+
+  '<div class="kpi"><div class="v">'+x.probe_6_5.gemini.probe_auc.toFixed(3)+'</div><div class="l">probe AUC (Gemini) — recovery &gt;0.5</div></div>'+
+  '<div class="kpi"><div class="v">'+x.positions_6_2.gemini.position_pct.toFixed(1)+'%</div><div class="l">complement position (random→substitute)</div></div>';}
+function fillGlance(RC){['CA','US'].forEach(function(c){['consumption','production'].forEach(function(d){
+  var cell=RC[c].two_by_two_6_6[d],el=document.getElementById('g-'+c+'-'+d);
+  if(el&&cell)el.textContent='cosine '+cell.cosine_auc_gemini.toFixed(2)+' · probe '+cell.probe_auc_gemini.toFixed(2);});});}
+fetch('data/RESULTS_CANONICAL.json').then(function(r){return r.json();}).then(function(RC){
+  document.getElementById('kpis-CA').innerHTML=tiles(RC.CA);
+  document.getElementById('kpis-US').innerHTML=tiles(RC.US);
+  fillGl

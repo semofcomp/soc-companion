@@ -1,0 +1,25 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Methods — companion</title>
+<script>try{var s=JSON.parse(localStorage.getItem('cv2-state')||'{}');document.documentElement.setAttribute('data-theme',s.theme||'dark');}catch(e){}</script>
+<link rel="stylesheet" href="assets/app.css">
+</head><body data-controls="none">
+<div id="hdr"></div>
+<main class="wrap">
+  <h1>Methods, in plain language</h1>
+  <p class="lead">How the census is built, labeled, and measured — the moving parts behind every figure and table.</p>
+
+  <h2>1 · How complements are generated</h2>
+  <p>For each NAPCS category (the <em>focal</em>), a large language model proposes the product/service categories genuinely <strong>used together</strong> with it — serving distinct, mutually reinforcing roles — under a general rubric that spans both consumption (a household's joint use) and production (inputs/equipment/services used together in a process). A two-pass pipeline first free-generates candidate phrases, resolves them to real NAPCS categories by fuzzy matching, then re-selects and ranks the six best, tagging each as product/service and with relationship dimensions (functional, sequential, occasion, demand-spillover). Substitutes and near-duplicates of the focal are excluded by construction.</p>
+
+  <h2>2 · How consumption vs. production is labeled</h2>
+  <p>Every category is classified consumer-final vs not by an LLM judge (acquired by households for final use, vs intermediate/capital/wholesale/business), run under <strong>two vendors</strong> (GPT-4o and Gemini-2.5-Pro). The website's domain label is the <strong>cross-vendor consensus</strong>: consumption = both agree consumer-final, production = both agree non-consumer (a positively-labeled class), disagreements marked review. Cross-vendor agreement is high (Canada 93%, US 87%). A complement-neighborhood "audit" relabeling was considered and deliberately not used — it would entangle the split with the very complement graph it partitions, and complementarity legitimately crosses the consumption/production line.</p>
+
+  <h2>3 · Anchors</h2>
+  <p>Two reference sets calibrate every measurement: <strong>substitutes</strong> — taxonomic siblings (same 6-digit code in Canada, same trilateral code in the US) — and <strong>random</strong> category pairs. Intermediate taxonomic levels (same group / same class, coarser prefixes) provide the "similarity gradient." Complements are read against these same anchors so a position, percentile, or AUC always carries the same meaning.</p>
+
+  <h2>4 · The four representations</h2>
+  <p>Each category's text is embedded four ways: <strong>TF-IDF</strong> (lexical overlap), <strong>GloVe</strong> (word co-occurrence), and the <strong>Gemini</strong> and <strong>OpenAI</strong> contextual transformers. The dense embeddings are <em>anisotropy-corrected</em> (mean-centered over the universe, then L2-normalized) before any cosine, so each model's cosines are meaningful against that model's own random and substitute baselines. Cross-model comparisons never use raw cosine levels — they use anchored positions, ranks, and probes (the paper's Section 6.2 shows why positions cannot be compared across models).</p>
+
+  <h2>5 · The probe (why it recovers what cosine hides)</h2>
+  <p>Plain cosine collapses the embedding to a single similarity axis, on which complements land below substitutes. But the information distinguishing complements from substitutes <em>is</em> in the vectors — it just isn't the dominant direction. A simple <strong>linear probe</strong> (logistic regression on the element-wise product and absolute difference of the pair, evaluated on held

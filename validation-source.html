@@ -1,0 +1,155 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Validation source — companion</title>
+<script>try{var s=JSON.parse(localStorage.getItem('cv2-state')||'{}');var t=s.theme||localStorage.getItem('site-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.toggle('light',t==='light');}catch(e){}</script>
+<link rel="stylesheet" href="assets/app.css">
+<link rel="stylesheet" href="assets/analytics.css">
+<script src="assets/vendor/plotly-2.27.0.min.js"></script>
+<script src="assets/vendor/3d-force-graph-1.73.4.min.js"></script>
+</head><body data-controls="none">
+<div id="hdr"></div>
+<main><div class="wrap"><div class="ax">
+  <a class="ax-back" href="analytics-braided.html#s6">← Analytics · External validation</a>
+  <span class="ax-eyebrow" id="vs-kind"></span>
+  <h1 class="ax-title" id="vs-title"></h1>
+  <p class="ax-dek" id="vs-lead"></p>
+  <div class="ax-stats" id="vs-stats"></div>
+  <div class="ax-card" style="margin:18px 0"><div class="ax-cardhead"><p class="t" id="vs-vtitle"></p><p class="n" id="vs-vcap"></p></div>
+    <div class="ax-cardbody"><div id="vs-viz" style="width:100%"></div></div></div>
+  <div class="ax-card" style="margin:18px 0"><div class="ax-cardhead"><p class="t" id="vs-ctitle"></p></div>
+    <div class="ax-cardbody"><div id="vs-chart" class="ax-plot sm"></div></div></div>
+  <div class="ax-prose"><p id="vs-result"></p></div>
+  <h2 class="ax-sechead" style="font-size:21px;margin-top:28px">How prior work used this data</h2>
+  <div id="vs-refs"></div>
+  <div class="ax-callout" style="margin-top:18px"><span class="ic">!</span><div id="vs-caveat"></div></div>
+  <p class="ax-prose" style="margin-top:20px"><a href="validation.html">See the full validation write-up →</a></p>
+</div></div></main>
+<div id="ftr"></div>
+<script src="assets/app.js"></script>
+<script src="assets/analytics-exhibits.js"></script>
+<script>
+var VS={
+ amazon:{kind:"Behavioral · consumer", title:"Amazon co-purchase graph",
+  lead:"Amazon's also-bought / also-viewed graph between product leaf categories — a record, aggregated across hundreds of millions of purchases, of what shoppers actually buy and view together. It is the canonical behavioral fingerprint of complementarity.",
+  stats:[["680×","median co-purchase lift on linked complement pairs (CA)"],["5×","more likely to be linked than a random pair"],["6.9%","random-pair link rate — the chance baseline"],["3,049","NAPCS categories crosswalked to Amazon leaves"]],
+  ctitle:"Share of category pairs that co-occur in Amazon's also-bought graph",
+  chart:{x:["complements","substitutes","random"],y:[34.5,41.7,6.9],ck:["teal","coral","grey"],ytitle:"% of pairs linked",text:["34.5%","41.7%","6.9%"],ymax:52},
+  result:"Complements co-occur in the buy graph at 34.5% — five times the 6.9% random baseline — and when linked, do so at a median lift of 680×. A complement-vs-random classifier on this signal reaches AUC 0.66. The model-elicited census is recovering a structure that millions of real shopping baskets independently encode.",
+  refs:[
+   {cite:"McAuley J, Pandey R, Leskovec J (2015). Inferring networks of substitutable and complementary products. <i>KDD '15</i>, 785–794.",
+    use:"The foundational use of this exact signal: they showed Amazon's also-bought / also-viewed graph encodes substitute and complement relationships, and learned to infer those relationships from it. We run the inverse test — whether an LLM-elicited census reproduces the complement structure their graph contains."},
+   {cite:"Linden G, Smith B, York J (2003). Amazon.com recommendations: Item-to-item collaborative filtering. <i>IEEE Internet Computing</i> 7(1), 76–80.",
+    use:"The item-to-item collaborative filtering that generates the 'customers who bought this also bought' edges whose lift we measure."},
+   {cite:"Hao J, Zhao T, Li J, Dong XL, Faloutsos C, Sun Y, Wang W (2020). P-Companion: A principled framework for diversified complementary product recommendation. <i>CIKM '20</i>.",
+    use:"A modern complementary-product recommender built directly on co-purchase behavior — evidence of how heavily applied work still leans on this signal."}],
+  caveat:"US concordance is attenuated by coarse Amazon-leaf ↔ NAPCS mapping; the Canadian crosswalk is cleaner. Mapped complement-pair counts are small (58 in CA) because few NAPCS codes resolve to Amazon leaves — the <b>magnitude</b> of lift, not the count, carries the signal."},
+
+ yelp:{kind:"Behavioral · consumer", title:"Yelp co-visitation",
+  lead:"The Yelp Open Dataset — millions of consumer reviews linking users to businesses. Two business categories the same user reviews are, behaviorally, 'visited together'; co-visitation across a user's history is a second, fully independent behavioral complement signal — reviewing rather than buying.",
+  stats:[["150,346","businesses in the dataset"],["6.99M","reviews streamed"],["5,573","Canadian businesses (Edmonton CMA)"],["727","Canadian business categories"]],
+  ctitle:"Behavioral complement signal vs. the 0.50 chance line",
+  chart:{x:["complement vs random","substitute-over-complement"],y:[0.58,0.93],ck:["teal","teal"],ytitle:"AUC",text:["0.58","0.93"],ymax:1,hline:0.50},
+  result:"Even scoped to a single metro, a category's complements recur across the same users' visits above chance (AUC 0.58), and the substitute-over-complement similarity ordering reproduces strongly (0.93). The behavioral signature survives a completely different platform and a completely different behavior.",
+  refs:[
+   {cite:"Yelp Open Dataset. Yelp Inc. (yelp.com/dataset).",
+    use:"The source corpus — ~150K businesses and ~7M reviews. We stream the review file, keep Canadian (Edmonton CMA) users, and treat the set of categories a user reviews as a co-visitation basket, then test whether census complements co-occur in those baskets above chance."},
+   {cite:"McAuley J, Pandey R, Leskovec J (2015). Inferring networks of substitutable and complementary products. <i>KDD '15</i>.",
+    use:"Establishes co-occurrence-in-behavior as a valid proxy for complementarity — the same logic we apply to Yelp's review baskets rather than Amazon's purchase baskets."}],
+  caveat:"Single metro (Edmonton, AB) — feasible (well above the ~2,000-business bar) but geographically narrow. About 84% of the 6.99M-review file was streamed within the compute window; Edmonton reviews are date-interleaved, so the kept set is a representative sample."},
+
+ statcan:{kind:"Economic · production", title:"Statistics Canada Input–Output accounts",
+  lead:"StatCan's symmetric Input–Output tables (table 36-10-0001; 2023; basic prices) — the official accounting of which Canadian industries supply and use one another. Where Amazon and Yelp capture consumer behavior, the I-O accounts capture the production economy's own record of what is used together.",
+  stats:[["260","industry sectors"],["252","using industries"],["57,573","intermediate-use cells"],["2023","most recent vintage"]],
+  ctitle:"Production complement signal vs. the 0.50 chance line",
+  chart:{x:["complement vs random","cosine separates I-O comp."],y:[0.63,0.65],ck:["teal","teal"],ytitle:"AUC",text:["0.63","0.58–0.72"],ymax:1,hline:0.50},
+  result:"On the production side, complements named by the census line up with real inter-industry use: a complement-vs-random classifier on the 2023 symmetric I-O table reaches AUC 0.63, and cosine itself separates I-O complements at 0.58–0.72. This is convergent, supply-side evidence — the same economy, recent, and entirely independent of any embedding or language model.",
+  refs:[
+   {cite:"Statistics Canada (2023). Supply and Use / Input–Output Accounts (symmetric, detail level), table 36-10-0001. Statistics Canada, Ottawa.",
+    use:"The authoritative map of Canadian inter-industry use. We read the intermediate-use matrix as a ground-truth 'used-together' graph at the sector level and test whether production complements from the census align with it."},
+   {cite:"Statistics Canada (2022). North American Product Classification System (NAPCS) Canada, 2022 v1.0. Statistics Canada, Ottawa.",
+    use:"The classification the census is built on, and the bridge used to crosswalk NAPCS categories to I-O sectors."}],
+  caveat:"Cross-industry co-use and supply-chain linkage are convergent <b>production</b>-side constructs, distinct from consumer co-purchase. The result is same-economy and recent (2023), the strongest of the production checks."},
+
+ bea:{kind:"Economic · production", title:"BEA Input–Output accounts",
+  lead:"The U.S. Bureau of Economic Analysis 2017 benchmark detail Input–Output accounts — the official American inter-industry Use table, at producers' prices. The U.S. counterpart to the StatCan tables, used as a cross-country production check on the finding.",
+  stats:[["402","commodities"],["392","using industries"],["47,204","Use-table cells"],["2017","benchmark vintage"]],
+  ctitle:"Production complement signal vs. the 0.50 chance line",
+  chart:{x:["complement vs random","cosine separates"],y:[0.575,0.50],ck:["teal","grey"],ytitle:"AUC",text:["0.57–0.58","≈0.50"],ymax:1,hline:0.50},
+  result:"The U.S. benchmark accounts give a weaker but still above-chance signal (complement-vs-random AUC 0.57–0.58). We report it with its caveats rather than dropping it: an older vintage, a different economy, and a NAPCS↔BEA crosswalk, so cosine separation here sits near 0.50. It is a genuine cross-country replication attempt, honestly bounded.",
+  refs:[
+   {cite:"U.S. Bureau of Economic Analysis (2023). Input–Output Accounts Data — 2017 benchmark, detail level (Use table, producers' prices). BEA, Washington, DC.",
+    use:"The authoritative U.S. inter-industry table. Read the same way as the StatCan matrix — an independent 'used-together' ground truth — to test whether the production-complement finding crosses the border."}],
+  caveat:"Reproduced under crosswalk limits, on a 2017 vintage and a different economy than the 2023 StatCan tables. Treat it as a directional cross-country check, not a clean replication — which is exactly how the evidence board marks it (amber)."}
+};
+var VIZ={
+ amazon:{type:"force",file:"validation_graph_amazon.json",title:"The Amazon co-purchase network"},
+ yelp:{type:"force",file:"validation_graph_yelp.json",title:"The Yelp co-visitation network"},
+ statcan:{type:"force",file:"validation_graph_statcan.json",title:"The inter-industry supply network"},
+ bea:{type:"force",file:"validation_graph_bea.json",title:"The inter-commodity use network"}};
+function renderViz(v){
+  var el=document.getElementById('vs-viz'),cap=document.getElementById('vs-vcap');
+  fetch('data/'+v.file).then(function(r){return r.json();}).then(function(g){
+    cap.textContent=g.meta.desc;
+    var cs=getComputedStyle(document.documentElement);
+    var teal=cs.getPropertyValue('--teal').trim()||'#1D9E75',fg2=cs.getPropertyValue('--fg2').trim()||'#5a6068';
+    if(v.type==='force'){
+      el.style.height='460px'; el.style.position='relative';
+      var buyC=teal, viewC=(cs.getPropertyValue('--amber').trim()||'#E69F00');
+      var relState='both';
+      var vis=function(l){return relState==='both'||l.rel===relState;};
+      var G=ForceGraph3D()(el).graphData(g).backgroundColor('rgba(0,0,0,0)')
+        .nodeLabel(function(n){return n.name||n.id;}).nodeRelSize(1.5).nodeVal(function(n){return 2+Math.sqrt(n.val);})
+        .nodeColor(function(){return teal;}).nodeOpacity(0.92)
+        .linkColor(function(l){return l.rel==='view'?viewC:(l.rel==='buy'?buyC:fg2);})
+        .linkOpacity(0.2).linkWidth(0).linkVisibility(vis)
+        .enableNodeDrag(false).showNavInfo(true).width(el.clientWidth||800).height(460);
+      var keys='';
+      if(g.meta.relations){
+        keys='<div class="vsl-keys">'+
+          '<button data-r="both" class="on">Both relations</button>'+
+          '<button data-r="buy"><span class="sw" style="background:'+buyC+'"></span>Also bought</button>'+
+          '<button data-r="view"><span class="sw" style="background:'+viewC+'"></span>Also viewed</button></div>';
+      }
+      var leg=document.createElement('div'); leg.className='vs-legend';
+      leg.innerHTML='<div class="vsl-title">'+g.meta.legend_title+'</div>'+
+        '<div class="vsl-size">'+g.meta.size_line+'</div>'+keys+
+        '<div class="vsl-note">'+(g.meta.shown_line||'')+'. Node size = number of connections; hover a node for its category.</div>';
+      el.appendChild(leg);
+      leg.querySelectorAll('[data-r]').forEach(function(b){b.onclick=function(){relState=b.dataset.r;
+        leg.querySelectorAll('[data-r]').forEach(function(x){x.classList.toggle('on',x===b);});G.linkVisibility(vis);};});
+      setTimeout(function(){try{G.zoomToFit(700,28);}catch(e){}},1300);
+      window.addEventListener('resize',function(){G.width(el.clientWidth||800);});
+    }else{
+      el.style.height='470px'; el.style.position='relative';
+      var data=[{z:g.z,x:g.labels,y:g.labels,type:'heatmap',hoverongaps:false,
+        colorscale:[[0,'rgba(29,158,117,0.02)'],[0.5,'rgba(29,158,117,0.5)'],[1,'rgba(29,158,117,1)']],
+        colorbar:{thickness:10,len:0.78,outlinewidth:0,tickfont:{color:fg2,size:10}},
+        hovertemplate:'%{y}  ×  %{x}<br>co-use %{z:.2f}<extra></extra>'}];
+      var lay={paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{family:'-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif',size:11,color:fg2},
+        margin:{l:10,r:10,t:6,b:10},xaxis:{showticklabels:false,ticks:'',showgrid:false,zeroline:false},
+        yaxis:{showticklabels:false,ticks:'',showgrid:false,zeroline:false,autorange:'reversed'}};
+      Plotly.newPlot('vs-viz',data,lay,{displayModeBar:false,responsive:true});
+      var hh=document.createElement('div');hh.className='vs-help';hh.textContent='Hover a cell to read the pair · drag to zoom · double-click to reset';el.appendChild(hh);
+    }
+  }).catch(function(e){console.error('viz load failed',e);cap.textContent='';});
+}
+window.addEventListener('cv2:ready',function(){
+  var src=(new URLSearchParams(location.search).get('src')||'amazon').toLowerCase();
+  var d=VS[src]||VS.amazon;
+  document.title='Validation — '+d.title;
+  document.getElementById('vs-kind').textContent=d.kind;
+  document.getElementById('vs-title').textContent=d.title;
+  document.getElementById('vs-lead').textContent=d.lead;
+  document.getElementById('vs-stats').innerHTML=d.stats.map(function(s){return '<div class="ax-stat"><div class="v">'+s[0]+'</div><div class="l">'+s[1]+'</div></div>';}).join('');
+  document.getElementById('vs-ctitle').textContent=d.ctitle;
+  var v=VIZ[src]||VIZ.amazon; document.getElementById('vs-vtitle').textContent=v.title; renderViz(v);
+  document.getElementById('vs-result').innerHTML=d.result;
+  document.getElementById('vs-refs').innerHTML=d.refs.map(function(r){return '<div class="ax-ref"><div class="cite">'+r.cite+'</div><div class="use">'+r.use+'</div></div>';}).join('');
+  document.getElementById('vs-caveat').innerHTML=d.caveat;
+  var cs=getComputedStyle(document.documentElement);
+  var col={teal:cs.getPropertyValue('--teal').trim()||'#1D9E75',coral:cs.getPropertyValue('--coral').trim()||'#D85A30',grey:cs.getPropertyValue('--fg3').trim()||'#8a9099'};
+  var c=d.chart;
+  AX.bar('vs-chart',{x:c.x,y:c.y,colors:c.ck.map(function(k){return col[k];}),ytitle:c.ytitle,text:c.text,ymax:c.ymax,hline:c.hline});
+});
+</script>
+</body></html>
