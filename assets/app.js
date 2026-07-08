@@ -105,3 +105,4 @@ document.addEventListener("DOMContentLoaded",function(){
     sz();window.addEventListener("resize",sz);setTimeout(sz,80);}
   window.dispatchEvent(new CustomEvent("cv2:ready",{detail:{state:S}}));
 });
+})();

@@ -38,7 +38,7 @@
   <h2>How it works</h2>
   <div class="pipe">
     <div class="step"><div class="n">1 · Elicit</div><div class="t">Name the complements</div><div class="d">For each category, an LLM names the categories genuinely <b>used together</b> with it; same-class siblings are its substitutes.</div></div>
-    <div class="step"><div class="n">2 · Embed</div><div class="t">Four representations</div><div class="d">Every category's text, embedded four ways — TF-IDF, GloVe, Gemini, OpenAI — anisotropy-corrected so each model&#x2019;s cosines read against its own baselines (cross-model claims use ranks and probes, not raw cosine).</div></div>
+    <div class="step"><div class="n">2 · Embed</div><div class="t">Four representations</div><div class="d">Every category's text, embedded four ways — TF-IDF, GloVe, Gemini, OpenAI — anisotropy-corrected so cosines compare.</div></div>
     <div class="step bad"><div class="n">3 · Cosine fails</div><div class="t">Complements rank low</div><div class="d">Plain cosine ranks complements <b>below</b> substitutes — AUC under 0.5. Similarity is the wrong ruler.</div></div>
     <div class="step"><div class="n">4 · Probe recovers</div><div class="t">A learned read-out</div><div class="d">Logistic regression on the pair's element-wise product and absolute difference lifts AUC to <b>~0.85–0.91</b>.</div></div>
     <div class="step"><div class="n">5 · Validate</div><div class="t">Against the world</div><div class="d">The recovered structure matches Amazon co-purchase, Yelp co-visitation, and StatCan / BEA input–output flows.</div></div>
@@ -99,4 +99,7 @@ function fillGlance(RC){['CA','US'].forEach(function(c){['consumption','producti
 fetch('data/RESULTS_CANONICAL.json').then(function(r){return r.json();}).then(function(RC){
   document.getElementById('kpis-CA').innerHTML=tiles(RC.CA);
   document.getElementById('kpis-US').innerHTML=tiles(RC.US);
-  fillGl
+  fillGlance(RC);
+}).catch(function(e){console.error('canonical load failed',e);});
+</script>
+</body></html>

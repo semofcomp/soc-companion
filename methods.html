@@ -19,7 +19,11 @@
   <p>Two reference sets calibrate every measurement: <strong>substitutes</strong> — taxonomic siblings (same 6-digit code in Canada, same trilateral code in the US) — and <strong>random</strong> category pairs. Intermediate taxonomic levels (same group / same class, coarser prefixes) provide the "similarity gradient." Complements are read against these same anchors so a position, percentile, or AUC always carries the same meaning.</p>
 
   <h2>4 · The four representations</h2>
-  <p>Each category's text is embedded four ways: <strong>TF-IDF</strong> (lexical overlap), <strong>GloVe</strong> (word co-occurrence), and the <strong>Gemini</strong> and <strong>OpenAI</strong> contextual transformers. The dense embeddings are <em>anisotropy-corrected</em> (mean-centered over the universe, then L2-normalized) before any cosine, so each model's cosines are meaningful against that model's own random and substitute baselines. Cross-model comparisons never use raw cosine levels — they use anchored positions, ranks, and probes (the paper's Section 6.2 shows why positions cannot be compared across models).</p>
+  <p>Each category's text is embedded four ways: <strong>TF-IDF</strong> (lexical overlap), <strong>GloVe</strong> (word co-occurrence), and the <strong>Gemini</strong> and <strong>OpenAI</strong> contextual transformers. The dense embeddings are <em>anisotropy-corrected</em> (mean-centered over the universe, then L2-normalized) before any cosine, so the cosines are comparable across models.</p>
 
   <h2>5 · The probe (why it recovers what cosine hides)</h2>
-  <p>Plain cosine collapses the embedding to a single similarity axis, on which complements land below substitutes. But the information distinguishing complements from substitutes <em>is</em> in the vectors — it just isn't the dominant direction. A simple <strong>linear probe</strong> (logistic regression on the element-wise product and absolute difference of the pair, evaluated on held
+  <p>Plain cosine collapses the embedding to a single similarity axis, on which complements land below substitutes. But the information distinguishing complements from substitutes <em>is</em> in the vectors — it just isn't the dominant direction. A simple <strong>linear probe</strong> (logistic regression on the element-wise product and absolute difference of the pair, evaluated on held-out focals) recovers it, lifting complement-vs-substitute AUC from below 0.5 to ~0.85–0.91. The fix is a learned read-out, not a different model.</p>
+</main>
+<div id="ftr"></div>
+<script src="assets/app.js"></script>
+</body></html>

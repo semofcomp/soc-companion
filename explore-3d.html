@@ -565,4 +565,12 @@ window.addEventListener('cv2:change',e=>{const k=e.detail.key;
 window.addEventListener('resize',setTopOffset);
 /* Pause the WebGL render loop while a header dropdown has focus, so the native
    popup opens without competing for the main thread; resume when it closes. */
-(function(){var hd=document.getEle
+(function(){var hd=document.getElementById('hdr');if(!hd)return;
+ var isSel=function(e){return e.target&&e.target.tagName==='SELECT';};
+ hd.addEventListener('focusin',function(e){if(isSel(e)&&G.pauseAnimation)G.pauseAnimation();});
+ hd.addEventListener('focusout',function(e){if(isSel(e)&&G.resumeAnimation)G.resumeAnimation();});
+ hd.addEventListener('change',function(e){if(isSel(e)&&G.resumeAnimation)G.resumeAnimation();});})();
+setTimeout(function(){var _g=document.getElementById('g');if(_g&&_g.style.opacity!=='1')_g.style.opacity='1';},2500);
+</script>
+<script src="assets/app.js"></script>
+</body></html>
