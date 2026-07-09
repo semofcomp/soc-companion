@@ -100,9 +100,9 @@
   <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Figure EC.1</p><p class="n">The 25 categories most often named as a complement (in-degree in the directed complement graph), colored by NAPCS section: (a) Canada; (b) United States. Drafting services (414 incoming links) and Binding services (238) lead in Canada; Wholesale sales of packing and packaging materials and supplies (459) leads in the United States. Generic enabling services and packaging or logistics inputs dominate, and hubs are drawn from goods sections as well as services.</p></div>
     <div class="ax-cardbody">
       <div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div>
-      <div class="ax-plot" id="p-hubs-CA" style="width:100%;height:560px"></div>
+      <div class="ax-plot" id="p-hubs-CA" style="width:100%;height:560px;position:relative"></div>
       <div style="font-size:12.5px;font-weight:600;margin:16px 0 4px">(b) United States</div>
-      <div class="ax-plot" id="p-hubs-US" style="width:100%;height:560px"></div>
+      <div class="ax-plot" id="p-hubs-US" style="width:100%;height:560px;position:relative"></div>
     </div></div>
     <h3 style="margin:22px 0 6px">EC.3.2. Activity Ecosystems</h3>
     <div class="ax-prose">
@@ -124,9 +124,9 @@
   <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Figure EC.3</p><p class="n">The 15 Louvain communities drawn on the UMAP category map of Figure 1 of the paper (categories outside the complement graph in light grey — 61 in Canada, 99 in the United States): (a) Canada; (b) United States. Communities occupy broad, overlapping swathes of the map and routinely span several taxonomy sections: the demand-side ecosystems are not recoverable from the supply-side geometry’s cluster structure.</p></div>
     <div class="ax-cardbody">
       <div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div>
-      <div class="ax-plot" id="p-map-CA" style="width:100%;height:560px"></div>
+      <div class="ax-plot" id="p-map-CA" style="width:100%;height:560px;position:relative"></div>
       <div style="font-size:12.5px;font-weight:600;margin:16px 0 4px">(b) United States</div>
-      <div class="ax-plot" id="p-map-US" style="width:100%;height:560px"></div>
+      <div class="ax-plot" id="p-map-US" style="width:100%;height:560px;position:relative"></div>
     </div></div>
     <div class="ax-prose">
       <p>The figure is the graph-level image of the paper’s central asymmetry. The embedding map organizes categories by what they are; the communities collect categories by what they are used with; and the two organizations disagree — the fertilizer, the irrigation water, and the agronomy consultancy of the Canadian crop ecosystem sit in different regions of the map yet belong to one demand-side bundle. Beyond Section 6.8 of the paper, which never visualizes the communities, Figure EC.3 shows directly that ecosystem structure is not recoverable from the cluster structure of the supply-side geometry — the conclusion the paper reaches through its cosine analyses, read here from the map.</p>
@@ -206,10 +206,33 @@ function hlApply(gd,sel){var t=T(),grey=t.border,n=gd._orig.length;
     if(gd._op)up['marker.opacity']=[on?gd._op[i]:0.16];
     Plotly.restyle(gd,up,[i]);
   }}
-function hlBind(gd){if(gd._hlB)return;gd._hlB=true;
+function hlReset(gd){gd._sel=null;hlApply(gd,null);}
+var HLGDS=[];
+document.addEventListener('click',function(ev){
+  HLGDS.forEach(function(gd){if(gd._sel!=null && !gd.contains(ev.target))hlReset(gd);});});
+function hlBtn(gd){
+  var b=gd._btn;
+  if(!b){b=document.createElement('button');gd._btn=b;
+    b.innerHTML='&#10227;';b.title='Reset highlight';
+    b.style.cssText='position:absolute;z-index:5;width:24px;height:24px;line-height:1;padding:0;'+
+      'border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--fg);'+
+      'cursor:pointer;font-size:14px;opacity:0.85';
+    b.addEventListener('click',function(ev){ev.stopPropagation();hlReset(gd);});
+    gd.appendChild(b);}
+  var lg=gd.querySelector('g.legend'),gr=gd.getBoundingClientRect();
+  if(lg){var lr=lg.getBoundingClientRect();
+    b.style.left=Math.min(gr.width-28,(lr.right-gr.left)-22)+'px';
+    b.style.top=Math.max(2,(lr.top-gr.top)-26)+'px';}
+  else{b.style.left=(gr.width-30)+'px';b.style.top='4px';}
+}
+function hlBind(gd){
+  if(HLGDS.indexOf(gd)<0)HLGDS.push(gd);
+  setTimeout(function(){hlBtn(gd);},60);
+  if(gd._hlB)return;gd._hlB=true;
   gd.on('plotly_legendclick',function(ev){var i=ev.curveNumber;
     var next=(gd._sel===i)?null:i;gd._sel=next;hlApply(gd,next);return false;});
-  gd.on('plotly_legenddoubleclick',function(){gd._sel=null;hlApply(gd,null);return false;});}
+  gd.on('plotly_legenddoubleclick',function(){hlReset(gd);return false;});
+  window.addEventListener('resize',function(){setTimeout(function(){hlBtn(gd);},120);});}
 function hubs(e){
   var t=T(),g=D.graph[e],meta=D.meta[e],r=rankColors(g),hb=g.hubs.slice(0,25);
   var ys=hb.map(function(h){return shorten(h.title,44);});
