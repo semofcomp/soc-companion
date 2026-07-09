@@ -198,6 +198,18 @@ function baseLayout(t,extra){
 }
 var CFG={displayModeBar:false,responsive:true};
 function rankColors(g){var comm=g.communities.slice().sort(function(a,b){return b.size-a.size;});var cc={};comm.forEach(function(c,i){cc[c.id]=C20[i%20];});return {comm:comm,cc:cc};}
+function hlApply(gd,sel){var t=T(),grey=t.border,n=gd._orig.length;
+  for(var i=0;i<n;i++){
+    if((gd._skip||[]).indexOf(i)>=0)continue;
+    var on=(sel===null||sel===i);
+    var up={'marker.color':[on?gd._orig[i]:grey]};
+    if(gd._op)up['marker.opacity']=[on?gd._op[i]:0.16];
+    Plotly.restyle(gd,up,[i]);
+  }}
+function hlBind(gd){if(gd._hlB)return;gd._hlB=true;
+  gd.on('plotly_legendclick',function(ev){var i=ev.curveNumber;
+    var next=(gd._sel===i)?null:i;gd._sel=next;hlApply(gd,next);return false;});
+  gd.on('plotly_legenddoubleclick',function(){gd._sel=null;hlApply(gd,null);return false;});}
 function hubs(e){
   var t=T(),g=D.graph[e],meta=D.meta[e],r=rankColors(g),hb=g.hubs.slice(0,25);
   var ys=hb.map(function(h){return shorten(h.title,44);});
@@ -216,10 +228,12 @@ function hubs(e){
       textfont:{size:10,color:t.fg2},cliponaxis:false,
       hovertemplate:'%{y}<br>in-degree %{x}<extra></extra>'};});
   Plotly.react('p-hubs-'+e,traces,baseLayout(t,{height:560,showlegend:true,barmode:'overlay',
-    legend:{x:0.98,xanchor:'right',y:0.02,yanchor:'bottom',font:{size:9.5,color:t.fg},
-      bgcolor:'rgba(0,0,0,0)',title:{text:'Ecosystem of the hub (colors as in EC.2\u2013EC.3)',font:{size:10,color:t.fg2}}},
+    legend:{x:0.98,xanchor:'right',y:0.02,yanchor:'bottom',font:{size:11,color:t.fg},
+      bgcolor:'rgba(0,0,0,0)',title:{text:'Ecosystem of the hub (colors as in EC.2\u2013EC.3)',font:{size:11.5,color:t.fg2}}},
     yaxis:{autorange:'reversed',automargin:true,tickfont:{size:10},gridcolor:'rgba(0,0,0,0)',categoryorder:'array',categoryarray:ys},
     xaxis:{title:{text:'In-degree',font:{size:11}},gridcolor:t.grid,zeroline:false,range:[0,mx*1.14]}}),CFG);
+  var gd=document.getElementById('p-hubs-'+e);
+  gd._orig=traces.map(function(tr){return tr.marker.color;});gd._op=null;gd._skip=[];gd._sel=null;hlBind(gd);
 }
 function comm(e){
   var t=T(),g=D.graph[e],meta=D.meta[e],r=rankColors(g);
@@ -251,8 +265,12 @@ function map(e){
       hovertemplate:'%{text}<extra></extra>'});
   });
   Plotly.react('p-map-'+e,traces,baseLayout(t,{height:520,showlegend:true,
-    legend:{font:{size:8.5,color:t.fg},bgcolor:'rgba(0,0,0,0)',itemsizing:'constant'},
+    legend:{font:{size:10.5,color:t.fg},bgcolor:'rgba(0,0,0,0)',itemsizing:'constant'},
     xaxis:{visible:false},yaxis:{visible:false,automargin:false}}),CFG);
+  var gd=document.getElementById('p-map-'+e);
+  gd._orig=traces.map(function(tr){return tr.marker.color;});
+  gd._op=traces.map(function(tr){return tr.marker.opacity;});
+  gd._skip=[0];gd._sel=null;hlBind(gd);
 }
 function recip(e){
   var t=T(),R=D.RC[e].graph_6_8.reciprocity;
