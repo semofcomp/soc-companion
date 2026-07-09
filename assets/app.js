@@ -9,7 +9,7 @@ const PAGES=[
     ["ecosystems.html","Community Clusters"]
   ]},
   ["analytics-braided.html","Analytics"],
-  ["validation.html","Validation"],["methods.html","Methods"],["data.html","Data"],["code.html","Code"]
+  ["validation.html","Validation"],["methods.html","Methods"],["e-companion.html","e-Companion"],["data.html","Data"],["code.html","Code"]
 ];
 const DEF={country:"CA",generator:"gpt-4o",domain:"both",rep:"gemini"};
 const LS="cv2-state";
