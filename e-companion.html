@@ -1,9 +1,10 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>e-Companion — The Semantics of Complementarity</title>
+<title>SoC</title>
 <script>try{var s=JSON.parse(localStorage.getItem('cv2-state')||'{}');var t=s.theme||localStorage.getItem('site-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.toggle('light',t==='light');}catch(e){}</script>
 <link rel="stylesheet" href="assets/app.css">
 <link rel="stylesheet" href="assets/analytics.css">
+<script src="assets/vendor/plotly-2.27.0.min.js"></script>
 <style>.ax-section{scroll-margin-top:190px}</style>
 </head><body data-controls="none">
 <div id="hdr"></div>
@@ -98,8 +99,8 @@
     </div>
   <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Figure EC.1</p><p class="n">The 25 categories most often named as a complement (in-degree in the directed complement graph), colored by NAPCS section: (a) Canada; (b) United States. Drafting services (414 incoming links) and Binding services (238) lead in Canada; Wholesale sales of packing and packaging materials and supplies (459) leads in the United States. Generic enabling services and packaging or logistics inputs dominate, and hubs are drawn from goods sections as well as services.</p></div>
     <div class="ax-cardbody"><div style="display:flex;gap:16px;flex-wrap:wrap">
-      <div style="flex:1 1 340px;min-width:300px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div><img src="figures/fig_C1_hubs_CA.png" alt="(a) Canada" style="width:100%;background:#fff;border-radius:8px;border:1px solid var(--border)"></div>
-      <div style="flex:1 1 340px;min-width:300px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(b) United States</div><img src="figures/fig_C1_hubs_US.png" alt="(b) United States" style="width:100%;background:#fff;border-radius:8px;border:1px solid var(--border)"></div>
+      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div><div class="ax-plot" id="p-hubs-CA" style="width:100%"></div></div>
+      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(b) United States</div><div class="ax-plot" id="p-hubs-US" style="width:100%"></div></div>
     </div></div></div>
     <h3 style="margin:22px 0 6px">EC.3.2. Activity Ecosystems</h3>
     <div class="ax-prose">
@@ -109,8 +110,8 @@
     </div>
   <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Figure EC.2</p><p class="n">The 15 Louvain communities of each complement graph by size, labeled with the dominant NAPCS section and most-connected members: (a) Canada (modularity Q = 0.555); (b) United States (Q = 0.542). Each bar is annotated with the entropy of its members’ NAPCS sections; every community mixes multiple supply-side sections.</p></div>
     <div class="ax-cardbody"><div style="display:flex;gap:16px;flex-wrap:wrap">
-      <div style="flex:1 1 340px;min-width:300px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div><img src="figures/fig_C2_ecosystems_bars_CA.png" alt="(a) Canada" style="width:100%;background:#fff;border-radius:8px;border:1px solid var(--border)"></div>
-      <div style="flex:1 1 340px;min-width:300px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(b) United States</div><img src="figures/fig_C2_ecosystems_bars_US.png" alt="(b) United States" style="width:100%;background:#fff;border-radius:8px;border:1px solid var(--border)"></div>
+      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div><div class="ax-plot" id="p-comm-CA" style="width:100%"></div></div>
+      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(b) United States</div><div class="ax-plot" id="p-comm-US" style="width:100%"></div></div>
     </div></div></div>
     <h3 style="margin:22px 0 6px">EC.3.3. Ecosystems on the Category Map</h3>
     <div class="ax-prose">
@@ -118,8 +119,8 @@
     </div>
   <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Figure EC.3</p><p class="n">The 15 Louvain communities drawn on the UMAP category map of Figure 1 of the paper (categories outside the complement graph in light grey — 61 in Canada, 99 in the United States): (a) Canada; (b) United States. Communities occupy broad, overlapping swathes of the map and routinely span several taxonomy sections: the demand-side ecosystems are not recoverable from the supply-side geometry’s cluster structure.</p></div>
     <div class="ax-cardbody"><div style="display:flex;gap:16px;flex-wrap:wrap">
-      <div style="flex:1 1 340px;min-width:300px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div><img src="figures/fig_C4_ecosystem_map_CA.png" alt="(a) Canada" style="width:100%;background:#fff;border-radius:8px;border:1px solid var(--border)"></div>
-      <div style="flex:1 1 340px;min-width:300px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(b) United States</div><img src="figures/fig_C4_ecosystem_map_US.png" alt="(b) United States" style="width:100%;background:#fff;border-radius:8px;border:1px solid var(--border)"></div>
+      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div><div class="ax-plot" id="p-map-CA" style="width:100%"></div></div>
+      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(b) United States</div><div class="ax-plot" id="p-map-US" style="width:100%"></div></div>
     </div></div></div>
     <div class="ax-prose">
       <p>The figure is the graph-level image of the paper’s central asymmetry. The embedding map organizes categories by what they are; the communities collect categories by what they are used with; and the two organizations disagree — the fertilizer, the irrigation water, and the agronomy consultancy of the Canadian crop ecosystem sit in different regions of the map yet belong to one demand-side bundle. Beyond Section 6.8 of the paper, which never visualizes the communities, Figure EC.3 shows directly that ecosystem structure is not recoverable from the cluster structure of the supply-side geometry — the conclusion the paper reaches through its cosine analyses, read here from the map.</p>
@@ -132,8 +133,8 @@
     </div>
   <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Figure EC.4</p><p class="n">Mutual versus one-way directed complement edges for Canada (top row) and the United States (bottom row): panel (a) of each row shows edge counts and the reciprocity rate; panel (b) the mean complement percentile rank under Gemini. In Canada, 530 of 15,925 directed edges (3.33%) are reciprocated, and mutual pairs rank far higher (97.7 versus 81.6); in the United States, 324 of 18,312 (1.77%; 97.2 versus 74.8). Reciprocity marks the census’s most robust complement relations.</p></div>
     <div class="ax-cardbody"><div style="display:flex;gap:16px;flex-wrap:wrap">
-      <div style="flex:1 1 340px;min-width:300px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">Canada</div><img src="figures/fig_C3_reciprocity_CA.png" alt="Canada" style="width:100%;background:#fff;border-radius:8px;border:1px solid var(--border)"></div>
-      <div style="flex:1 1 340px;min-width:300px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">United States</div><img src="figures/fig_C3_reciprocity_US.png" alt="United States" style="width:100%;background:#fff;border-radius:8px;border:1px solid var(--border)"></div>
+      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div><div class="ax-plot" id="p-recip-CA" style="width:100%"></div></div>
+      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(b) United States</div><div class="ax-plot" id="p-recip-US" style="width:100%"></div></div>
     </div></div></div>
   </section>
 
@@ -141,6 +142,118 @@
 <div id="ftr"></div>
 <script src="assets/app.js"></script>
 <script>
+/* ECX: theme-reactive Plotly renderings of the four EC exhibits.
+   Data: data/graph_{CA,US}.json, data/meta_{CA,US}.json, data/RESULTS_CANONICAL.json,
+   data/umap2_{CA,US}.npy (rows align with meta key order). */
+var ECX=(function(){
+var C20=["#E6194B","#3CB44B","#4363D8","#F58231","#911EB4","#17BECF","#F032E6","#7CB518","#469990","#9A6324","#800000","#808000","#000075","#FF69B4","#666666","#E69F00","#56B4E9","#009E73","#D55E00","#CC79A7"];
+var STRIP=["Manufacturing of ","Wholesale sales of ","Retail sales of ","Rental of ","Maintenance and repair services for ","Construction services for ","Manufacturing services of "];
+function cssv(n,fb){var v=getComputedStyle(document.documentElement).getPropertyValue(n).trim();return v||fb;}
+function T(){return {fg:cssv('--fg','#e8e9ee'),fg2:cssv('--fg2','#9aa0ad'),border:cssv('--border','#33363f'),grid:cssv('--border','#33363f')};}
+function shorten(s,n){if(s.length<=n)return s;var c=s.slice(0,n-1);var k=c.lastIndexOf(' ');return (k>n*0.55?c.slice(0,k):c)+'…';}
+function commLabel(c,meta){
+  var titles=(c.members||[]).map(function(m){return (meta[m]||{}).title||'';}).filter(Boolean).sort(function(a,b){return b.length-a.length;});
+  var m=/e\.g\.\s*(.+)$/.exec(c.theme||''); var exs=[];
+  if(m){var raw=m[1].trim();
+    while(raw && exs.length<2){
+      var hit=null;
+      for(var i=0;i<titles.length;i++){if(raw.indexOf(titles[i].slice(0,30))===0){hit=titles[i];break;}}
+      if(hit===null){var frag=raw.split(',')[0].trim();exs.push(frag);raw=raw.slice(frag.length).replace(/^[,\s]+/,'');}
+      else{exs.push(hit);raw=raw.slice(hit.slice(0,30).length).replace(/^[,\s]+/,'');}
+    }}
+  var out=exs.slice(0,2).map(function(t){
+    for(var i=0;i<STRIP.length;i++){if(t.indexOf(STRIP[i])===0){t=t.slice(STRIP[i].length);t=t.charAt(0).toUpperCase()+t.slice(1);break;}}
+    return shorten(t,26);});
+  return out.length?shorten(out.join(' · '),55):shorten(c.theme||'',55);
+}
+function parseNpy(buf){var dv=new DataView(buf);var hl=dv.getUint16(8,true);var hdr=new TextDecoder().decode(new Uint8Array(buf,10,hl));var m=/\(\s*(\d+)\s*,\s*(\d+)\s*\)/.exec(hdr);var off=10+hl;return {rows:+m[1],cols:+m[2],data:new Float32Array(buf,off)};}
+var D={};
+function fetchAll(){
+  if(D.ready)return D.ready;
+  var ec=['CA','US'];
+  D.ready=Promise.all([
+    Promise.all(ec.map(function(e){return fetch('data/graph_'+e+'.json').then(function(r){return r.json();});})),
+    Promise.all(ec.map(function(e){return fetch('data/meta_'+e+'.json').then(function(r){return r.json();});})),
+    fetch('data/RESULTS_CANONICAL.json').then(function(r){return r.json();}),
+    Promise.all(ec.map(function(e){return fetch('data/umap2_'+e+'.npy').then(function(r){return r.arrayBuffer();}).then(parseNpy);}))
+  ]).then(function(a){D.graph={CA:a[0][0],US:a[0][1]};D.meta={CA:a[1][0],US:a[1][1]};D.RC=a[2];D.um={CA:a[3][0],US:a[3][1]};});
+  return D.ready;
+}
+function baseLayout(t,extra){
+  var L={paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',
+    font:{family:'system-ui,-apple-system,Segoe UI,Roboto,sans-serif',size:11,color:t.fg},
+    margin:{l:8,r:8,t:8,b:36},showlegend:false,
+    xaxis:{gridcolor:t.grid,zeroline:false,linecolor:t.grid,tickcolor:t.grid},
+    yaxis:{gridcolor:'rgba(0,0,0,0)',zeroline:false,automargin:true}};
+  for(var k in (extra||{})){L[k]=extra[k];}
+  return L;
+}
+var CFG={displayModeBar:false,responsive:true};
+function rankColors(g){var comm=g.communities.slice().sort(function(a,b){return b.size-a.size;});var cc={};comm.forEach(function(c,i){cc[c.id]=C20[i%20];});return {comm:comm,cc:cc};}
+function hubs(e){
+  var t=T(),g=D.graph[e],r=rankColors(g),hb=g.hubs.slice(0,25);
+  var ys=hb.map(function(h){return shorten(h.title,44);});
+  var cols=hb.map(function(h){var cid=g.node_community[h.code];return r.cc[cid]||'#999';});
+  Plotly.react('p-hubs-'+e,[{type:'bar',orientation:'h',x:hb.map(function(h){return h.in_degree;}),y:ys,
+    marker:{color:cols},text:hb.map(function(h){return h.in_degree;}),textposition:'outside',
+    textfont:{size:10,color:t.fg2},hovertemplate:'%{y}<br>in-degree %{x}<extra></extra>'}],
+    baseLayout(t,{height:560,yaxis:{autorange:'reversed',automargin:true,tickfont:{size:10},gridcolor:'rgba(0,0,0,0)'},
+      xaxis:{title:{text:'In-degree',font:{size:11}},gridcolor:t.grid,zeroline:false,rangemode:'tozero'}}),CFG);
+}
+function comm(e){
+  var t=T(),g=D.graph[e],meta=D.meta[e],r=rankColors(g);
+  var cs=r.comm;
+  Plotly.react('p-comm-'+e,[{type:'bar',orientation:'h',
+    x:cs.map(function(c){return c.size;}),
+    y:cs.map(function(c){return shorten(commLabel(c,meta),46);}),
+    marker:{color:cs.map(function(c){return r.cc[c.id];})},
+    text:cs.map(function(c){var h=c.section_entropy_bits;return c.size+(h!=null?'  |  H='+h.toFixed(1)+' bits':'');}),
+    textposition:'outside',textfont:{size:9.5,color:t.fg2},cliponaxis:false,
+    hovertemplate:'%{y}<br>%{x} categories<extra></extra>'}],
+    baseLayout(t,{height:460,yaxis:{autorange:'reversed',automargin:true,tickfont:{size:9.5},gridcolor:'rgba(0,0,0,0)'},
+      xaxis:{title:{text:'Community size (number of categories)',font:{size:11}},gridcolor:t.grid,range:[0,Math.max.apply(null,cs.map(function(c){return c.size;}))*1.35]},
+      annotations:[{xref:'paper',yref:'paper',x:0.98,y:0.45,xanchor:'right',showarrow:false,
+        text:g.n_communities+' communities  |  Q = '+g.modularity.toFixed(3),font:{size:11,color:t.fg2}}]}),CFG);
+}
+function map(e){
+  var t=T(),g=D.graph[e],meta=D.meta[e],um=D.um[e],r=rankColors(g);
+  var codes=Object.keys(meta),idx={};codes.forEach(function(c,i){idx[c]=i;});
+  var nc=g.node_community;
+  var gx=[],gy=[];
+  codes.forEach(function(c,i){if(!(c in nc)){gx.push(um.data[2*i]);gy.push(um.data[2*i+1]);}});
+  var traces=[{type:'scattergl',mode:'markers',x:gx,y:gy,marker:{size:3,color:t.border,opacity:0.55},hoverinfo:'skip',name:'outside graph'}];
+  r.comm.forEach(function(c){
+    var xs=[],ys2=[],tt=[];
+    (c.members||[]).forEach(function(m){var i=idx[m];if(i!=null){xs.push(um.data[2*i]);ys2.push(um.data[2*i+1]);tt.push((meta[m]||{}).title||m);}});
+    traces.push({type:'scattergl',mode:'markers',x:xs,y:ys2,text:tt,
+      marker:{size:3.6,color:r.cc[c.id],opacity:0.85},name:shorten(commLabel(c,meta),30),
+      hovertemplate:'%{text}<extra></extra>'});
+  });
+  Plotly.react('p-map-'+e,traces,baseLayout(t,{height:520,showlegend:true,
+    legend:{font:{size:8.5,color:t.fg},bgcolor:'rgba(0,0,0,0)',itemsizing:'constant'},
+    xaxis:{visible:false},yaxis:{visible:false,automargin:false}}),CFG);
+}
+function recip(e){
+  var t=T(),g=D.graph[e],R=D.RC[e].graph_6_8.reciprocity;
+  var oneway=R.directed_edges-R.mutual_directed;
+  Plotly.react('p-recip-'+e,[
+    {type:'bar',x:['Mutual (A↔B)','One-way (A→B)'],y:[R.mutual_directed,oneway],
+     marker:{color:['#1D9E75','#8a8f9c']},text:[R.mutual_directed+' ('+R.rate_pct.toFixed(2)+'%)',String(oneway)],
+     textposition:'outside',textfont:{size:10,color:t.fg2},cliponaxis:false,xaxis:'x',yaxis:'y',hoverinfo:'skip'},
+    {type:'bar',x:['Mutual','One-way'],y:[R.mutual_mean_pct,R.oneway_mean_pct],
+     marker:{color:['#1D9E75','#8a8f9c']},text:[R.mutual_mean_pct.toFixed(3),R.oneway_mean_pct.toFixed(3)],
+     textposition:'outside',textfont:{size:10,color:t.fg2},cliponaxis:false,xaxis:'x2',yaxis:'y2',hoverinfo:'skip'}],
+    baseLayout(t,{height:330,grid:{rows:1,columns:2,pattern:'independent'},
+      xaxis:{domain:[0,0.46],tickfont:{size:10}},yaxis:{type:'log',gridcolor:t.grid,title:{text:'Directed edges (log)',font:{size:10.5}}},
+      xaxis2:{domain:[0.56,1],tickfont:{size:10}},yaxis2:{range:[0,1.12],gridcolor:t.grid,title:{text:'Mean percentile rank (Gemini)',font:{size:10.5}}}}),CFG);
+}
+function renderAll(){['CA','US'].forEach(function(e){hubs(e);comm(e);map(e);recip(e);});}
+return {boot:function(){fetchAll().then(renderAll);},rerender:renderAll};
+})();
+window.addEventListener('cv2:change',function(e){if(e.detail&&e.detail.key==='theme'){setTimeout(ECX.rerender,30);}});
+</script>
+<script>
+
 function goTo(id,smooth){var el=document.getElementById(id);if(!el)return;
   el.scrollIntoView({behavior:smooth?'smooth':'auto',block:'start'});
   history.replaceState(null,'',location.pathname+location.search+'#'+id);}
@@ -153,6 +266,7 @@ function init(){if(inited)return;inited=true;
   document.querySelectorAll('.ax-secnav button').forEach(function(b){b.addEventListener('click',function(){mark(b.dataset.t);goTo(b.dataset.t,true);});});
   var spy=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)mark(e.target.id);});},{rootMargin:'-25% 0px -65% 0px'});
   ['ec1','ec2','ec3'].forEach(function(i){var el=document.getElementById(i);if(el)spy.observe(el);});
+  ECX.boot();
   var h=(location.hash||'').replace('#','');
   if(h&&document.getElementById(h)){setTimeout(function(){goTo(h,false);mark(h);},60);}else{mark('ec1');}
 }
