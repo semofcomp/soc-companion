@@ -4,6 +4,7 @@
 <script>try{var s=JSON.parse(localStorage.getItem('cv2-state')||'{}');var t=s.theme||localStorage.getItem('site-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.toggle('light',t==='light');}catch(e){}</script>
 <link rel="stylesheet" href="assets/app.css">
 <link rel="stylesheet" href="assets/analytics.css">
+<style>.ax-section{scroll-margin-top:190px}</style>
 </head><body data-controls="none">
 <div id="hdr"></div>
 
@@ -20,7 +21,7 @@
   <p class="ax-dek">This electronic companion (EC) develops in full the material that Sections 6.7 and 6.8 of the paper report in summary form. Section EC.1 presents the cross-generator replication of the complementarity census and traces how the anchored complement positions behave under the primary, replication, and consensus censuses (Table EC.1). Section EC.2 derives the reliability statistics for the auxiliary tags and explains why the product/service type tag supports analysis while the four complementarity-dimension tags do not (Table EC.2). Section EC.3 develops the structure of the complement graph itself: the hub categories that concentrate incoming complement links (Figure EC.1), the fifteen activity ecosystems into which each graph resolves (Figure EC.2), the position of those ecosystems on the embedding map (Figure EC.3), and the rare mutual pairs in which each category names the other (Figure EC.4).</p>
   <p class="muted" style="font-size:13px;margin-top:-6px">Every statistic quoted here is read from the canonical results files that also generate the tables in the paper, and the graph exhibits are built deterministically from the published census files (community detection seeded at 42), so each number and each figure can be reproduced from the companion materials. All electronic companion materials — data, code, interactive graphs, and full-resolution versions of every exhibit — are maintained in full on the anonymized companion website (https://semofcomp.github.io/soc-companion/).</p>
 
-  <section class="ax-section pane on" id="ec1">
+  <section class="ax-section on" id="ec1">
     <p class="ax-seceyebrow">Cross-generator replication · EC.1</p>
     <h2 class="ax-sechead">Cross-Generator Replication and Consensus Positions</h2>
     <div class="ax-prose">
@@ -57,7 +58,7 @@
     </div>
   </section>
 
-  <section class="ax-section pane" id="ec2">
+  <section class="ax-section on" id="ec2">
     <p class="ax-seceyebrow">Auxiliary tags · EC.2</p>
     <h2 class="ax-sechead">Reliability of the Auxiliary Tags</h2>
     <div class="ax-prose">
@@ -84,7 +85,7 @@
     </div>
   </section>
 
-  <section class="ax-section pane" id="ec3">
+  <section class="ax-section on" id="ec3">
     <p class="ax-seceyebrow">The complement graph · EC.3</p>
     <h2 class="ax-sechead">The Structure of the Complement Graph</h2>
     <div class="ax-prose">
@@ -140,18 +141,20 @@
 <div id="ftr"></div>
 <script src="assets/app.js"></script>
 <script>
-function show(id,scroll){
-  document.querySelectorAll('.ax-section.pane').forEach(function(p){p.classList.toggle('on',p.id===id);});
-  document.querySelectorAll('.ax-secnav button').forEach(function(b){b.classList.toggle('on',b.dataset.t===id);});
-  if(scroll){window.scrollTo({top:0,behavior:'auto'});}
-  history.replaceState(null,'',location.pathname+location.search+'#'+id);
-}
+function goTo(id,smooth){var el=document.getElementById(id);if(!el)return;
+  el.scrollIntoView({behavior:smooth?'smooth':'auto',block:'start'});
+  history.replaceState(null,'',location.pathname+location.search+'#'+id);}
+function mark(id){document.querySelectorAll('.ax-secnav button').forEach(function(b){b.classList.toggle('on',b.dataset.t===id);});}
 function place(){var hdr=document.getElementById('hdr'),nav=document.querySelector('.ax-secnav');if(hdr&&nav)nav.style.top=hdr.offsetHeight+'px';}
-window.addEventListener('cv2:ready',function(){
+window.addEventListener('cv2:ready',init);document.addEventListener('DOMContentLoaded',function(){setTimeout(init,300);});
+var inited=false;
+function init(){if(inited)return;inited=true;
   place();setTimeout(place,140);window.addEventListener('resize',place);
-  document.querySelectorAll('.ax-secnav button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t,true);});});
-  var init=(location.hash||'#ec1').replace('#','');if(!document.getElementById(init))init='ec1';
-  show(init,false);
-});
+  document.querySelectorAll('.ax-secnav button').forEach(function(b){b.addEventListener('click',function(){mark(b.dataset.t);goTo(b.dataset.t,true);});});
+  var spy=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)mark(e.target.id);});},{rootMargin:'-25% 0px -65% 0px'});
+  ['ec1','ec2','ec3'].forEach(function(i){var el=document.getElementById(i);if(el)spy.observe(el);});
+  var h=(location.hash||'').replace('#','');
+  if(h&&document.getElementById(h)){setTimeout(function(){goTo(h,false);mark(h);},60);}else{mark('ec1');}
+}
 </script>
 </body></html>
