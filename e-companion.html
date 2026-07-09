@@ -140,9 +140,9 @@
   <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Figure EC.4</p><p class="n">Mutual versus one-way directed complement edges for Canada (top row) and the United States (bottom row): panel (a) of each row shows edge counts and the reciprocity rate; panel (b) the mean complement percentile rank under Gemini. In Canada, 530 of 15,925 directed edges (3.33%) are reciprocated, and mutual pairs rank far higher (97.7 versus 81.6); in the United States, 324 of 18,312 (1.77%; 97.2 versus 74.8). Reciprocity marks the census’s most robust complement relations.</p></div>
     <div class="ax-cardbody">
       <div style="font-size:12.5px;font-weight:600;margin:0 0 4px">Canada</div>
-      <div class="ax-plot" id="p-recip-CA" style="width:100%;height:320px"></div>
+      <div class="ax-plot" id="p-recip-CA" style="width:100%;height:340px"></div>
       <div style="font-size:12.5px;font-weight:600;margin:16px 0 4px">United States</div>
-      <div class="ax-plot" id="p-recip-US" style="width:100%;height:320px"></div>
+      <div class="ax-plot" id="p-recip-US" style="width:100%;height:340px"></div>
     </div></div>
   </section>
 
@@ -199,14 +199,27 @@ function baseLayout(t,extra){
 var CFG={displayModeBar:false,responsive:true};
 function rankColors(g){var comm=g.communities.slice().sort(function(a,b){return b.size-a.size;});var cc={};comm.forEach(function(c,i){cc[c.id]=C20[i%20];});return {comm:comm,cc:cc};}
 function hubs(e){
-  var t=T(),g=D.graph[e],r=rankColors(g),hb=g.hubs.slice(0,25);
+  var t=T(),g=D.graph[e],meta=D.meta[e],r=rankColors(g),hb=g.hubs.slice(0,25);
   var ys=hb.map(function(h){return shorten(h.title,44);});
-  var cols=hb.map(function(h){var cid=g.node_community[h.code];return r.cc[cid]||'#999';});
-  Plotly.react('p-hubs-'+e,[{type:'bar',orientation:'h',x:hb.map(function(h){return h.in_degree;}),y:ys,
-    marker:{color:cols},text:hb.map(function(h){return h.in_degree;}),textposition:'outside',
-    textfont:{size:10,color:t.fg2},cliponaxis:false,hovertemplate:'%{y}<br>in-degree %{x}<extra></extra>'}],
-    baseLayout(t,{height:560,yaxis:{autorange:'reversed',automargin:true,tickfont:{size:10},gridcolor:'rgba(0,0,0,0)'},
-      xaxis:{title:{text:'In-degree',font:{size:11}},gridcolor:t.grid,zeroline:false,range:[0,Math.max.apply(null,hb.map(function(h){return h.in_degree;}))*1.14]}}),CFG);
+  var mx=Math.max.apply(null,hb.map(function(h){return h.in_degree;}));
+  var by={};hb.forEach(function(h,i){var cid=g.node_community[h.code];(by[cid]=by[cid]||[]).push(i);});
+  var order=Object.keys(by).sort(function(p,q){return by[p][0]-by[q][0];});
+  var traces=order.map(function(cid){
+    var idxs=by[cid];
+    var c=null;r.comm.forEach(function(cc){if(String(cc.id)===String(cid))c=cc;});
+    return {type:'bar',orientation:'h',
+      x:idxs.map(function(i){return hb[i].in_degree;}),
+      y:idxs.map(function(i){return ys[i];}),
+      name:c?shorten(commLabel(c,meta),34):'\u2014',
+      marker:{color:r.cc[cid]||'#999'},
+      text:idxs.map(function(i){return hb[i].in_degree;}),textposition:'outside',
+      textfont:{size:10,color:t.fg2},cliponaxis:false,
+      hovertemplate:'%{y}<br>in-degree %{x}<extra></extra>'};});
+  Plotly.react('p-hubs-'+e,traces,baseLayout(t,{height:560,showlegend:true,barmode:'overlay',
+    legend:{x:0.98,xanchor:'right',y:0.02,yanchor:'bottom',font:{size:9.5,color:t.fg},
+      bgcolor:'rgba(0,0,0,0)',title:{text:'Ecosystem of the hub (colors as in EC.2\u2013EC.3)',font:{size:10,color:t.fg2}}},
+    yaxis:{autorange:'reversed',automargin:true,tickfont:{size:10},gridcolor:'rgba(0,0,0,0)',categoryorder:'array',categoryarray:ys},
+    xaxis:{title:{text:'In-degree',font:{size:11}},gridcolor:t.grid,zeroline:false,range:[0,mx*1.14]}}),CFG);
 }
 function comm(e){
   var t=T(),g=D.graph[e],meta=D.meta[e],r=rankColors(g);
@@ -242,18 +255,24 @@ function map(e){
     xaxis:{visible:false},yaxis:{visible:false,automargin:false}}),CFG);
 }
 function recip(e){
-  var t=T(),g=D.graph[e],R=D.RC[e].graph_6_8.reciprocity;
+  var t=T(),R=D.RC[e].graph_6_8.reciprocity;
   var oneway=R.directed_edges-R.mutual_directed;
   Plotly.react('p-recip-'+e,[
-    {type:'bar',x:['Mutual (A↔B)','One-way (A→B)'],y:[R.mutual_directed,oneway],
+    {type:'bar',x:['Mutual (A\u2194B)','One-way (A\u2192B)'],y:[R.mutual_directed,oneway],
      marker:{color:['#1D9E75','#8a8f9c']},text:[R.mutual_directed+' ('+R.rate_pct.toFixed(2)+'%)',String(oneway)],
-     textposition:'outside',textfont:{size:10,color:t.fg2},cliponaxis:false,xaxis:'x',yaxis:'y',hoverinfo:'skip'},
+     textposition:'outside',textfont:{size:11,color:t.fg2},cliponaxis:false,xaxis:'x',yaxis:'y',hoverinfo:'skip'},
     {type:'bar',x:['Mutual','One-way'],y:[R.mutual_mean_pct,R.oneway_mean_pct],
      marker:{color:['#1D9E75','#8a8f9c']},text:[R.mutual_mean_pct.toFixed(3),R.oneway_mean_pct.toFixed(3)],
-     textposition:'outside',textfont:{size:10,color:t.fg2},cliponaxis:false,xaxis:'x2',yaxis:'y2',hoverinfo:'skip'}],
-    baseLayout(t,{height:320,grid:{rows:1,columns:2,pattern:'independent'},
-      xaxis:{domain:[0,0.46],tickfont:{size:10}},yaxis:{type:'log',gridcolor:t.grid,title:{text:'Directed edges (log)',font:{size:10.5}}},
-      xaxis2:{domain:[0.56,1],tickfont:{size:10}},yaxis2:{range:[0,1.12],gridcolor:t.grid,title:{text:'Mean percentile rank (Gemini)',font:{size:10.5}}}}),CFG);
+     textposition:'outside',textfont:{size:11,color:t.fg2},cliponaxis:false,xaxis:'x2',yaxis:'y2',hoverinfo:'skip'}],
+    baseLayout(t,{height:340,grid:{rows:1,columns:2,pattern:'independent'},
+      margin:{l:8,r:8,t:40,b:44},
+      xaxis:{domain:[0,0.44],tickfont:{size:11},gridcolor:'rgba(0,0,0,0)'},
+      yaxis:{type:'log',automargin:true,gridcolor:t.grid,tickfont:{size:10.5},title:{text:'Directed edges (log scale)',font:{size:12}}},
+      xaxis2:{domain:[0.56,1],tickfont:{size:11},gridcolor:'rgba(0,0,0,0)'},
+      yaxis2:{range:[0,1.12],automargin:true,gridcolor:t.grid,tickfont:{size:10.5},title:{text:'Mean percentile rank (Gemini)',font:{size:12}}},
+      annotations:[
+        {xref:'paper',yref:'paper',x:0,y:1.12,xanchor:'left',showarrow:false,text:'(a) Directed complement edges',font:{size:12.5,color:t.fg}},
+        {xref:'paper',yref:'paper',x:0.56,y:1.12,xanchor:'left',showarrow:false,text:'(b) Mean complement percentile rank',font:{size:12.5,color:t.fg}}]}),CFG);
 }
 function renderAll(){['CA','US'].forEach(function(e){hubs(e);comm(e);map(e);recip(e);});}
 return {boot:function(){fetchAll().then(renderAll);},rerender:renderAll};
