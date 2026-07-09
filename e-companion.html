@@ -98,10 +98,12 @@
       <p>The hub list reads as a roster of widely required inputs and enabling services. What many different activities need is not one another’s outputs but the same cross-cutting infrastructure: design and documentation (drafting, industrial design), packaging and freight, construction and project management, parking and colocation. These are the categories whose demand is derived from the broadest range of activities — the census’s picture of general-purpose complements. Nor are the hubs exclusively services: goods categories such as Industrial sand (125 incoming links in Canada) reach the top ranks, and both economies draw hubs from goods sections as well as service sections. For the paper’s measurement question the hubs matter chiefly as a threat — had these recurrent categories also sat unusually close to everything in embedding space, they could have manufactured the aggregate signal — and Section 6.8 shows the opposite: pairs involving top-decile hubs score lower than other pairs in every representation (mean percentile rank 0.779 against 0.866 under Gemini in Canada). What Figure EC.1 adds beyond Section 6.8 is the identity and composition of the hubs themselves, which the paper reports only as summary statistics.</p>
     </div>
   <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Figure EC.1</p><p class="n">The 25 categories most often named as a complement (in-degree in the directed complement graph), colored by NAPCS section: (a) Canada; (b) United States. Drafting services (414 incoming links) and Binding services (238) lead in Canada; Wholesale sales of packing and packaging materials and supplies (459) leads in the United States. Generic enabling services and packaging or logistics inputs dominate, and hubs are drawn from goods sections as well as services.</p></div>
-    <div class="ax-cardbody"><div style="display:flex;gap:16px;flex-wrap:wrap">
-      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div><div class="ax-plot" id="p-hubs-CA" style="width:100%"></div></div>
-      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(b) United States</div><div class="ax-plot" id="p-hubs-US" style="width:100%"></div></div>
-    </div></div></div>
+    <div class="ax-cardbody">
+      <div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div>
+      <div class="ax-plot" id="p-hubs-CA" style="width:100%;height:560px"></div>
+      <div style="font-size:12.5px;font-weight:600;margin:16px 0 4px">(b) United States</div>
+      <div class="ax-plot" id="p-hubs-US" style="width:100%;height:560px"></div>
+    </div></div>
     <h3 style="margin:22px 0 6px">EC.3.2. Activity Ecosystems</h3>
     <div class="ax-prose">
       <p>Louvain community detection partitions the graph so that links fall within communities far more often than between them, and modularity Q measures its success: the share of the graph’s linkage falling within communities beyond what a degree-matched random graph would place there (Q = 0 means no more structure than chance; values approaching 1 mean nearly separable subgraphs). Both complement graphs resolve into 15 communities at almost identical modularity — Q = 0.555 in Canada and Q = 0.542 in the United States — so the census is organized into well-separated neighborhoods of jointly used categories rather than a single undifferentiated web, and to nearly the same degree in two independently generated economies.</p>
@@ -109,19 +111,23 @@
       <p>Figure EC.2 profiles all fifteen communities in each economy, ordered by size and annotated with the entropy of members’ sections. Beyond Section 6.8 of the paper, which reports only the community count and modularity, the composition shown here identifies what the communities are: demand-side bundles that cut across the supply-side classification.</p>
     </div>
   <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Figure EC.2</p><p class="n">The 15 Louvain communities of each complement graph by size, labeled with the dominant NAPCS section and most-connected members: (a) Canada (modularity Q = 0.555); (b) United States (Q = 0.542). Each bar is annotated with the entropy of its members’ NAPCS sections; every community mixes multiple supply-side sections.</p></div>
-    <div class="ax-cardbody"><div style="display:flex;gap:16px;flex-wrap:wrap">
-      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div><div class="ax-plot" id="p-comm-CA" style="width:100%"></div></div>
-      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(b) United States</div><div class="ax-plot" id="p-comm-US" style="width:100%"></div></div>
-    </div></div></div>
+    <div class="ax-cardbody">
+      <div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div>
+      <div class="ax-plot" id="p-comm-CA" style="width:100%;height:460px"></div>
+      <div style="font-size:12.5px;font-weight:600;margin:16px 0 4px">(b) United States</div>
+      <div class="ax-plot" id="p-comm-US" style="width:100%;height:460px"></div>
+    </div></div>
     <h3 style="margin:22px 0 6px">EC.3.3. Ecosystems on the Category Map</h3>
     <div class="ax-prose">
       <p>Figure EC.3 places the fifteen communities on the two-dimensional UMAP projection of the Gemini embedding space used in Figure 1 of the paper, with categories outside the complement graph in light grey (61 in Canada, 99 in the United States). The projection arranges categories by semantic similarity, so if the demand-side communities coincided with the geometry’s own cluster structure, each color would occupy a compact patch. They do not: every community spreads across broad, overlapping swathes of the map and routinely spans several of the visible section clusters.</p>
     </div>
   <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Figure EC.3</p><p class="n">The 15 Louvain communities drawn on the UMAP category map of Figure 1 of the paper (categories outside the complement graph in light grey — 61 in Canada, 99 in the United States): (a) Canada; (b) United States. Communities occupy broad, overlapping swathes of the map and routinely span several taxonomy sections: the demand-side ecosystems are not recoverable from the supply-side geometry’s cluster structure.</p></div>
-    <div class="ax-cardbody"><div style="display:flex;gap:16px;flex-wrap:wrap">
-      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div><div class="ax-plot" id="p-map-CA" style="width:100%"></div></div>
-      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(b) United States</div><div class="ax-plot" id="p-map-US" style="width:100%"></div></div>
-    </div></div></div>
+    <div class="ax-cardbody">
+      <div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div>
+      <div class="ax-plot" id="p-map-CA" style="width:100%;height:560px"></div>
+      <div style="font-size:12.5px;font-weight:600;margin:16px 0 4px">(b) United States</div>
+      <div class="ax-plot" id="p-map-US" style="width:100%;height:560px"></div>
+    </div></div>
     <div class="ax-prose">
       <p>The figure is the graph-level image of the paper’s central asymmetry. The embedding map organizes categories by what they are; the communities collect categories by what they are used with; and the two organizations disagree — the fertilizer, the irrigation water, and the agronomy consultancy of the Canadian crop ecosystem sit in different regions of the map yet belong to one demand-side bundle. Beyond Section 6.8 of the paper, which never visualizes the communities, Figure EC.3 shows directly that ecosystem structure is not recoverable from the cluster structure of the supply-side geometry — the conclusion the paper reaches through its cosine analyses, read here from the map.</p>
     </div>
@@ -132,10 +138,12 @@
       <p>Section 6.8 of the paper reports the Canadian reciprocity rate and the mutual-versus-one-way contrast in a single sentence; Figure EC.4 gives the counts and the full contrast for both economies, and the companion website’s reciprocity explorer lists every mutual pair with its tags and cosine similarities.</p>
     </div>
   <div class="ax-card" style="margin:16px 0"><div class="ax-cardhead"><p class="t">Figure EC.4</p><p class="n">Mutual versus one-way directed complement edges for Canada (top row) and the United States (bottom row): panel (a) of each row shows edge counts and the reciprocity rate; panel (b) the mean complement percentile rank under Gemini. In Canada, 530 of 15,925 directed edges (3.33%) are reciprocated, and mutual pairs rank far higher (97.7 versus 81.6); in the United States, 324 of 18,312 (1.77%; 97.2 versus 74.8). Reciprocity marks the census’s most robust complement relations.</p></div>
-    <div class="ax-cardbody"><div style="display:flex;gap:16px;flex-wrap:wrap">
-      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(a) Canada</div><div class="ax-plot" id="p-recip-CA" style="width:100%"></div></div>
-      <div style="flex:1 1 380px;min-width:320px"><div style="font-size:12.5px;font-weight:600;margin:0 0 4px">(b) United States</div><div class="ax-plot" id="p-recip-US" style="width:100%"></div></div>
-    </div></div></div>
+    <div class="ax-cardbody">
+      <div style="font-size:12.5px;font-weight:600;margin:0 0 4px">Canada</div>
+      <div class="ax-plot" id="p-recip-CA" style="width:100%;height:320px"></div>
+      <div style="font-size:12.5px;font-weight:600;margin:16px 0 4px">United States</div>
+      <div class="ax-plot" id="p-recip-US" style="width:100%;height:320px"></div>
+    </div></div>
   </section>
 
 </div></div></main>
@@ -196,9 +204,9 @@ function hubs(e){
   var cols=hb.map(function(h){var cid=g.node_community[h.code];return r.cc[cid]||'#999';});
   Plotly.react('p-hubs-'+e,[{type:'bar',orientation:'h',x:hb.map(function(h){return h.in_degree;}),y:ys,
     marker:{color:cols},text:hb.map(function(h){return h.in_degree;}),textposition:'outside',
-    textfont:{size:10,color:t.fg2},hovertemplate:'%{y}<br>in-degree %{x}<extra></extra>'}],
+    textfont:{size:10,color:t.fg2},cliponaxis:false,hovertemplate:'%{y}<br>in-degree %{x}<extra></extra>'}],
     baseLayout(t,{height:560,yaxis:{autorange:'reversed',automargin:true,tickfont:{size:10},gridcolor:'rgba(0,0,0,0)'},
-      xaxis:{title:{text:'In-degree',font:{size:11}},gridcolor:t.grid,zeroline:false,rangemode:'tozero'}}),CFG);
+      xaxis:{title:{text:'In-degree',font:{size:11}},gridcolor:t.grid,zeroline:false,range:[0,Math.max.apply(null,hb.map(function(h){return h.in_degree;}))*1.14]}}),CFG);
 }
 function comm(e){
   var t=T(),g=D.graph[e],meta=D.meta[e],r=rankColors(g);
@@ -243,7 +251,7 @@ function recip(e){
     {type:'bar',x:['Mutual','One-way'],y:[R.mutual_mean_pct,R.oneway_mean_pct],
      marker:{color:['#1D9E75','#8a8f9c']},text:[R.mutual_mean_pct.toFixed(3),R.oneway_mean_pct.toFixed(3)],
      textposition:'outside',textfont:{size:10,color:t.fg2},cliponaxis:false,xaxis:'x2',yaxis:'y2',hoverinfo:'skip'}],
-    baseLayout(t,{height:330,grid:{rows:1,columns:2,pattern:'independent'},
+    baseLayout(t,{height:320,grid:{rows:1,columns:2,pattern:'independent'},
       xaxis:{domain:[0,0.46],tickfont:{size:10}},yaxis:{type:'log',gridcolor:t.grid,title:{text:'Directed edges (log)',font:{size:10.5}}},
       xaxis2:{domain:[0.56,1],tickfont:{size:10}},yaxis2:{range:[0,1.12],gridcolor:t.grid,title:{text:'Mean percentile rank (Gemini)',font:{size:10.5}}}}),CFG);
 }
