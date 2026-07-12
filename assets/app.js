@@ -79,7 +79,7 @@ function header(){
     sel("sw-domain","Domain",[["both","Both"],["consumer","Consumption"],["production","Production"]],S.domain,"ctl-domain")+
     sel("sw-rep","Embedding",[["tfidf","TF-IDF"],["glove","GloVe"],["gemini","Gemini"],["openai","OpenAI"]],S.rep,"ctl-embedding")+
     '</div></div>';
-  return '<div class="anon">Anonymized companion — double-blind review version. Do not distribute author-identifying information.</div>'+
+  return '<div class="anon">Anonymized companion — double-blind review version. For review purposes only; please do not redistribute.</div>'+
     '<header class="site"><div class="wrap hbar"><span class="brand">The Semantics of <span class="dot">Complementarity</span></span>'+nav+
     '<button class="themebtn" id="sw-theme" title="Light/Dark">◐</button></div>'+
     '<div class="wrap" style="padding-bottom:8px">'+ctrls+'</div></header>';
